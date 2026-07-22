@@ -1,0 +1,45 @@
+---
+title: Two Sum
+week: 1
+difficulty: easy
+tags: [array, hash-map]
+order: 1
+---
+
+Given an array of integers `nums` and an integer `target`, return the **indices of the two numbers** that add up to `target`.
+
+You may assume that each input has **exactly one** valid answer, and you may not use the same element twice. The answer may be returned in any order.
+
+## Examples
+
+**Example 1**
+
+```typescript
+Input:  nums = [2, 7, 11, 15], target = 9
+Output: [0, 1]
+```
+
+`nums[0] + nums[1] == 2 + 7 == 9`, so we return `[0, 1]`.
+
+**Example 2**
+
+```typescript
+Input:  nums = [3, 2, 4], target = 6
+Output: [1, 2]
+```
+
+**Example 3**
+
+```typescript
+Input:  nums = [3, 3], target = 6
+Output: [0, 1]
+```
+
+## Constraints
+
+- `2 <= nums.length <= 10⁴`
+- `-10⁹ <= nums[i] <= 10⁹`
+- `-10⁹ <= target <= 10⁹`
+- Exactly one valid answer exists.
+
+> **Follow-up:** the brute-force approach is O(n²). Can you do it in a single pass?

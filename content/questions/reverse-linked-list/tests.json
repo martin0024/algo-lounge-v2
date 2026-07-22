@@ -1,0 +1,12 @@
+{
+  "functionName": "reverseList",
+  "args": ["head"],
+  "harness": "linked-list",
+  "cases": [
+    { "input": [[1, 2, 3, 4, 5]], "expected": [5, 4, 3, 2, 1] },
+    { "input": [[1, 2]], "expected": [2, 1] },
+    { "input": [[]], "expected": [] },
+    { "input": [[1]], "expected": [1] },
+    { "input": [[-3, 0, 7, 7]], "expected": [7, 7, 0, -3] }
+  ]
+}

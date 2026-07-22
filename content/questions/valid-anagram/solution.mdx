@@ -1,0 +1,36 @@
+---
+title: Valid Anagram — Solution
+---
+
+## Approach 1: Sort both strings
+
+Two strings are anagrams exactly when their sorted forms are equal. O(n log n) time, and it allocates copies — fine for small inputs, but we can do better.
+
+## Approach 2: Character counts
+
+Count the occurrences of each character in `s`, then subtract while walking `t`. If a count ever goes negative, or the lengths differ, the strings can't be anagrams.
+
+```typescript
+export function isAnagram(s: string, t: string): boolean {
+  if (s.length !== t.length) return false
+  const counts = new Map<string, number>()
+  for (const ch of s) counts.set(ch, (counts.get(ch) ?? 0) + 1)
+  for (const ch of t) {
+    const remaining = counts.get(ch)
+    if (!remaining) return false
+    counts.set(ch, remaining - 1)
+  }
+  return true
+}
+```
+
+```python
+from collections import Counter
+
+def is_anagram(s: str, t: str) -> bool:
+    return Counter(s) == Counter(t)
+```
+
+**Complexity:** O(n) time, O(k) space where k is the alphabet size.
+
+Using a `Map` (or `Counter`) rather than a fixed 26-slot array means the Unicode follow-up works for free.

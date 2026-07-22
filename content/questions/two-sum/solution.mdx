@@ -1,0 +1,51 @@
+---
+title: Two Sum — Solution
+---
+
+## Approach 1: Brute force
+
+Check every pair of indices. Simple, but O(n²) time — too slow for large inputs.
+
+```typescript
+export function twoSum(nums: number[], target: number): number[] {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] + nums[j] === target) return [i, j]
+    }
+  }
+  return []
+}
+```
+
+## Approach 2: One-pass hash map
+
+The key insight: while scanning the array, for each value `x` we need to know whether `target - x` has **already been seen**, and if so, at which index. A hash map answers that in O(1).
+
+Walk the array once. For each element, first look up its complement in the map; if it's there, we're done. Otherwise record the current value → index and move on. Because we check *before* inserting, we never match an element with itself.
+
+```typescript
+export function twoSum(nums: number[], target: number): number[] {
+  const seen = new Map<number, number>()
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i]
+    const j = seen.get(complement)
+    if (j !== undefined) return [j, i]
+    seen.set(nums[i], i)
+  }
+  return []
+}
+```
+
+```python
+def two_sum(nums: list[int], target: int) -> list[int]:
+    seen: dict[int, int] = {}
+    for i, x in enumerate(nums):
+        if target - x in seen:
+            return [seen[target - x], i]
+        seen[x] = i
+    return []
+```
+
+**Complexity:** O(n) time, O(n) space — each element is visited once, and the map holds at most n entries.
+
+The duplicate case (`[3, 3]`, target `6`) works naturally: the first `3` is in the map by the time we reach the second one.

@@ -1,0 +1,61 @@
+---
+title: Clone Graph — Solution
+---
+
+## The trap
+
+The graph is connected and cyclic. A copy that just recurses into neighbors — `clone.neighbors = node.neighbors.map(copy)` — chases the cycle forever: 1 copies 2, which copies 1, which copies 2…
+
+The fix is a **visited map from original node → its clone**. When you reach a node you've already cloned, reuse the existing clone instead of descending again. The map does double duty: it breaks the cycle *and* guarantees each original node maps to exactly one new node, preserving the shape.
+
+## DFS with a map
+
+```typescript
+export class GraphNode {
+  val: number
+  neighbors: GraphNode[]
+  constructor(val = 0, neighbors: GraphNode[] = []) {
+    this.val = val
+    this.neighbors = neighbors
+  }
+}
+
+export function cloneGraph(node: GraphNode | null): GraphNode | null {
+  if (!node) return null
+  const clones = new Map<GraphNode, GraphNode>()
+
+  function copy(original: GraphNode): GraphNode {
+    const existing = clones.get(original)
+    if (existing) return existing
+    const clone = new GraphNode(original.val)
+    clones.set(original, clone) // set BEFORE recursing, or cycles loop forever
+    clone.neighbors = original.neighbors.map(copy)
+    return clone
+  }
+
+  return copy(node)
+}
+```
+
+```python
+def clone_graph(node: "GraphNode | None") -> "GraphNode | None":
+    if node is None:
+        return None
+    clones: dict[int, GraphNode] = {}
+
+    def copy(original):
+        if id(original) in clones:
+            return clones[id(original)]
+        clone = GraphNode(original.val)
+        clones[id(original)] = clone  # register before recursing
+        clone.neighbors = [copy(n) for n in original.neighbors]
+        return clone
+
+    return copy(node)
+```
+
+**Complexity:** O(V + E) time, O(V) space — every node and edge is visited once.
+
+The one-line bug everyone writes at least once: registering the clone in the map *after* filling its neighbors. With a cycle, the recursion re-enters the same original before it's registered, and you're back to infinite recursion. Register first, fill later.
+
+A BFS version works identically — queue instead of recursion, same original → clone map. Prefer it if the graph could be deep enough to overflow the stack (not an issue at n ≤ 100).

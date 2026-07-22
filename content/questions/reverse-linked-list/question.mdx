@@ -1,0 +1,52 @@
+---
+title: Reverse Linked List
+week: 2
+difficulty: easy
+tags: [linked-list, pointers]
+order: 3
+---
+
+Given the head of a singly linked list, reverse it and return the new head.
+
+Each node has a value and a pointer to the next node:
+
+```typescript
+class ListNode {
+  val: number
+  next: ListNode | null
+}
+```
+
+Test cases are written as plain arrays — `[1,2,3,4,5]` means the chain `1 → 2 → 3 → 4 → 5`. Your function receives real `ListNode` objects, and the list you return is walked back into an array for comparison.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  head = [1,2,3,4,5]
+Output: [5,4,3,2,1]
+```
+
+**Example 2**
+
+```
+Input:  head = [1,2]
+Output: [2,1]
+```
+
+**Example 3**
+
+```
+Input:  head = []
+Output: []
+```
+
+An empty list: your function receives `null` (Python: `None`).
+
+## Constraints
+
+- `0 <= number of nodes <= 5000`
+- `-5000 <= node.val <= 5000`
+
+> **Follow-up:** the iterative version uses O(1) extra space. Can you also write it recursively — and what does that cost?

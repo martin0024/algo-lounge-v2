@@ -1,0 +1,53 @@
+---
+title: Reverse Linked List — Solution
+---
+
+## Iterative: three pointers
+
+Walk the list once, flipping each `next` pointer as you go. You need three references at all times: the node you're on, the previous node (its new `next`), and the old `next` (so you don't lose the rest of the list when you flip).
+
+```typescript
+export function reverseList(head: ListNode | null): ListNode | null {
+  let prev: ListNode | null = null
+  let current = head
+  while (current) {
+    const next = current.next // save before flipping
+    current.next = prev
+    prev = current
+    current = next
+  }
+  return prev
+}
+```
+
+```python
+def reverse_list(head: "ListNode | None") -> "ListNode | None":
+    prev = None
+    current = head
+    while current is not None:
+        nxt = current.next  # save before flipping
+        current.next = prev
+        prev = current
+        current = nxt
+    return prev
+```
+
+**Complexity:** O(n) time, O(1) space.
+
+When the loop ends, `current` is `null` and `prev` sits on the old tail — the new head. The empty-list case falls out naturally: the loop never runs and `prev` is still `null`.
+
+## Recursive
+
+Reverse the rest of the list, then hook the current node onto the end of it:
+
+```python
+def reverse_list(head):
+    if head is None or head.next is None:
+        return head
+    new_head = reverse_list(head.next)
+    head.next.next = head
+    head.next = None
+    return new_head
+```
+
+Same O(n) time, but O(n) space for the call stack — that's the answer to the follow-up, and why the iterative form is the one to reach for on long lists.
