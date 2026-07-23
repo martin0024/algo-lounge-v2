@@ -1,16 +1,19 @@
 import { z } from "zod"
 
 import { auth } from "@/lib/auth"
-import { getQuestion } from "@/lib/content"
+import { getQuestion, languages } from "@/lib/content"
 import { db } from "@/lib/db"
 import { submissions } from "@/lib/db/schema"
-import { verifySubmission } from "@/lib/judge/server/verify"
+import {
+  SERVER_SUBMIT_LANGUAGES,
+  verifySubmission,
+} from "@/lib/judge/server/verify"
 
 export const maxDuration = 90
 
 const bodySchema = z.object({
   slug: z.string().min(1).max(200),
-  language: z.enum(["typescript", "python"]),
+  language: z.enum(languages),
   code: z.string().min(1).max(64_000),
 })
 
@@ -25,6 +28,16 @@ export async function POST(request: Request) {
     return Response.json({ error: "Invalid submission." }, { status: 400 })
   }
   const { slug, language, code } = parsed.data
+
+  if (!SERVER_SUBMIT_LANGUAGES.includes(language)) {
+    return Response.json(
+      {
+        error:
+          "Submit for C/C++ is coming soon. Use Run to test your solution in the browser.",
+      },
+      { status: 400 }
+    )
+  }
 
   const question = getQuestion(slug)
   if (!question) {

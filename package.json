@@ -17,6 +17,8 @@
   "dependencies": {
     "@base-ui/react": "^1.6.0",
     "@codemirror/commands": "^6.10.4",
+    "@codemirror/lang-cpp": "^6.0.3",
+    "@codemirror/lang-java": "^6.0.2",
     "@codemirror/lang-javascript": "^6.2.5",
     "@codemirror/lang-python": "^6.2.1",
     "@codemirror/language": "^6.12.4",

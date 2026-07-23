@@ -2,7 +2,13 @@
 
 import { useMemo, useSyncExternalStore } from "react"
 
-import { JavaScriptIcon, PythonIcon } from "@/components/icons"
+import {
+  CIcon,
+  CppIcon,
+  JavaIcon,
+  JavaScriptIcon,
+  PythonIcon,
+} from "@/components/icons"
 import {
   Select,
   SelectContent,
@@ -19,6 +25,9 @@ const LANGUAGES: Array<{
 }> = [
   { value: "typescript", label: "TypeScript", icon: JavaScriptIcon },
   { value: "python", label: "Python", icon: PythonIcon },
+  { value: "c", label: "C", icon: CIcon },
+  { value: "cpp", label: "C++", icon: CppIcon },
+  { value: "java", label: "Java", icon: JavaIcon },
 ]
 
 export function LanguageSelect({

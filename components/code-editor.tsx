@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react"
 
 import { indentWithTab } from "@codemirror/commands"
+import { cpp } from "@codemirror/lang-cpp"
+import { java } from "@codemirror/lang-java"
 import { javascript } from "@codemirror/lang-javascript"
 import { python } from "@codemirror/lang-python"
 import { syntaxHighlighting } from "@codemirror/language"
@@ -56,6 +58,20 @@ const lightChrome = EditorView.theme({
 
 const darkExtensions = [syntaxHighlighting(oneDarkHighlightStyle), darkChrome]
 
+function languageExtension(language: Language) {
+  switch (language) {
+    case "python":
+      return python()
+    case "c":
+    case "cpp":
+      return cpp()
+    case "java":
+      return java()
+    default:
+      return javascript({ typescript: true })
+  }
+}
+
 export function CodeEditor({
   value,
   language,
@@ -82,7 +98,7 @@ export function CodeEditor({
         extensions: [
           basicSetup,
           keymap.of([indentWithTab]),
-          language === "python" ? python() : javascript({ typescript: true }),
+          languageExtension(language),
           baseTheme,
           themeCompartmentRef.current.of(dark ? darkExtensions : lightChrome),
           EditorView.updateListener.of((update) => {

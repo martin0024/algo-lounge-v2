@@ -21,8 +21,16 @@ export type QuestionMeta = z.infer<typeof questionMetaSchema> & {
   slug: string
 }
 
-export const languages = ["typescript", "python"] as const
+export const languages = ["typescript", "python", "c", "cpp", "java"] as const
 export type Language = (typeof languages)[number]
+
+export const languageLabels: Record<Language, string> = {
+  typescript: "TypeScript",
+  python: "Python",
+  c: "C",
+  cpp: "C++",
+  java: "Java",
+}
 
 const testCaseSchema = z.object({
   input: z.array(z.unknown()),
@@ -52,6 +60,12 @@ export type Question = {
   starters: Record<Language, string>
   tests: TestSuite
   harness: Harness
+}
+
+function readStarter(dir: string, file: string, label: string): string {
+  const p = path.join(dir, file)
+  if (fs.existsSync(p)) return fs.readFileSync(p, "utf8")
+  return `// ${label} starter is not available for this question yet.\n`
 }
 
 export function getQuestionSlugs(): string[] {
@@ -124,15 +138,33 @@ export function getQuestion(slug: string): Question | null {
       path.join(dir, "harness.py"),
       tests.harness ? path.join(sharedDir, `${tests.harness}.py`) : null,
     ],
+    [
+      "c",
+      path.join(dir, "harness.c"),
+      tests.harness ? path.join(sharedDir, `${tests.harness}.c`) : null,
+    ],
+    [
+      "cpp",
+      path.join(dir, "harness.cpp"),
+      tests.harness ? path.join(sharedDir, `${tests.harness}.cpp`) : null,
+    ],
+    [
+      "java",
+      path.join(dir, "harness.java"),
+      tests.harness ? path.join(sharedDir, `${tests.harness}.java`) : null,
+    ],
   ]
   for (const [language, local, shared] of candidates) {
     if (fs.existsSync(local)) {
       harness[language] = fs.readFileSync(local, "utf8")
     } else if (shared) {
       if (!fs.existsSync(shared)) {
-        throw new Error(
-          `Question "${slug}" references shared harness "${tests.harness}" but ${shared} does not exist.`
-        )
+        if (language === "typescript" || language === "python") {
+          throw new Error(
+            `Question "${slug}" references shared harness "${tests.harness}" but ${shared} does not exist.`
+          )
+        }
+        continue
       }
       harness[language] = fs.readFileSync(shared, "utf8")
     }
@@ -145,6 +177,9 @@ export function getQuestion(slug: string): Question | null {
     starters: {
       typescript: fs.readFileSync(path.join(dir, "starter.ts"), "utf8"),
       python: fs.readFileSync(path.join(dir, "starter.py"), "utf8"),
+      c: readStarter(dir, "starter.c", "C"),
+      cpp: readStarter(dir, "starter.cpp", "C++"),
+      java: readStarter(dir, "starter.java", "Java"),
     },
     tests,
     harness,

@@ -41,8 +41,73 @@ const WORKER_PATH = path.join(
   "worker.mjs"
 )
 
-const WALL_MS: Record<Language, number> = { typescript: 15_000, python: 60_000 }
-const CASE_MS: Record<Language, number> = { typescript: 3_000, python: 5_000 }
+const WALL_MS: Record<Language, number> = {
+  typescript: 15_000,
+  python: 60_000,
+  c: 30_000,
+  cpp: 30_000,
+  java: 60_000,
+}
+const CASE_MS: Record<Language, number> = {
+  typescript: 3_000,
+  python: 5_000,
+  c: 5_000,
+  cpp: 5_000,
+  java: 10_000,
+}
+
+export const SERVER_SUBMIT_LANGUAGES: Language[] = [
+  "typescript",
+  "python",
+  "java",
+  "c",
+  "cpp",
+]
+
+export const SERVER_RUN_LANGUAGES: Language[] = ["c", "cpp", "java"]
+
+export type ServerRunCase = {
+  index: number
+  got?: unknown
+  error?: string
+  timeMs: number
+}
+
+export async function runTestsOnServer({
+  language,
+  code,
+  tests,
+  harness,
+}: {
+  language: Language
+  code: string
+  tests: TestSuite
+  harness?: string
+}): Promise<{ cases: ServerRunCase[] } | { fatal: string }> {
+  const functionName =
+    language === "python" ? toSnakeCase(tests.functionName) : tests.functionName
+  const outcome = await runInWorker(
+    language,
+    code,
+    functionName,
+    tests.cases,
+    harness
+  )
+  if ("timedOut" in outcome) {
+    return { fatal: "Time limit exceeded — check for infinite loops." }
+  }
+  if ("fatal" in outcome) {
+    return { fatal: outcome.fatal }
+  }
+  return {
+    cases: outcome.results.map((r) => ({
+      index: r.index,
+      got: r.got,
+      error: r.error,
+      timeMs: r.timeMs,
+    })),
+  }
+}
 
 function runInWorker(
   language: Language,

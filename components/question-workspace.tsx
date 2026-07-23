@@ -38,6 +38,11 @@ import {
 } from "@/lib/judge/browser/run"
 import { resultsMatch } from "@/lib/judge/shared/compare"
 import {
+  isCompiled,
+  runButtonLabel,
+  stageText,
+} from "@/lib/judge/shared/run-stage"
+import {
   formatNamedInputs,
   formatTestValue,
   getArgNames,
@@ -228,6 +233,7 @@ export function QuestionWorkspace({
       code: code[language],
       tests,
       harness: harness?.[language],
+      slug,
       onStage: setStage,
       onCase: (update: WorkerCase) => {
         setCases((prev) =>
@@ -318,7 +324,7 @@ export function QuestionWorkspace({
                 ) : (
                   <IconPlayerPlay data-icon="inline-start" />
                 )}
-                {stage === "loading-runtime" ? "Loading Python…" : "Run"}
+                {running ? runButtonLabel(stage, language) : "Run"}
               </Button>
               <Button
                 variant="outline"
@@ -388,8 +394,14 @@ export function QuestionWorkspace({
                 {passed}/{cases.length} passed
               </Badge>
             )}
-            {running && stage === "running" && (
-              <span className="text-xs text-muted-foreground">running…</span>
+            {running && (
+              <span className="text-xs text-muted-foreground">
+                {stage === "loading-runtime"
+                  ? "loading…"
+                  : stage === "compiling"
+                    ? "compiling…"
+                    : "running…"}
+              </span>
             )}
           </div>
           <div className="min-h-0 flex-1 overflow-y-auto p-3">
@@ -428,6 +440,21 @@ export function QuestionWorkspace({
               <div className="mb-2 flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-700 dark:text-red-400">
                 <IconAlertTriangle className="mt-0.5 size-4 shrink-0" />
                 <pre className="font-mono whitespace-pre-wrap">{fatal}</pre>
+              </div>
+            )}
+            {running && settled === 0 && (
+              <div className="mb-2 flex items-center gap-3 rounded-lg border border-primary/30 bg-primary/[0.07] px-3 py-2.5 text-xs">
+                <IconLoader2 className="size-4 shrink-0 animate-spin" />
+                <div className="flex flex-col gap-0.5">
+                  <span className="font-medium text-foreground">
+                    {stageText(stage, language)}
+                  </span>
+                  {isCompiled(language) && stage === "running" && (
+                    <span className="text-muted-foreground">
+                      Compiled languages build  hang tight.
+                    </span>
+                  )}
+                </div>
               </div>
             )}
             <div className="flex flex-col gap-2">
