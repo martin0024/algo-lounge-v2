@@ -57,7 +57,9 @@ export function BreadcrumbNav({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem className="min-w-0">
-              <BreadcrumbPage className="truncate">{current.title}</BreadcrumbPage>
+              <BreadcrumbPage className="truncate">
+                {current.title}
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </>
         ) : (

@@ -78,7 +78,9 @@ export const submissions = pgTable("submissions", {
   questionSlug: text("question_slug")
     .notNull()
     .references(() => questions.slug, { onDelete: "cascade" }),
-  language: text("language").$type<"typescript" | "python">().notNull(),
+  language: text("language")
+    .$type<"typescript" | "python" | "c" | "cpp" | "java">()
+    .notNull(),
   code: text("code").notNull(),
   status: text("status")
     .$type<"accepted" | "wrong_answer" | "error" | "timeout">()

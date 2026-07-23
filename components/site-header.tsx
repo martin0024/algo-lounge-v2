@@ -1,9 +1,6 @@
 import Link from "next/link"
 
-import {
-  BreadcrumbNav,
-  HeaderPathDivider,
-} from "@/components/breadcrumb-nav"
+import { BreadcrumbNav, HeaderPathDivider } from "@/components/breadcrumb-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { UserMenu } from "@/components/user-menu"
 import { getQuestionsByWeek } from "@/lib/content"

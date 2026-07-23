@@ -8,7 +8,7 @@ export function formatTestValue(value: unknown): string {
 
 export function getArgNames(
   args: string[] | undefined,
-  inputLength: number,
+  inputLength: number
 ): string[] {
   if (args && args.length === inputLength) {
     return args
@@ -23,7 +23,7 @@ export function formatArgName(name: string, language: Language): string {
 export function formatNamedInputs(
   input: unknown[],
   argNames: string[],
-  language: Language,
+  language: Language
 ): string[] {
   return input.map((value, index) => {
     const name = formatArgName(argNames[index] ?? `arg${index}`, language)

@@ -4,11 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import * as React from "react"
 
-import {
-  IconCalendar,
-  IconList,
-  IconSearch,
-} from "@tabler/icons-react"
+import { IconCalendar, IconList, IconSearch } from "@tabler/icons-react"
 
 import { DifficultyBadge } from "@/components/difficulty-badge"
 import { Button } from "@/components/ui/button"

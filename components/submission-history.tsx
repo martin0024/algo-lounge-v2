@@ -66,6 +66,9 @@ const statusMeta: Record<
 const languageLabel: Record<Language, string> = {
   typescript: "TS",
   python: "Py",
+  c: "C",
+  cpp: "C++",
+  java: "Java",
 }
 
 export function SubmissionHistory({

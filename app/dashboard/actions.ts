@@ -5,7 +5,7 @@ import { desc, eq } from "drizzle-orm"
 
 import type { ActivityDay } from "@/components/dashboard/activity-chart"
 import { auth } from "@/lib/auth"
-import { getAllQuestions } from "@/lib/content"
+import { getAllQuestions, languages, type Language } from "@/lib/content"
 import { db } from "@/lib/db"
 import { submissions } from "@/lib/db/schema"
 import { dayKey } from "@/lib/format"
@@ -21,12 +21,12 @@ export type DashboardStats = {
   days: ActivityDay[]
   verdictCounts: { key: VerdictKey; count: number }[]
   maxVerdict: number
-  languageCounts: { lang: "typescript" | "python"; count: number }[]
+  languageCounts: { lang: Language; count: number }[]
   weeks: { week: number; total: number; solved: number }[]
   recent: {
     questionSlug: string
     questionTitle: string
-    language: "typescript" | "python"
+    language: Language
     status: VerdictKey
     createdAt: Date
   }[]
@@ -113,10 +113,12 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     ...progress,
   }))
 
-  const languageCounts = (["typescript", "python"] as const).map((lang) => ({
-    lang,
-    count: rows.filter((r) => r.language === lang).length,
-  }))
+  const languageCounts = languages
+    .map((lang) => ({
+      lang,
+      count: rows.filter((r) => r.language === lang).length,
+    }))
+    .filter((entry) => entry.count > 0)
 
   const recent = rows.slice(0, 8).map((row) => ({
     questionSlug: row.questionSlug,
