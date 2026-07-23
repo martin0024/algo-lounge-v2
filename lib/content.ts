@@ -150,7 +150,7 @@ export function getQuestion(slug: string): Question | null {
     ],
     [
       "java",
-      path.join(dir, "harness.java"),
+      path.join(dir, "Main.java"),
       tests.harness ? path.join(sharedDir, `${tests.harness}.java`) : null,
     ],
   ]

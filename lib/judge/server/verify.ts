@@ -41,6 +41,16 @@ const WORKER_PATH = path.join(
   "worker.mjs"
 )
 
+const SECRET_KEY = /SECRET|PASSWORD|TOKEN|_KEY|CLIENT_ID|DATABASE_URL/i
+function scrubbedEnv(): NodeJS.ProcessEnv {
+  const out: Record<string, string | undefined> = {}
+  for (const [key, value] of Object.entries(process.env)) {
+    if (SECRET_KEY.test(key)) continue
+    out[key] = value
+  }
+  return out as NodeJS.ProcessEnv
+}
+
 const WALL_MS: Record<Language, number> = {
   typescript: 15_000,
   python: 60_000,
@@ -119,6 +129,7 @@ function runInWorker(
   return new Promise((resolve) => {
     const child = spawn(process.execPath, [WORKER_PATH], {
       stdio: ["ignore", "ignore", "pipe", "ipc"],
+      env: scrubbedEnv(),
     })
     let settled = false
     const settle = (outcome: WorkerOutcome) => {

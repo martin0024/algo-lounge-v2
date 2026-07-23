@@ -451,7 +451,7 @@ export function QuestionWorkspace({
                   </span>
                   {isCompiled(language) && stage === "running" && (
                     <span className="text-muted-foreground">
-                      Compiled languages build  hang tight.
+                      Compiled languages build hang tight.
                     </span>
                   )}
                 </div>
