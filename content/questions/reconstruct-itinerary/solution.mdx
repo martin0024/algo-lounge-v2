@@ -1,0 +1,48 @@
+---
+title: Reconstruct Itinerary — Solution
+---
+## Reconstruct Itinerary
+
+**Algorithm:**
+
+1. Build an adjacency list (graph) from the tickets
+2. Sort destinations lexicographically for each airport
+3. Use DFS (Hierholzer's algorithm) to find Eulerian path starting from JFK
+4. When backtracking, add airports to result (post-order processing)
+5. Reverse the result to get the correct order
+
+**Time Complexity:** O(E log E) where E is the number of edges (tickets)
+
+**Space Complexity:** O(E + V) for the graph and recursion stack
+
+**Key Insights:**
+
+- This is an Eulerian path problem where we must use all edges exactly once
+- Sorting destinations ensures lexical order
+- Hierholzer's algorithm finds Eulerian paths efficiently
+- Post-order DFS naturally produces the correct itinerary when reversed
+
+```python
+from collections import defaultdict
+
+def find_itinerary(tickets):
+    # Build graph
+    graph = defaultdict(list)
+    for src, dst in tickets:
+        graph[src].append(dst)
+    
+    # Sort destinations for lexical order
+    for airport in graph:
+        graph[airport].sort()
+    
+    result = []
+    
+    def dfs(airport):
+        while graph[airport]:
+            next_airport = graph[airport].pop(0)
+            dfs(next_airport)
+        result.append(airport)
+    
+    dfs("JFK")
+    return result[::-1]
+```

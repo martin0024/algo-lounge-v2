@@ -1,0 +1,47 @@
+---
+title: Decode String — Solution
+---
+## Decode String
+
+**Algorithm:**
+
+1. Use two stacks: one for repeat counts, one for accumulated strings
+2. When encountering a digit, build the full number (could be multi-digit)
+3. When encountering '\[', push current string and count onto stacks
+4. When encountering ']', pop and repeat: previous\_string + current\_string \* count
+5. Otherwise, append the character to current string
+
+**Time Complexity:** O(n) where n is the length of the decoded output
+
+**Space Complexity:** O(n) for the stacks and result string
+
+**Key Insights:**
+
+- Stack handles the nesting naturally — each '\[' saves current state
+- Each ']' restores the previous state and applies the repetition
+- Numbers can be multi-digit, so accumulate digits before '\['
+
+```python
+def decode_string(s):
+    count_stack = []
+    string_stack = []
+    current_string = ''
+    current_num = 0
+    
+    for char in s:
+        if char.isdigit():
+            current_num = current_num * 10 + int(char)
+        elif char == '[':
+            count_stack.append(current_num)
+            string_stack.append(current_string)
+            current_string = ''
+            current_num = 0
+        elif char == ']':
+            num = count_stack.pop()
+            prev_string = string_stack.pop()
+            current_string = prev_string + current_string * num
+        else:
+            current_string += char
+    
+    return current_string
+```

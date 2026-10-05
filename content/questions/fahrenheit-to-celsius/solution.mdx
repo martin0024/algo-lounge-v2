@@ -1,0 +1,23 @@
+---
+title: Fahrenheit to Celsius — Solution
+---
+## Fahrenheit to Celsius
+
+**Approach:**
+
+1. Subtract 32 from the Fahrenheit value
+2. Multiply by `5 / 9` (use true division so the result is a float)
+
+**Time Complexity:** O(1)
+
+**Space Complexity:** O(1)
+
+**Key Insights:**
+
+- In Python 3, `/` always produces a float; `//` would truncate and break answers
+- Floating-point answers are checked with a small tolerance in the grader
+
+```python
+def fahrenheit_to_celsius(fahrenheit):
+    return (fahrenheit - 32) * 5 / 9
+```

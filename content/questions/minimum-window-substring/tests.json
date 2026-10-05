@@ -1,0 +1,16 @@
+{
+  "functionName": "minWindow",
+  "args": ["s", "t"],
+  "cases": [
+    {"input":["ADOBECODEBANC","ABC"],"expected":"BANC"},
+    {"input":["a","a"],"expected":"a"},
+    {"input":["a","aa"],"expected":""},
+    {"input":["aa","aa"],"expected":"aa"},
+    {"input":["abc","b"],"expected":"b"},
+    {"input":["ab","b"],"expected":"b"},
+    {"input":["bba","ab"],"expected":"ba"},
+    {"input":["cabwefgewcwaefgcf","cae"],"expected":"cwae"},
+    {"input":["abc","ac"],"expected":"abc"},
+    {"input":["abc","d"],"expected":""}
+  ]
+}

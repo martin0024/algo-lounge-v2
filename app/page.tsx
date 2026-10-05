@@ -3,11 +3,11 @@ import Link from "next/link"
 import { IconArrowRight } from "@tabler/icons-react"
 
 import { Button } from "@/components/ui/button"
-import { getAllQuestions, getQuestionsByWeek } from "@/lib/content"
+import { getAllQuestions, getCourses } from "@/lib/content"
 
 export default function HomePage() {
   const questions = getAllQuestions()
-  const weeks = getQuestionsByWeek()
+  const semesters = getCourses().filter((c) => c.kind === "semester")
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center gap-6 px-4 py-24 text-center">
@@ -21,9 +21,14 @@ export default function HomePage() {
         start solving.
       </p>
       <p className="text-sm text-muted-foreground">
-        {questions.length} questions across {weeks.size} weeks — and counting.
+        {questions.length} questions across {semesters.length} semesters — and
+        counting.
       </p>
-      <Button size="lg" render={<Link href="/questions" />}>
+      <Button
+        size="lg"
+        nativeButton={false}
+        render={<Link href="/questions" />}
+      >
         Browse questions
         <IconArrowRight data-icon="inline-end" />
       </Button>

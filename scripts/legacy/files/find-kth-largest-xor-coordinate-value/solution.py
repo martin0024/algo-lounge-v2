@@ -1,0 +1,11 @@
+def kth_largest_value(matrix: list[list[int]], k: int) -> int:
+    # 2D prefix XOR: P[i][j] = P[i-1][j] ^ P[i][j-1] ^ P[i-1][j-1] ^ matrix[i][j].
+    m, n = len(matrix), len(matrix[0])
+    prefix = [[0] * (n + 1) for _ in range(m + 1)]
+    values = []
+    for i in range(m):
+        for j in range(n):
+            prefix[i + 1][j + 1] = prefix[i][j + 1] ^ prefix[i + 1][j] ^ prefix[i][j] ^ matrix[i][j]
+            values.append(prefix[i + 1][j + 1])
+    values.sort(reverse=True)
+    return values[k - 1]

@@ -1,0 +1,38 @@
+---
+title: Majority Element — Solution
+---
+## Majority Element - Boyer-Moore Voting Algorithm
+
+**Algorithm:**
+
+1. Initialize candidate and count variables
+2. Iterate through the array
+3. If count is 0, set current number as candidate
+4. If current number equals candidate, increment count
+5. Otherwise, decrement count
+6. Return the candidate (guaranteed to be majority element)
+
+**Time Complexity:** O(n) - single pass through array
+
+**Space Complexity:** O(1) - constant space
+
+**Key Insights:**
+
+- Boyer-Moore Voting Algorithm is optimal for this problem
+- Works because majority element appears more than n/2 times
+- When majority and non-majority cancel out, majority still dominates
+- Linear time with constant space - best possible
+- Alternative: hash map O(n) time, O(n) space
+
+```python
+def majority_element(nums):
+    candidate = None
+    count = 0
+    
+    for num in nums:
+        if count == 0:
+            candidate = num
+        count += (1 if num == candidate else -1)
+    
+    return candidate
+```

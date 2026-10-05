@@ -1,0 +1,39 @@
+---
+title: Kth Largest Element in a Stream — Solution
+---
+## Kth Largest Element in a Stream
+
+**Algorithm:**
+
+1. Maintain a min heap of size `k`
+2. The root of the min heap is always the kth largest element
+3. When adding a new element, push it onto the heap
+4. If heap size exceeds `k`, pop the smallest element
+5. The root is always the answer
+
+**Time Complexity:** O(n log k) for initialization, O(log k) per add
+
+**Space Complexity:** O(k) - only store k elements
+
+**Key Insights:**
+
+- A min heap of size k naturally keeps the k largest elements
+- The smallest element in the heap (the root) is the kth largest overall
+- We only need to store k elements, not all of them
+
+```python
+import heapq
+
+class KthLargest:
+    def __init__(self, k, nums):
+        self.k = k
+        self.min_heap = []
+        for num in nums:
+            self.add(num)
+
+    def add(self, val):
+        heapq.heappush(self.min_heap, val)
+        if len(self.min_heap) > self.k:
+            heapq.heappop(self.min_heap)
+        return self.min_heap[0]
+```

@@ -1,0 +1,32 @@
+---
+title: Ransom Note — Solution
+---
+## Count the Available Letters
+
+A ransom note can be built only when the magazine contains every required letter enough times. For example, if the note needs two `a` characters, finding only one `a` in the magazine is not enough.
+
+**Step 1:** Read the magazine and store how many times each letter appears in a dictionary.
+
+**Step 2:** Read the ransom note one letter at a time. Before using a letter, check its remaining count. If the count is zero, return `False` immediately. Otherwise, subtract one because that copy has now been used.
+
+**Step 3:** If every letter in the note was available, return `True`.
+
+**Why this works:** the dictionary represents the exact supply of unused magazine letters. Each requested letter consumes one copy, so the algorithm succeeds exactly when the magazine has enough copies of every letter.
+
+**Complexity:** If the two strings contain `m` and `n` characters, the time complexity is `O(m + n)`. The dictionary uses `O(k)` space for `k` distinct letters; with lowercase English letters, `k` is at most 26.
+
+```python
+def can_construct(ransomNote, magazine):
+    # Count every letter that the magazine can supply.
+    available = {}
+    for letter in magazine:
+        available[letter] = available.get(letter, 0) + 1
+
+    # Use one stored copy for every letter in the ransom note.
+    for letter in ransomNote:
+        if available.get(letter, 0) == 0:
+            return False
+        available[letter] -= 1
+
+    return True
+```

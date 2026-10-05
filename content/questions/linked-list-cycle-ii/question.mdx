@@ -1,0 +1,52 @@
+---
+title: Linked List Cycle II
+difficulty: medium
+tags:
+  - linked-list
+  - two-pointers
+migratedFrom: 'algolounge:linked-list-cycle-ii'
+---
+Given the `head` of a linked list, return *the node where the cycle begins*. If there is no cycle, return `None`.
+
+There is a cycle in a linked list if some node in the list can be reached again by continuously following the `next` pointer. Internally, `pos` is used to denote the index of the node that tail's `next` pointer is connected to (**0-indexed**). It is `-1` if there is no cycle.
+
+**Note:** `pos` is **not** passed as a parameter.
+
+**Do not modify** the linked list.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  head = [3,2,0,-4], pos = 1
+Output: Node at index 1
+```
+
+There is a cycle in the linked list, where tail connects to the second node (index 1).3 → 2 → 0 → -4 ↑ | └────────┘
+
+**Example 2**
+
+```
+Input:  head = [1,2], pos = 0
+Output: Node at index 0
+```
+
+There is a cycle in the linked list, where tail connects to the first node (index 0).1 → 2 ↑ | └───┘
+
+**Example 3**
+
+```
+Input:  head = [1], pos = -1
+Output: None
+```
+
+There is no cycle in the linked list.
+
+## Constraints
+
+- The number of nodes in the list is in the range `[0, 10^4]`
+- `-10^5 <= Node.val <= 10^5`
+- `pos` is `-1` or a valid index in the linked list
+
+> **How the tests work:** `pos` is the index the tail links back to (`-1`: no cycle). It is only used to build the list — your function receives just `head`. The answer is the index of the node you return (`null` for no cycle).

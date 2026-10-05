@@ -1,0 +1,27 @@
+---
+title: Number of Equivalent Domino Pairs — Solution
+---
+## Number of Equivalent Domino Pairs
+
+**Algorithm:**
+
+1. Normalize each domino `[a, b]` to a canonical form by sorting its two values, so `[a, b]` and `[b, a]` collapse to the same key.
+2. Sweep the array left to right, maintaining a hash map of how many times each canonical key has been seen so far.
+3. Before inserting the current domino, add the current count to the answer — each earlier equivalent domino forms one new pair.
+
+**Time Complexity:** O(n)
+
+**Space Complexity:** O(1) (at most 45 distinct keys since values are 1..9)
+
+**Key Insight:** counting the number of pairs among `k` equal items with `k*(k-1)/2` is equivalent to summing `0 + 1 + 2 + ... + (k-1)` incrementally as items are seen — the one-pass version avoids ever materialising the count.
+
+```python
+def num_equiv_domino_pairs(dominoes):
+    count = {}
+    pairs = 0
+    for a, b in dominoes:
+        key = (a, b) if a <= b else (b, a)
+        pairs += count.get(key, 0)
+        count[key] = count.get(key, 0) + 1
+    return pairs
+```

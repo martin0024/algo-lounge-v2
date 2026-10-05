@@ -1,0 +1,45 @@
+---
+title: Implement Stack
+difficulty: easy
+tags:
+  - stack
+  - data-structure-design
+migratedFrom: 'algolounge:implement-stack'
+---
+Implement a stack data structure with the following operations:
+
+- `push(val)`: Push an element onto the stack
+- `pop()`: Remove and return the top element from the stack
+- `top()`: Return the top element without removing it
+- `empty()`: Return whether the stack is empty
+
+You can choose to implement the stack using either:
+
+1. **Linked List** - Each node points to the next node
+2. **Circular Array** - Fixed-size array with wrapping
+
+## Examples
+
+**Example 1**
+
+```
+Input:  ["Stack", "push", "push", "top", "pop", "empty"]
+```
+
+\[\[], \[1], \[2], \[], \[], \[]] Output: \[null, null, null, 2, 2, false]
+
+**Example 2**
+
+```
+Input:  ["Stack", "push", "pop", "empty"]
+```
+
+\[\[], \[10], \[], \[]] Output: \[null, null, 10, true]
+
+## Constraints
+
+- `1 <= val <= 10^9`
+- At most `10^4` calls will be made to each function
+- `pop` and `top` will only be called on non-empty stacks
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

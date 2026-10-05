@@ -1,0 +1,36 @@
+---
+title: Binary Tree Preorder Traversal — Solution
+---
+## Binary Tree Preorder Traversal
+
+**Algorithm:**
+
+1. Process current node (add to result)
+2. Traverse left subtree recursively
+3. Traverse right subtree recursively
+
+**Time Complexity:** O(n) - visit each node once
+
+**Space Complexity:** O(h) - recursion stack depth, where h is tree height
+
+**Key Insights:**
+
+- Preorder: Root -> Left -> Right
+- Node is processed before its subtrees
+- Useful for creating copy of tree or prefix expressions
+
+```python
+def binary_tree_preorder_traversal(root):
+    result = []
+    
+    def preorder(node):
+        if not node:
+            return
+        
+        result.append(node.val)  # Process current node
+        preorder(node.left)      # Traverse left subtree
+        preorder(node.right)     # Traverse right subtree
+    
+    preorder(root)
+    return result
+```

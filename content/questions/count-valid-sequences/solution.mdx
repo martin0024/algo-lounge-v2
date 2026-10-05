@@ -1,0 +1,39 @@
+---
+title: Count Valid Sequences — Solution
+---
+## Count All Sequences, Then Remove the Odd Products
+
+First ignore the product rule. The stars-and-bars formula says that the number of ordered positive sequences of length k with sum n is C(n-1, k-1).
+
+A product is odd only when every value is odd. Represent each odd value as 2b + 1. The k added ones use k from the sum, and dividing the rest by 2 leaves (n-k)/2 to distribute among k non-negative b values. This contributes C((n-k)/2 + k - 1, k - 1) sequences when n-k is even, and zero otherwise.
+
+Subtract the all-odd count from the total. Factorials and modular inverses let us calculate each combination modulo 10⁹+7.
+
+**Time:** O(n). **Space:** O(n).
+
+```python
+def count_valid_sequences(n, k):
+    MOD = 1000000007
+
+    # Precompute factorials so we can evaluate combinations quickly.
+    factorial = [1] * (n + 1)
+    for value in range(2, n + 1):
+        factorial[value] = factorial[value - 1] * value % MOD
+
+    def choose(total, selected):
+        if selected < 0 or selected > total:
+            return 0
+        denominator = factorial[selected] * factorial[total - selected] % MOD
+        return factorial[total] * pow(denominator, MOD - 2, MOD) % MOD
+
+    # Stars and bars: all positive sequences summing to n.
+    all_compositions = choose(n - 1, k - 1)
+
+    # The product is odd only if every number is odd. Write each odd number
+    # as 2 * value + 1 and count those sequences separately.
+    all_odd = 0
+    if (n - k) % 2 == 0:
+        remaining = (n - k) // 2
+        all_odd = choose(remaining + k - 1, k - 1)
+    return (all_compositions - all_odd) % MOD
+```

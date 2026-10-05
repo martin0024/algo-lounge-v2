@@ -1,0 +1,14 @@
+{
+  "functionName": "findMin",
+  "args": ["nums"],
+  "cases": [
+    {"input":[[3,4,5,1,2]],"expected":1},
+    {"input":[[4,5,6,7,0,1,2]],"expected":0},
+    {"input":[[11,13,15,17]],"expected":11},
+    {"input":[[1]],"expected":1},
+    {"input":[[2,1]],"expected":1},
+    {"input":[[5,1,2,3,4]],"expected":1},
+    {"input":[[3,1,2]],"expected":1},
+    {"input":[[1,2,3,4,5]],"expected":1}
+  ]
+}

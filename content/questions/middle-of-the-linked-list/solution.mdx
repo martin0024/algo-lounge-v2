@@ -1,0 +1,20 @@
+---
+title: Middle of the Linked List — Solution
+---
+## Approach: Fast and Slow Pointers
+
+Use two pointers starting at the head. The *slow* pointer advances one node at a time; the *fast* pointer advances two nodes at a time. When `fast` reaches the end of the list, `slow` is exactly at the middle.
+
+For an even-length list, this naturally lands `slow` on the *second* middle node because `fast` advances two steps per iteration.
+
+**Time:** O(n) **Space:** O(1)
+
+```python
+def middle_node(head):
+    slow = head
+    fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow
+```

@@ -1,0 +1,180 @@
+{
+  "title": "AlgoTime Fall 2025",
+  "description": "Welcome to Algotime, we look over cool coding questions here.",
+  "kind": "semester",
+  "term": {
+    "season": "fall",
+    "year": 2025
+  },
+  "units": [
+    {
+      "title": "Week 3",
+      "description": "These are the questions that will be looked at in week 3.",
+      "questions": [
+        "valid-parentheses",
+        "binary-search",
+        "product-of-array-except-self",
+        "valid-sudoku",
+        "median-of-two-sorted-arrays",
+        "binary-tree-maximum-path-sum"
+      ]
+    },
+    {
+      "title": "Week 4",
+      "description": "These are the questions that will be looked at in week 4.",
+      "questions": [
+        "best-time-to-buy-and-sell-stock",
+        "reverse-linked-list",
+        "remove-nth-node-from-end-of-list",
+        "copy-list-with-random-pointer",
+        "word-ladder",
+        "longest-increasing-path-in-a-matrix"
+      ]
+    },
+    {
+      "title": "Week 5",
+      "description": "These are the questions that will be looked at in week 5.",
+      "questions": [
+        "merge-two-sorted-lists",
+        "linked-list-cycle",
+        "reorder-list",
+        "add-two-numbers",
+        "serialize-and-deserialize-binary-tree",
+        "word-search-ii"
+      ]
+    },
+    {
+      "title": "Week 6",
+      "description": "These are the questions that will be looked at in week 6.",
+      "questions": [
+        "invert-binary-tree",
+        "maximum-depth-of-binary-tree",
+        "longest-consecutive-sequence",
+        "two-sum-ii-input-array-is-sorted",
+        "trapping-rain-water",
+        "largest-rectangle-in-histogram"
+      ]
+    },
+    {
+      "title": "Week 7",
+      "description": "These are the questions that will be looked at in week 7.",
+      "questions": [
+        "last-stone-weight",
+        "contains-duplicate",
+        "two-sum",
+        "valid-sudoku",
+        "longest-consecutive-sequence",
+        "coin-change",
+        "n-queens",
+        "find-median-from-data-stream"
+      ]
+    },
+    {
+      "title": "Week 8",
+      "description": "These are the questions that will be looked at in week 8.",
+      "questions": [
+        "binary-tree-diameter",
+        "balanced-binary-tree",
+        "3sum",
+        "container-with-most-water",
+        "4sum",
+        "minimum-interval-to-include-each-query",
+        "reconstruct-itinerary"
+      ]
+    },
+    {
+      "title": "Week 9",
+      "description": "These are the questions that will be looked at in week 9.",
+      "questions": [
+        "climbing-stairs",
+        "min-cost-climbing-stairs",
+        "daily-temperatures",
+        "car-fleet",
+        "distinct-subsequences",
+        "burst-balloons"
+      ]
+    },
+    {
+      "title": "Week 10",
+      "description": "These are the questions that will be looked at in week 10.",
+      "questions": [
+        "single-number",
+        "number-of-1-bits",
+        "sum-of-two-integers",
+        "reverse-integer",
+        "regular-expression-matching",
+        "median-of-two-sorted-arrays"
+      ]
+    },
+    {
+      "title": "Week 11",
+      "description": "These are the questions that will be looked at in week 11.",
+      "questions": [
+        "implement-stack",
+        "implement-stack-using-queues",
+        "valid-parentheses",
+        "valid-parenthesis-string",
+        "simplify-path",
+        "longest-valid-parentheses",
+        "maximum-frequency-stack"
+      ]
+    },
+    {
+      "title": "Week 12",
+      "description": "These are the questions that will be looked at in week 12.",
+      "questions": [
+        "implement-queue",
+        "implement-queue-using-stacks",
+        "number-of-recent-calls",
+        "find-the-winner-of-the-circular-game",
+        "minimum-number-of-coins-for-fruits",
+        "maximum-number-of-tasks-you-can-assign",
+        "find-maximum-non-decreasing-array-length"
+      ]
+    },
+    {
+      "title": "Week 13",
+      "description": "These are the questions that will be looked at in week 13.",
+      "questions": [
+        "meeting-rooms",
+        "meeting-rooms-ii",
+        "insert-interval",
+        "merge-intervals",
+        "minimum-interval-to-include-each-query"
+      ]
+    },
+    {
+      "title": "Week 14",
+      "description": "These are the questions that will be looked at in week 14.",
+      "questions": [
+        "intersection-of-two-linked-lists",
+        "palindrome-linked-list",
+        "clone-graph",
+        "course-schedule",
+        "redundant-connection-ii"
+      ]
+    },
+    {
+      "title": "Week 15",
+      "description": "These are the questions that will be looked at in week 15.",
+      "questions": [
+        "majority-element",
+        "remove-element",
+        "sort-colors"
+      ]
+    },
+    {
+      "title": "Week 16",
+      "description": "These are the questions that will be looked at in week 16.",
+      "questions": [
+        "search-insert-position",
+        "add-binary",
+        "number-of-islands",
+        "max-area-of-island",
+        "rotting-oranges",
+        "word-ladder",
+        "longest-increasing-path-in-a-matrix"
+      ]
+    }
+  ]
+}

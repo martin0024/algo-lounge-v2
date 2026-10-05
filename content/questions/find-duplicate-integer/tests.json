@@ -1,0 +1,11 @@
+{
+  "functionName": "findTheDuplicateNumber",
+  "args": ["nums"],
+  "cases": [
+    {"input":[[1,2,3,2,2]],"expected":2},
+    {"input":[[1,2,3,4,4]],"expected":4},
+    {"input":[[3,1,3,4,2]],"expected":3},
+    {"input":[[1,1]],"expected":1},
+    {"input":[[2,5,9,6,9,3,8,9,7,1,4]],"expected":9}
+  ]
+}

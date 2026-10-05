@@ -1,0 +1,42 @@
+---
+title: Reverse Vowels of a String — Solution
+---
+## Reverse Vowels of a String
+
+**Algorithm:**
+
+1. Convert string to list for in-place modification
+2. Use two pointers: left starts at beginning, right starts at end
+3. Move left pointer forward until a vowel is found
+4. Move right pointer backward until a vowel is found
+5. Swap vowels, then move both pointers inward
+6. Join list back to string
+
+**Time Complexity:** O(n) - single pass with two pointers
+
+**Space Complexity:** O(n) - list copy of string
+
+**Key Insights:**
+
+- Two pointers approach: one from each end
+- Skip non-vowel characters
+- Remember to handle both upper and lower case vowels
+
+```python
+def reverse_vowels(s):
+    vowels = set('aeiouAEIOU')
+    s = list(s)
+    left, right = 0, len(s) - 1
+    
+    while left < right:
+        while left < right and s[left] not in vowels:
+            left += 1
+        while left < right and s[right] not in vowels:
+            right -= 1
+        
+        s[left], s[right] = s[right], s[left]
+        left += 1
+        right -= 1
+    
+    return ''.join(s)
+```

@@ -1,0 +1,28 @@
+---
+title: Factory Method Pattern
+difficulty: easy
+tags:
+  - design-patterns
+migratedFrom: 'algolounge:factory-method-pattern'
+---
+Implement the Factory Method design pattern.
+
+The Factory Method is a creational design pattern that provides an interface for creating objects in a superclass, but allows subclasses to decide which class to instantiate. Instead of calling a constructor directly, objects are created by calling a factory method.
+
+You are given code that includes several vehicle types (`Car`, `Bike`, `Truck`) and their respective factory classes. Complete the factory method implementation so that each factory returns the correct vehicle type.
+
+**Example:**
+
+`carFactory = CarFactory()`\
+`truckFactory = TruckFactory()`\
+`bikeFactory = BikeFactory()`
+
+`myCar = carFactory.createVehicle()`\
+`myTruck = truckFactory.createVehicle()`\
+`myBike = bikeFactory.createVehicle()`
+
+`myCar.getType() # "Car"`\
+`myTruck.getType() # "Truck"`\
+`myBike.getType() # "Bike"`
+
+> **How the tests work:** each test runs the listed statements against your factories; the expected output is what every statement evaluates to (`null` for assignments).

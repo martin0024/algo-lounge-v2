@@ -1,0 +1,46 @@
+---
+title: Car Fleet — Solution
+---
+## Car Fleet
+
+**Algorithm:**
+
+1. Pair each car's position with speed and sort by position (descending)
+2. Calculate time to reach target for each car
+3. Use stack: if current car takes less/equal time than car ahead, they form a fleet (pop the ahead car)
+4. Count remaining stack elements as separate fleets
+
+**Time Complexity:** O(n log n) - for sorting
+
+**Space Complexity:** O(n) - for car data and stack
+
+**Key Insights:**
+
+- Process cars from closest to target to farthest
+- Faster car (less time) catches up to slower car ahead (more time)
+- When caught, they move as one fleet at slower car's speed
+- Cars starting closer to target reach first, unless caught by faster cars from behind
+
+```python
+def car_fleet(target, position, speed):
+    if not position:
+        return 0
+    
+    # Pair position and speed, then sort by position (descending)
+    cars = sorted(zip(position, speed), reverse=True)
+    
+    stack = []
+    
+    for pos, spd in cars:
+        # Calculate time to reach target
+        time = (target - pos) / spd
+        
+        # If this car reaches destination faster than the car ahead,
+        # it will catch up and form a fleet
+        while stack and time <= stack[-1]:
+            stack.pop()
+        
+        stack.append(time)
+    
+    return len(stack)
+```

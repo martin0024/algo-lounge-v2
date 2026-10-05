@@ -15,7 +15,8 @@ import {
 export type BreadcrumbQuestion = {
   slug: string
   title: string
-  week: number
+  /** The week/stage the question belongs to; null when it is in no course. */
+  unit: { href: string; label: string } | null
 }
 
 export function HeaderPathDivider() {
@@ -48,14 +49,19 @@ export function BreadcrumbNav({
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink
-                render={<Link href={`/questions#week-${current.week}`} />}
-              >
-                Week {current.week}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
+            {current.unit ? (
+              <>
+                <BreadcrumbItem className="hidden sm:inline-flex">
+                  <BreadcrumbLink
+                    render={<Link href={current.unit.href} />}
+                    className="whitespace-nowrap"
+                  >
+                    {current.unit.label}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator className="hidden sm:inline-flex" />
+              </>
+            ) : null}
             <BreadcrumbItem className="min-w-0">
               <BreadcrumbPage className="truncate">
                 {current.title}

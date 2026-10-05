@@ -1,0 +1,27 @@
+---
+title: Caffeine Calculator — Solution
+---
+## Caffeine Calculator
+
+**Algorithm:**
+
+1. Divide minimum caffeine by concentration
+2. Round up using ceiling function
+
+**Time Complexity:** O(1) - constant time
+
+**Space Complexity:** O(1) - constant space
+
+**Key Insights:**
+
+- Ceiling function required because Paulina needs AT LEAST the minimum caffeine
+- Integer division with rounding: (a + b - 1) // b is equivalent to ceil(a / b)
+- math.ceil() handles exact divisions and fractional results correctly
+- Result must be positive integer (minimum 1 ml)
+
+```python
+import math
+
+def min_coffee_volume(minCaffeine, concentration):
+    return math.ceil(minCaffeine / concentration)
+```

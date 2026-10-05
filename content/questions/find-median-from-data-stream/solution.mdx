@@ -1,0 +1,43 @@
+---
+title: Find Median From Data Stream — Solution
+---
+## Find Median From Data Stream
+
+**Algorithm:**
+
+1. Use a max heap for the smaller half of numbers
+2. Use a min heap for the larger half of numbers
+3. Keep heaps balanced: max heap size \<= min heap size + 1
+4. When adding: add to appropriate heap, then rebalance if needed
+5. Median: if heaps equal size, average of tops; else top of max heap
+
+**Time Complexity:** O(log n) - addNum, O(1) - findMedian
+
+**Space Complexity:** O(n) - storing all numbers in heaps
+
+**Key Insights:**
+
+- Two heaps maintain sorted order without full sorting
+- Max heap stores smaller half, min heap stores larger half
+- Balance ensures median is always at heap tops
+
+```python
+import heapq
+
+class MedianFinder:
+    def __init__(self):
+        self.max_heap = []
+        self.min_heap = []
+
+    def addNum(self, num):
+        heapq.heappush(self.max_heap, -num)
+        heapq.heappush(self.min_heap, -heapq.heappop(self.max_heap))
+        if len(self.max_heap) < len(self.min_heap):
+            heapq.heappush(self.max_heap, -heapq.heappop(self.min_heap))
+
+    def findMedian(self):
+        if len(self.max_heap) > len(self.min_heap):
+            return float(-self.max_heap[0])
+        else:
+            return (-self.max_heap[0] + self.min_heap[0]) / 2.0
+```

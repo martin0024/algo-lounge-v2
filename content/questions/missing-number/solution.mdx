@@ -1,0 +1,28 @@
+---
+title: Missing Number — Solution
+---
+## Missing Number
+
+**Algorithm:**
+
+1. Calculate expected sum using formula n\*(n+1)/2
+2. Calculate actual sum of all numbers in array
+3. Return the difference (expected - actual)
+
+**Time Complexity:** O(n) - single pass through array
+
+**Space Complexity:** O(1) - constant space
+
+**Key Insights:**
+
+- XOR alternative: XOR has property a XOR a = 0, a XOR 0 = a
+- Sum approach is simpler and more intuitive
+- Both approaches achieve O(1) space complexity
+
+```python
+def missing_number(nums):
+    n = len(nums)
+    expected_sum = n * (n + 1) // 2
+    actual_sum = sum(nums)
+    return expected_sum - actual_sum
+```

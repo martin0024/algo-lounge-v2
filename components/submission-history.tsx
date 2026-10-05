@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import type { ReactNode } from "react"
 
 import {
   IconAlertTriangle,
@@ -11,6 +12,13 @@ import {
   IconX,
 } from "@tabler/icons-react"
 
+import {
+  CIcon,
+  CppIcon,
+  JavaIcon,
+  JavaScriptIcon,
+  PythonIcon,
+} from "@/components/icons"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -63,9 +71,17 @@ const statusMeta: Record<
   },
 }
 
-const languageLabel: Record<Language, string> = {
-  typescript: "TS",
-  python: "Py",
+const languageIcons: Record<Language, () => ReactNode> = {
+  typescript: JavaScriptIcon,
+  python: PythonIcon,
+  c: CIcon,
+  cpp: CppIcon,
+  java: JavaIcon,
+}
+
+const languageLabels: Record<Language, string> = {
+  typescript: "TypeScript",
+  python: "Python",
   c: "C",
   cpp: "C++",
   java: "Java",
@@ -124,6 +140,7 @@ export function SubmissionHistory({
           {submissions.map((submission) => {
             const meta = statusMeta[submission.status]
             const Icon = meta.icon
+            const LangIcon = languageIcons[submission.language]
             return (
               <DropdownMenuItem
                 key={submission.id}
@@ -144,8 +161,12 @@ export function SubmissionHistory({
                     {timeAgo(submission.createdAt)}
                   </span>
                 </div>
-                <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                  {languageLabel[submission.language]}
+                <span
+                  className="flex size-5 shrink-0 items-center justify-center overflow-hidden rounded-[4px] [&>svg]:h-5 [&>svg]:w-5"
+                  title={languageLabels[submission.language]}
+                  aria-label={languageLabels[submission.language]}
+                >
+                  <LangIcon />
                 </span>
               </DropdownMenuItem>
             )

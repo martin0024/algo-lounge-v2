@@ -1,0 +1,67 @@
+---
+title: Candy Crush — Solution
+---
+## Simulate One Round at a Time
+
+Each round has two separate phases: first every crushable candy is found and removed *at the same time*; then the remaining candies fall. We repeat these phases until a round finds nothing to crush.
+
+**Marking candies:** Scan every horizontal and vertical group of three cells. When three equal nonzero values are found, make those cells negative. A negative value means “remove this candy later.” We compare values with `abs`, so an already marked candy can still help mark an overlapping group or a run longer than three.
+
+For example, in a row of four equal candies, the first three are marked by the first check and the last three are marked by the next check. Waiting until both scans finish guarantees simultaneous crushing.
+
+**Applying gravity:** For each column, use a `write_row` pointer starting at the bottom. Copy positive, uncrushed candies downward one by one. Afterward, fill every unused cell above them with zero.
+
+**Stopping:** If a complete scan marks no candy, the board is stable and can be returned.
+
+**Why this works:** the marking phase identifies exactly every candy that belongs to a horizontal or vertical run of at least three without changing its type during that round. The gravity phase preserves the order of all surviving candies while moving them to the lowest available cells. Repeating handles new runs created by falling candies.
+
+**Complexity:** One round takes `O(m · n)` time. Since each non-final round removes at least three candies, there can be at most `O(m · n)` rounds, giving a worst-case time of `O((m · n)²)`. The algorithm uses `O(1)` extra space because the board itself stores the marks.
+
+```python
+def candy_crush(board):
+    rows = len(board)
+    cols = len(board[0])
+
+    while True:
+        found_match = False
+
+        # Mark every horizontal group of at least three.
+        for row in range(rows):
+            for col in range(cols - 2):
+                value = abs(board[row][col])
+                if (value != 0 and
+                    abs(board[row][col + 1]) == value and
+                    abs(board[row][col + 2]) == value):
+                    board[row][col] = -value
+                    board[row][col + 1] = -value
+                    board[row][col + 2] = -value
+                    found_match = True
+
+        # Mark every vertical group of at least three.
+        for row in range(rows - 2):
+            for col in range(cols):
+                value = abs(board[row][col])
+                if (value != 0 and
+                    abs(board[row + 1][col]) == value and
+                    abs(board[row + 2][col]) == value):
+                    board[row][col] = -value
+                    board[row + 1][col] = -value
+                    board[row + 2][col] = -value
+                    found_match = True
+
+        if not found_match:
+            return board
+
+        # Move surviving candies to the bottom of each column.
+        for col in range(cols):
+            write_row = rows - 1
+
+            for row in range(rows - 1, -1, -1):
+                if board[row][col] > 0:
+                    board[write_row][col] = board[row][col]
+                    write_row -= 1
+
+            # Everything above the surviving candies is empty.
+            for row in range(write_row, -1, -1):
+                board[row][col] = 0
+```

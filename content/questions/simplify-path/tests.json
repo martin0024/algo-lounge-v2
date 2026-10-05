@@ -1,0 +1,16 @@
+{
+  "functionName": "simplifyPath",
+  "args": ["path"],
+  "cases": [
+    {"input":["/home/"],"expected":"/home"},
+    {"input":["/../"],"expected":"/"},
+    {"input":["/home//foo/"],"expected":"/home/foo"},
+    {"input":["/a/./b/../../c/"],"expected":"/c"},
+    {"input":["/a/../../b/../c//.//"],"expected":"/c"},
+    {"input":["/a//b////c/d//././/.."],"expected":"/a/b/c"},
+    {"input":["/"],"expected":"/"},
+    {"input":["/..."],"expected":"/..."},
+    {"input":["/home/user/Documents/../Pictures"],"expected":"/home/user/Pictures"},
+    {"input":["/var/log/../../etc/././config"],"expected":"/etc/config"}
+  ]
+}

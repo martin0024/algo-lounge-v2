@@ -1,0 +1,28 @@
+---
+title: Climbing Stairs — Solution
+---
+## Approach: keep the previous two answers
+
+Every route to step `i` ends with either a one-step move from `i - 1` or a two-step move from `i - 2`. Therefore, `ways(i) = ways(i - 1) + ways(i - 2)`.
+
+1. Start with one way to stand at step 0 and one way to reach step 1.
+2. For each step from 2 through `n`, add the previous two counts.
+3. Shift the two saved counts forward and return the count for step `n`.
+
+**Why it works:** The final move is uniquely either one or two steps, so the two groups of routes are disjoint and cover every possibility.
+
+**Complexity:** `O(n)` time and `O(1)` extra space.
+
+**Pitfall:** The base count for step 0 is 1, representing the one empty route used to build the recurrence.
+
+```python
+def climb_stairs(n):
+    two_steps_back = 1
+    one_step_back = 1
+
+    for _ in range(2, n + 1):
+        current = one_step_back + two_steps_back
+        two_steps_back, one_step_back = one_step_back, current
+
+    return one_step_back
+```

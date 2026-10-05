@@ -69,6 +69,7 @@ self.onmessage = async (event) => {
         "    exec(_harness_code, _hns)",
         "_h_prepare = _hns.get('prepare')",
         "_h_serialize = _hns.get('serialize')",
+        "_h_invoke = _hns.get('invoke')",
       ].join("\n")
     )
   } catch (error) {
@@ -85,7 +86,7 @@ self.onmessage = async (event) => {
         [
           "_args = json.loads(_args_json)",
           "if _h_prepare: _args = _h_prepare(_args)",
-          "_result = _fn(*_args)",
+          "_result = _h_invoke(_fn, _args, _ns) if _h_invoke else _fn(*_args)",
           "json.dumps(_h_serialize(_result, _args) if _h_serialize else _result)",
         ].join("\n")
       )

@@ -1,0 +1,26 @@
+---
+title: Concatenation of Array — Solution
+---
+## Concatenation of Array Solution
+
+**Algorithm:**
+
+1. Create a new array by concatenating the input array with itself
+2. In Python, this is simply `nums + nums`
+3. Return the result
+
+**Time Complexity:** O(n) where n is the length of the input array
+
+**Space Complexity:** O(n) for the result array
+
+**Key Insights:**
+
+- Simple array construction problem
+- First n elements are copies of original array
+- Next n elements are another copy of original array
+- Can be solved with array concatenation or manual index mapping
+
+```python
+def concatenation_of_array(nums):
+    return nums + nums
+```

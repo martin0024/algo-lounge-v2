@@ -1,0 +1,191 @@
+{
+  "title": "AlgoTime Summer 2026",
+  "description": "Welcome to Algotime Summer 2026! Practice these key algorithm problems to sharpen your skills.",
+  "kind": "semester",
+  "term": {
+    "season": "summer",
+    "year": 2026
+  },
+  "units": [
+    {
+      "title": "Week 1",
+      "description": "Kick off the summer with foundational string and math problems, classic hash-map grouping, and two iconic dynamic programming challenges. A mix of fresh problems and proven classics to warm up every pattern you'll need.",
+      "questions": [
+        "roman-to-integer",
+        "palindrome-number",
+        "anagram-groups",
+        "longest-palindromic-substring",
+        "edit-distance",
+        "trapping-rain-water"
+      ]
+    },
+    {
+      "title": "Week 2",
+      "description": "Build on Week 1 with classic array manipulation, backtracking, and tree traversal. Warm up with in-place array problems, generate all valid combinations with backtracking, read a tree from the right side, and finish with two hard challenges in string interleaving and tree serialization.",
+      "questions": [
+        "remove-duplicates-from-sorted-array",
+        "plus-one",
+        "generate-parentheses",
+        "binary-tree-right-side-view",
+        "interleaving-string",
+        "serialize-and-deserialize-binary-tree"
+      ]
+    },
+    {
+      "title": "Week 3",
+      "description": "Dive into the stack data structure with six problems spanning all difficulty levels. Design a stack that retrieves its minimum in constant time, tackle string simulation with backspace compare, master the stock span with monotonic stacks, revisit the classic daily temperatures problem, then challenge yourself with two hard problems: counting visible people in a queue and finding the largest rectangle in a histogram.",
+      "questions": [
+        "min-stack",
+        "backspace-string-compare",
+        "online-stock-span",
+        "daily-temperatures",
+        "number-of-visible-people-in-a-queue",
+        "largest-rectangle-in-histogram"
+      ]
+    },
+    {
+      "title": "Week 4",
+      "description": "Master the map — this week is dedicated entirely to hash map patterns. Start with two classic easy problems that show the core lookup and bijection ideas, move into medium challenges that use frequency maps and sliding windows, then tackle two hard problems: the minimum window substring and designing an LRU cache from scratch.",
+      "questions": [
+        "two-sum",
+        "word-pattern",
+        "longest-substring-without-repeating-characters",
+        "top-k-frequent-elements",
+        "minimum-window-substring",
+        "lru-cache"
+      ]
+    },
+    {
+      "title": "Week 5",
+      "description": "Navigate the linked list — this week covers the core techniques every linked list problem relies on. Start with reversing a list and finding its midpoint using fast/slow pointers, then rearrange nodes with the odd-even grouping problem and the classic nth-from-end removal, and finish with two hard challenges: sorting a list in O(n log n) using merge sort and merging k sorted lists with a heap.",
+      "questions": [
+        "reverse-linked-list",
+        "middle-of-the-linked-list",
+        "odd-even-linked-list",
+        "remove-nth-node-from-end-of-list",
+        "sort-list",
+        "merge-k-sorted-lists"
+      ]
+    },
+    {
+      "title": "Week 6",
+      "description": "Climb the tree — this week is dedicated to binary trees and BSTs. Start with two essential easy problems that test structural symmetry and path existence, move into medium BST problems that leverage in-order traversal to validate structure and find the kth smallest element, then tackle the classic level-order traversal and finish with the hardest binary tree challenge: finding the maximum path sum through any sequence of nodes.",
+      "questions": [
+        "path-sum",
+        "symmetric-tree",
+        "validate-binary-search-tree",
+        "kth-smallest-element-in-a-bst",
+        "binary-tree-level-order-traversal",
+        "binary-tree-maximum-path-sum"
+      ]
+    },
+    {
+      "title": "Week 7",
+      "description": "Week 7 — Sum of Unique Elements, Calculate Money in Leetcode Bank, Rotate Image, Minimum Number of People to Teach, Number of Distinct Roll Sequences, Longest Valid Parentheses.",
+      "questions": [
+        "sum-of-unique-elements",
+        "calculate-money-in-leetcode-bank",
+        "rotate-image",
+        "minimum-number-of-people-to-teach",
+        "number-of-distinct-roll-sequences",
+        "longest-valid-parentheses"
+      ]
+    },
+    {
+      "title": "Week 8",
+      "description": "Week 8 — Minimum Sum of Mountain Triplets I, Check if Strings Can be Made Equal With Operations I, Select K Disjoint Special Substrings, Container With Most Water, Maximum Element-Sum of a Complete Subset of Indices, Maximum Points After Collecting Coins From All Nodes.",
+      "questions": [
+        "minimum-sum-of-mountain-triplets-i",
+        "check-if-strings-can-be-made-equal-with-operations-i",
+        "select-k-disjoint-special-substrings",
+        "container-with-most-water",
+        "maximum-element-sum-of-a-complete-subset-of-indices",
+        "maximum-points-after-collecting-coins-from-all-nodes"
+      ]
+    },
+    {
+      "title": "Week 9",
+      "description": "Week 9 — Diameter of Binary Tree, Calculate Amount Paid in Taxes, Find Kth Largest XOR Coordinate Value, Maximum Subarray Sum After Multiplier, Maximum Value of K Coins From Piles, Regular Expression Matching.",
+      "questions": [
+        "diameter-of-binary-tree",
+        "calculate-amount-paid-in-taxes",
+        "find-kth-largest-xor-coordinate-value",
+        "maximum-subarray-sum-after-multiplier",
+        "maximum-value-of-k-coins-from-piles",
+        "regular-expression-matching"
+      ]
+    },
+    {
+      "title": "Week 10",
+      "description": "Week 10 — Limit Occurrences in Sorted Array, N-ary Tree Preorder Traversal, Steps to Make Array Non-decreasing, Maximum Number of Distinct Elements After Operations, Maximum Height by Stacking Cuboids , Shortest Matching Substring.",
+      "questions": [
+        "limit-occurrences-in-sorted-array",
+        "n-ary-tree-preorder-traversal",
+        "steps-to-make-array-non-decreasing",
+        "maximum-number-of-distinct-elements-after-operations",
+        "maximum-height-by-stacking-cuboids",
+        "shortest-matching-substring"
+      ]
+    },
+    {
+      "title": "Week 11",
+      "description": "Week 11 — Check if a String Is an Acronym of Words, Richest Customer Wealth, Shortest Path With At Most K Consecutive Identical Characters, Largest Submatrix With Rearrangements, Minimum Time to Reach Target With Limited Power, Find in Mountain Array.",
+      "questions": [
+        "check-if-a-string-is-an-acronym-of-words",
+        "richest-customer-wealth",
+        "shortest-path-with-at-most-k-consecutive-identical-characters",
+        "largest-submatrix-with-rearrangements",
+        "minimum-time-to-reach-target-with-limited-power",
+        "find-in-mountain-array"
+      ]
+    },
+    {
+      "title": "Week 12",
+      "description": "Week 12 — Roman to Integer, Number of Equivalent Domino Pairs, Apply Discount to Prices, Group Anagrams, Reverse Nodes in k-Group, Building Boxes.",
+      "questions": [
+        "roman-to-integer",
+        "number-of-equivalent-domino-pairs",
+        "apply-discount-to-prices",
+        "group-anagrams",
+        "reverse-nodes-in-k-group",
+        "building-boxes"
+      ]
+    },
+    {
+      "title": "Week 13",
+      "description": "Week 13 — Digit Frequency Score, Detect Capital, Minimum Deletions to Make Array Beautiful, Decrease Elements To Make Array Zigzag, String Transformation, Delivering Boxes from Storage to Ports.",
+      "questions": [
+        "digit-frequency-score",
+        "detect-capital",
+        "minimum-deletions-to-make-array-beautiful",
+        "decrease-elements-to-make-array-zigzag",
+        "string-transformation",
+        "delivering-boxes-from-storage-to-ports"
+      ]
+    },
+    {
+      "title": "Week 14",
+      "description": "Week 14 — Defanging an IP Address, Maximize Pair Strength Using GCD, Number of Provinces, Sort Matrix by Diagonals, Maximum Score with Co-Prime Element, Maximize Value of Function in a Ball Passing Game.",
+      "questions": [
+        "defanging-an-ip-address",
+        "maximize-pair-strength-using-gcd",
+        "number-of-provinces",
+        "sort-matrix-by-diagonals",
+        "maximum-score-with-co-prime-element",
+        "maximize-value-of-function-in-a-ball-passing-game"
+      ]
+    },
+    {
+      "title": "Week 15",
+      "description": "Week 15 — Largest Integer With Given Digit Sum, Remove Digit From Number to Maximize Result, Count Valid Sequences, Count Number of Homogenous Substrings, Longest Common Prefix of K Strings After Removal, Check If Digits Are Equal in String After Operations II.",
+      "questions": [
+        "largest-integer-with-given-digit-sum",
+        "remove-digit-from-number-to-maximize-result",
+        "count-valid-sequences",
+        "count-number-of-homogenous-substrings",
+        "longest-common-prefix-of-k-strings-after-removal",
+        "check-if-digits-are-equal-in-string-after-operations-ii"
+      ]
+    }
+  ]
+}

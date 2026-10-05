@@ -14,11 +14,15 @@ export default function NotFound() {
         stale. Head back and keep solving.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-3">
-        <Button variant="outline" render={<Link href="/" />}>
+        <Button
+          variant="outline"
+          nativeButton={false}
+          render={<Link href="/" />}
+        >
           <IconArrowLeft data-icon="inline-start" />
           Home
         </Button>
-        <Button render={<Link href="/questions" />}>
+        <Button nativeButton={false} render={<Link href="/questions" />}>
           <IconList data-icon="inline-start" />
           Browse questions
         </Button>

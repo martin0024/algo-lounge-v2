@@ -1,0 +1,14 @@
+{
+  "functionName": "isMatch",
+  "args": ["s", "p"],
+  "cases": [
+    {"input":["aa","a"],"expected":false},
+    {"input":["aa","a*"],"expected":true},
+    {"input":["ab",".*"],"expected":true},
+    {"input":["aab","c*a*b"],"expected":true},
+    {"input":["mississippi","mis*is*p*."],"expected":false},
+    {"input":["","a*"],"expected":true},
+    {"input":["ab",".*c"],"expected":false},
+    {"input":["aaa","a*a"],"expected":true}
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "functionName": "characterReplacement",
+  "args": ["s", "k"],
+  "cases": [
+    {"input":["ABAB",2],"expected":4},
+    {"input":["AABABBA",1],"expected":4},
+    {"input":["AAAA",0],"expected":4},
+    {"input":["ABCD",0],"expected":1},
+    {"input":["ABCD",2],"expected":3},
+    {"input":["AAAB",0],"expected":3},
+    {"input":["ABBB",2],"expected":4},
+    {"input":["A",0],"expected":1},
+    {"input":["ABAA",0],"expected":2},
+    {"input":["KRSCDCSONAJNHLBMDQGIFCPEKPOHQIHLTDIQGEKLRLCQNBOHNDQGHJPNDQPERNFSSSRDEQLFPCCCARFMDLHADJADAGNNSBNCJQOF",4],"expected":7}
+  ]
+}

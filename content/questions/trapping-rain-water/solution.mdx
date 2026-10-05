@@ -1,0 +1,38 @@
+---
+title: Trapping Rain Water — Solution
+---
+## Two Pointers and the Smaller Boundary
+
+Water above one position is limited by the shorter of the tallest walls on its left and right. A simple solution can precompute both walls for every position, but two pointers let us keep only the information we currently need.
+
+Place `left` at the start and `right` at the end. Also track `left_max`, the tallest wall seen from the left, and `right_max`, the tallest wall seen from the right.
+
+1. Compare the bars at the two pointers.
+2. If the left bar is shorter, the right side already provides a boundary at least that tall. Update `left_max`. If the current bar is below it, add the difference as trapped water, then move `left` inward.
+3. Otherwise, do the matching operation on the right side using `right_max`, then move `right` inward.
+4. Continue until the pointers meet.
+
+**Why this works:** when one side is shorter, any unknown wall farther inward on the opposite side cannot make that shorter side stop being the limiting boundary. We can therefore calculate that position's water immediately and never revisit it.
+
+**Complexity:** Each pointer moves across the array once, so the time complexity is `O(n)`. Only four variables are needed besides the answer, so the extra space complexity is `O(1)`.
+
+```python
+def trapping_rain_water(height):
+    left = 0
+    right = len(height) - 1
+    left_max = 0
+    right_max = 0
+    trapped = 0
+
+    while left < right:
+        if height[left] <= height[right]:
+            left_max = max(left_max, height[left])
+            trapped += left_max - height[left]
+            left += 1
+        else:
+            right_max = max(right_max, height[right])
+            trapped += right_max - height[right]
+            right -= 1
+
+    return trapped
+```

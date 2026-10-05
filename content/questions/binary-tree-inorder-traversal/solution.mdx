@@ -1,0 +1,36 @@
+---
+title: Binary Tree Inorder Traversal — Solution
+---
+## Binary Tree Inorder Traversal
+
+**Algorithm:**
+
+1. Traverse left subtree recursively
+2. Process current node (add to result)
+3. Traverse right subtree recursively
+
+**Time Complexity:** O(n) - visit each node once
+
+**Space Complexity:** O(h) - recursion stack depth, where h is tree height
+
+**Key Insights:**
+
+- Inorder: Left -> Root -> Right
+- For BST, inorder gives sorted sequence
+- Can be implemented iteratively using stack
+
+```python
+def binary_tree_inorder_traversal(root):
+    result = []
+    
+    def inorder(node):
+        if not node:
+            return
+        
+        inorder(node.left)   # Traverse left subtree
+        result.append(node.val)  # Process current node
+        inorder(node.right)  # Traverse right subtree
+    
+    inorder(root)
+    return result
+```

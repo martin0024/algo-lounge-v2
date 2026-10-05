@@ -1,0 +1,16 @@
+{
+  "functionName": "digitFrequencyScore",
+  "args": ["n"],
+  "cases": [
+    {"input":[1],"expected":1},
+    {"input":[10],"expected":1},
+    {"input":[122],"expected":5},
+    {"input":[101],"expected":2},
+    {"input":[999999999],"expected":81},
+    {"input":[1000000000],"expected":1},
+    {"input":[123456789],"expected":45},
+    {"input":[5050505],"expected":20},
+    {"input":[808],"expected":16},
+    {"input":[42],"expected":6}
+  ]
+}

@@ -1,0 +1,56 @@
+---
+title: N-Queens — Solution
+---
+## Approach: place one queen per row
+
+Build a board from top to bottom. A queen at `(row, column)` conflicts with earlier queens if its column, `row - column` diagonal, or `row + column` anti-diagonal is already occupied.
+
+1. Track occupied `columns`, `diagonals`, and `anti_diagonals`.
+2. For the current row, try each safe column.
+3. Record the placement, recurse to the next row, and then remove the placement so another choice can be tried.
+4. When all rows are filled, convert the saved column positions into strings and store the board.
+
+**Why it works:** Every solution has exactly one queen in each row. The three sets reject exactly the placements attacked by an earlier queen, while backtracking explores every remaining row-by-row placement once.
+
+**Complexity:** The pruned search is commonly bounded by `O(n!)` possibilities. Excluding returned boards, the sets, positions, and recursion stack use `O(n)` space; storing `S` solutions uses `O(S * n²)` space.
+
+**Pitfall:** Remove all three conflict markers when backtracking, or later branches will incorrectly treat a free square as attacked.
+
+```python
+def solve_n_queens(n):
+    solutions = []
+    columns = set()
+    diagonals = set()
+    anti_diagonals = set()
+    queen_columns = []
+
+    def backtrack(row):
+        if row == n:
+            board = []
+            for column in queen_columns:
+                board.append('.' * column + 'Q' + '.' * (n - column - 1))
+            solutions.append(board)
+            return
+
+        for column in range(n):
+            diagonal = row - column
+            anti_diagonal = row + column
+            if (column in columns or diagonal in diagonals or
+                    anti_diagonal in anti_diagonals):
+                continue
+
+            columns.add(column)
+            diagonals.add(diagonal)
+            anti_diagonals.add(anti_diagonal)
+            queen_columns.append(column)
+
+            backtrack(row + 1)
+
+            queen_columns.pop()
+            anti_diagonals.remove(anti_diagonal)
+            diagonals.remove(diagonal)
+            columns.remove(column)
+
+    backtrack(0)
+    return solutions
+```

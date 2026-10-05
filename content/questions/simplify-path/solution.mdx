@@ -1,0 +1,53 @@
+---
+title: Simplify Path — Solution
+---
+## Simplify Path
+
+**Algorithm:**
+
+1. Split the path by '/' to get individual components
+
+2. Use a stack to build the canonical path
+
+3. For each component:
+
+   - If empty or '.', skip (current directory)
+   - If '..', pop from stack if not empty (go up one level)
+   - Otherwise, push component to stack (valid directory name)
+
+4. Join stack elements with '/' and prepend '/'
+
+5. Handle edge case: if stack is empty, return '/'
+
+**Time Complexity:** O(n) where n is the length of the path
+
+**Space Complexity:** O(n) for the stack and split components
+
+**Key Insights:**
+
+- Stack naturally handles the "go back" operation with '..'
+- Split by '/' automatically handles multiple consecutive slashes
+- Empty strings from split represent consecutive slashes (ignore them)
+- Cannot go above root directory (stack empty check for '..')
+- Final path must start with '/' and have no trailing '/'
+
+```python
+def simplify_path(path):
+    stack = []
+    components = path.split('/')
+    
+    for component in components:
+        if component == '' or component == '.':
+            # Skip empty and current directory
+            continue
+        elif component == '..':
+            # Go up one level if possible
+            if stack:
+                stack.pop()
+        else:
+            # Valid directory name
+            stack.append(component)
+    
+    # Build canonical path
+    return '/' + '/'.join(stack)
+```

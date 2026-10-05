@@ -1,0 +1,17 @@
+{
+  "functionName": "groupAnagrams",
+  "args": ["strs"],
+  "compare": "unordered-nested",
+  "cases": [
+    {"input":[["eat","tea","tan","ate","nat","bat"]],"expected":[["eat","tea","ate"],["tan","nat"],["bat"]]},
+    {"input":[[""]],"expected":[[""]]},
+    {"input":[["a"]],"expected":[["a"]]},
+    {"input":[["abc","bca","cab","xyz","zyx","yxz"]],"expected":[["abc","bca","cab"],["xyz","zyx","yxz"]]},
+    {"input":[["listen","silent","enlist","google","gooegl"]],"expected":[["listen","silent","enlist"],["google","gooegl"]]},
+    {"input":[["hello","world","olleh","dlrow","test"]],"expected":[["hello","olleh"],["world","dlrow"],["test"]]},
+    {"input":[["","","a","a","b"]],"expected":[["",""],["a","a"],["b"]]},
+    {"input":[["ab","ba","abc","cba","bca","cab","d"]],"expected":[["ab","ba"],["abc","cba","bca","cab"],["d"]]},
+    {"input":[["ddddddddddg","dgggggggggg"]],"expected":[["ddddddddddg"],["dgggggggggg"]]},
+    {"input":[["rat","tar","art","car","arc","cra","bat","tab","abt"]],"expected":[["rat","tar","art"],["car","arc","cra"],["bat","tab","abt"]]}
+  ]
+}

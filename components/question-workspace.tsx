@@ -28,8 +28,10 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import { useXp } from "@/components/xp-provider"
 import { signIn, useSession } from "@/lib/auth-client"
 import type { Language, TestSuite } from "@/lib/content"
+import type { XpAward } from "@/lib/xp/award"
 import {
   runTests,
   type RunHandle,
@@ -71,6 +73,8 @@ type SubmitVerdict = {
   passedCount: number
   totalCount: number
   message?: string
+  /** Null when the XP ledger errored — the verdict still stands. */
+  xp?: XpAward | null
   cases: {
     index: number
     status: "pass" | "fail" | "error"
@@ -107,6 +111,7 @@ export function QuestionWorkspace({
   const [historyToken, setHistoryToken] = React.useState(0)
   const runRef = React.useRef<RunHandle | null>(null)
   const { data: session } = useSession()
+  const { applyAward } = useXp()
 
   React.useEffect(() => {
     const saved = localStorage.getItem(draftKey(slug, language))
@@ -188,6 +193,7 @@ export function QuestionWorkspace({
       const result = data as SubmitVerdict
       setVerdict(result)
       setHistoryToken((n) => n + 1)
+      applyAward(result.xp)
       setCases(
         tests.cases.map((_, index) => {
           const caseResult = result.cases.find((c) => c.index === index)
@@ -434,6 +440,16 @@ export function QuestionWorkspace({
                     </pre>
                   )}
                 </div>
+                {verdict.xp &&
+                  (verdict.xp.gained > 0 ? (
+                    <span className="ml-auto shrink-0 rounded-full bg-primary/15 px-2 py-0.5 font-semibold text-primary tabular-nums">
+                      +{verdict.xp.gained} XP
+                    </span>
+                  ) : (
+                    <span className="ml-auto shrink-0 text-muted-foreground">
+                      no new XP
+                    </span>
+                  ))}
               </div>
             )}
             {fatal && (

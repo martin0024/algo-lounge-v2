@@ -1,0 +1,60 @@
+---
+title: Find Maximum Non-decreasing Array Length — Solution
+---
+## Find Maximum Non-decreasing Array Length
+
+**Algorithm (Dynamic Programming + Monotonic Deque):**
+
+1. **Define State:** Let dp\[i] be the maximum length of non-decreasing array we can form using nums\[0...i]
+
+2. **Define last\[i]:** The last element value in the optimal non-decreasing array ending at position i
+
+3. **Transition:** For each position i, we can either:
+
+   - Start a new segment from some position j \< i
+   - The new segment value is sum(nums\[j+1...i])
+   - This is valid only if sum(nums\[j+1...i]) >= last\[j]
+   - Then dp\[i] = dp\[j] + 1 and last\[i] = sum(nums\[j+1...i])
+
+4. **Optimization:** Use prefix sums and monotonic deque to efficiently find the best j for each i
+
+5. Return dp\[n-1]
+
+**Time Complexity:** O(n) with monotonic deque optimization
+
+**Space Complexity:** O(n)
+
+**Key Insights:**
+
+- We want to minimize merging (maximize array length) while maintaining non-decreasing property
+- Greedy doesn't work - we need DP to explore all possibilities
+- Monotonic deque helps find the optimal split point efficiently
+- Prefix sums allow O(1) range sum queries
+- The constraint is that each new segment sum must be >= previous segment sum
+
+```python
+from bisect import bisect_left
+from itertools import accumulate
+
+def find_maximum_length(nums):
+    n = len(nums)
+    # acc[i] = sum of nums[0..i-1]
+    acc = list(accumulate(nums, initial=0))
+    # pre[i] = the rightmost position where we can start a new segment
+    pre = [0] * (n + 2)
+    # dp[i] = maximum length of non-decreasing array using nums[0..i-1]
+    dp = [0] * (n + 1)
+    
+    i = 0
+    for j in range(1, n + 1):
+        # Find the best position to start current segment
+        i = max(i, pre[j])
+        # Extend from position i
+        dp[j] = dp[i] + 1
+        # Find where the next segment could potentially start
+        # We want acc[k] >= 2 * acc[j] - acc[i]
+        k = bisect_left(acc, acc[j] * 2 - acc[i])
+        pre[k] = j
+    
+    return dp[n]
+```

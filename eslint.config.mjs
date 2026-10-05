@@ -12,7 +12,14 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Migration fragments: solution bodies without the starter's classes.
+    "scripts/legacy/files/**",
   ]),
+  {
+    // Starters are signatures to fill in: their parameters are unused on purpose.
+    files: ["content/questions/**/starter.ts"],
+    rules: { "@typescript-eslint/no-unused-vars": "off" },
+  },
 ]);
 
 export default eslintConfig;

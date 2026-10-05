@@ -1,0 +1,28 @@
+---
+title: Longest Word in Dictionary — Solution
+---
+## Longest Word in Dictionary
+
+**Algorithm:**
+
+1. Put all words in a set for O(1) prefix lookups
+2. Iterate words in sorted order (lexicographic)
+3. A word is valid if it has length 1 or its prefix without the last character is in the set
+4. Keep the best word by longer length, breaking ties with lexicographically smaller string
+
+**Time Complexity:** O(n log n + m) for sorting and checking, where n is number of words and m total characters
+
+**Space Complexity:** O(n) for the set
+
+```python
+def longest_word(words):
+    word_set = set(words)
+    built = {""}
+    best = ""
+    for w in sorted(words):
+        if w[:-1] in built:
+            built.add(w)
+            if len(w) > len(best):
+                best = w
+    return best
+```

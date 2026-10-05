@@ -1,0 +1,41 @@
+---
+title: Alice Typing Problem
+difficulty: medium
+tags: []
+migratedFrom: 'algolounge:alice-typing-problem'
+---
+Alice may have held a key too long at most once while typing. Count the number of possible original strings she could have intended.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  "aaa"
+Output: 3
+```
+
+Could have intended "a", "aa", or "aaa"
+
+**Example 2**
+
+```
+Input:  "abc"
+Output: 1
+```
+
+No consecutive duplicates, so only "abc" is possible
+
+**Example 3**
+
+```
+Input:  "aaaabb"
+Output: 5
+```
+
+One group can shrink (first group: 3 options, second group: 1 option) or no mistake
+
+## Constraints
+
+- At most one typing mistake occurred
+- Groups of identical chars indicate possible mistakes

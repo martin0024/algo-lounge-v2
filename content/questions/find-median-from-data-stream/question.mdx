@@ -1,0 +1,36 @@
+---
+title: Find Median From Data Stream
+difficulty: hard
+tags:
+  - heap-priority-queue
+migratedFrom: 'algolounge:find-median-from-data-stream'
+---
+The **median** is the middle value in a sorted list of integers. For lists of *even* length, there is no middle value, so the median is the mean of the two middle values.
+
+For example:
+
+- For `arr = [1,2,3]`, the median is `2`.
+- For `arr = [1,2]`, the median is `(1 + 2) / 2 = 1.5`
+
+Implement the `MedianFinder` class:
+
+- `MedianFinder()` initializes the `MedianFinder` object.
+- `addNum(num: int) -> None` adds the integer `num` from the data stream to the data structure.
+- `findMedian() -> float` returns the median of all elements so far.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  
+```
+
+\["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"] \[\[], \[1], \[2], \[], \[3], \[]] Output: \[null, null, null, 1.5, null, 2.0] median\_finder = MedianFinder() median\_finder.addNum(1) # arr = \[1] median\_finder.addNum(2) # arr = \[1, 2] median\_finder.findMedian() # return 1.5 (i.e., (1 + 2) / 2) median\_finder.addNum(3) # arr = \[1, 2, 3] median\_finder.findMedian() # return 2.0
+
+## Constraints
+
+- `-10⁵ <= num <= 10⁵`
+- `findMedian` will only be called after adding at least one integer to the data structure.
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

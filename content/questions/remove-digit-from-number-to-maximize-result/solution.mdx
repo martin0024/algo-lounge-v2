@@ -1,0 +1,28 @@
+---
+title: Remove Digit From Number to Maximize Result — Solution
+---
+## Remove at the First Helpful Position
+
+Every possible answer has the same length, so compare candidates from left to right. If an occurrence of digit is followed by a larger digit, removing it moves that larger digit left and immediately makes the answer better. The first such position is best because earlier positions matter more.
+
+If this never happens, the digits never improve by moving left, so remove the last occurrence and keep the earlier prefix unchanged.
+
+**Time:** O(n). **Space:** O(n) for the returned string.
+
+```python
+def remove_digit(number, digit):
+    last = -1
+    for i, value in enumerate(number):
+        if value != digit:
+            continue
+        last = i
+
+        # Removing here moves the next digit one place left. If that next
+        # digit is larger, this is the earliest (and best) improvement.
+        if i + 1 < len(number) and number[i + 1] > value:
+            return number[:i] + number[i + 1:]
+
+    # No occurrence gave an improvement, so keep earlier digits unchanged
+    # for as long as possible by removing the final occurrence.
+    return number[:last] + number[last + 1:]
+```

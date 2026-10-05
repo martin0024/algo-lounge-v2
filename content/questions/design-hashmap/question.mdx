@@ -1,0 +1,35 @@
+---
+title: Design HashMap
+difficulty: easy
+tags:
+  - hash-map
+migratedFrom: 'algolounge:design-hashmap'
+---
+LeetCode 706. Design HashMap
+
+Design a HashMap without using any built-in hash table libraries. You may not use `set()` or `dict()`.
+
+Implement the `MyHashMap` class:
+
+- `MyHashMap()` initializes the object with an empty map.
+- `put(key, value)` inserts a `(key, value)` pair into the HashMap. If the `key` already exists in the map, update the corresponding `value`.
+- `get(key)` returns the `value` to which the specified `key` is mapped, or `-1` if this map contains no mapping for the `key`.
+- `remove(key)` removes the `key` and its corresponding `value` if the map contains the mapping for the `key`.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  ["MyHashMap()", "put(1, 1)", "put(2, 2)", "get(1)", "get(3)", "put(2, 1)", "get(2)", "remove(2)", "get(2)"]
+Output: [null, null, null, 1, -1, null, 1, null, -1]
+```
+
+MyHashMap myHashMap = new MyHashMap(); myHashMap.put(1, 1); // The map is now \[\[1,1]] myHashMap.put(2, 2); // The map is now \[\[1,1], \[2,2]] myHashMap.get(1); // return 1 myHashMap.get(3); // return -1 (not found) myHashMap.put(2, 1); // The map is now \[\[1,1], \[2,1]] (update existing value) myHashMap.get(2); // return 1 myHashMap.remove(2); // remove the mapping for 2 myHashMap.get(2); // return -1 (not found)
+
+## Constraints
+
+- `0 <= key, value <= 1,000,000`
+- At most `10,000` calls will be made to `put`, `get`, and `remove`.
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

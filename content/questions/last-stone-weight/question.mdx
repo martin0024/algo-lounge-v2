@@ -1,0 +1,39 @@
+---
+title: Last Stone Weight
+difficulty: easy
+tags:
+  - heap-priority-queue
+migratedFrom: 'algolounge:last-stone-weight'
+---
+You are given an array of integers `stones` where `stones[i]` represents the weight of the `i^(th)` stone.
+
+We want to run a simulation on the stones as follows:
+
+- At each step, we choose the **two heaviest stones**, with weight `x` and `y` and smash them together
+- If `x == y`, both stones are destroyed
+- If `x < y`, the stone of weight `x` is destroyed, and the stone of weight `y` has new weight `y - x`.
+
+Return the weight of the last remaining stone or return `0` if none remain.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  stones = [2,3,6,2,4]
+Output: 1
+```
+
+We smash 6 and 4 and get 2, so the array becomes \[2,3,2,2]. Then we smash 3 and 2 and get 1, so the array becomes \[2,2,1]. Then we smash 2 and 2, so the array becomes \[1].
+
+**Example 2**
+
+```
+Input:  stones = [1,2]
+Output: 1
+```
+
+## Constraints
+
+- `1 <= stones.length <= 30`
+- `1 <= stones[i] <= 100`

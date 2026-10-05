@@ -1,0 +1,50 @@
+---
+title: Merge Two Sorted Linked Lists — Solution
+---
+## Two-Pointer Approach for Merging Sorted Linked Lists
+
+**Algorithm:**
+
+- Create a dummy node to simplify edge case handling
+- Use two pointers to traverse both linked lists
+- Compare current values and attach smaller node to result
+- Append remaining nodes from non-exhausted list
+
+**Time Complexity:** O(m + n) - visit each node once
+
+**Space Complexity:** O(1) - only using pointers
+
+**Key Insights:**
+
+- Dummy node simplifies head management
+- Two-pointer technique for sorted data
+- Handle different length lists efficiently
+
+```python
+class ListNode:
+    def __init__(self, val: int = 0, next: "ListNode | None" = None):
+        self.val = val
+        self.next = next
+
+
+
+def merge_two_lists(list1, list2):
+    # Create dummy node to simplify logic
+    dummy = ListNode(0)
+    current = dummy
+    
+    # Merge while both lists have nodes
+    while list1 and list2:
+        if list1.val <= list2.val:
+            current.next = list1
+            list1 = list1.next
+        else:
+            current.next = list2
+            list2 = list2.next
+        current = current.next
+    
+    # Attach remaining nodes
+    current.next = list1 or list2
+    
+    return dummy.next
+```

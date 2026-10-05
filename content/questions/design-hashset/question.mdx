@@ -1,0 +1,35 @@
+---
+title: Design HashSet
+difficulty: easy
+tags:
+  - hash-set
+migratedFrom: 'algolounge:design-hashset'
+---
+LeetCode 705. Design HashSet
+
+Design a HashSet without using any built-in hash table libraries. You may not use `set()` or `dict()`.
+
+Implement the `MyHashSet` class:
+
+- `MyHashSet()` initializes the object with an empty set.
+- `add(key)` Inserts the value `key` into the HashSet.
+- `contains(key)` Returns whether the value `key` exists in the HashSet or not.
+- `remove(key)` Removes the value `key` in the HashSet. If `key` does not exist in the HashSet, do nothing.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  ["MyHashSet()", "add(1)", "add(2)", "contains(1)", "contains(3)", "add(2)", "contains(2)", "remove(2)", "contains(2)"]
+Output: [null, null, null, true, false, null, true, null, false]
+```
+
+MyHashSet myHashSet = new MyHashSet(); myHashSet.add(1); // set = \[1] myHashSet.add(2); // set = \[1, 2] myHashSet.contains(1); // return true myHashSet.contains(3); // return false (not found) myHashSet.add(2); // set = \[1, 2] myHashSet.contains(2); // return true myHashSet.remove(2); // set = \[1] myHashSet.contains(2); // return false (already removed)
+
+## Constraints
+
+- `0 <= key <= 1,000,000`
+- At most `10,000` calls will be made to `add`, `remove`, and `contains`.
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

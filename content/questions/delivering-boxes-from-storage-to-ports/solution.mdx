@@ -1,0 +1,35 @@
+---
+title: Delivering Boxes from Storage to Ports — Solution
+---
+## Delivering Boxes from Storage to Ports
+
+Use dynamic programming with prefix weights and prefix port-change counts. For each endpoint, valid previous endpoints form a sliding window under both ship limits. A monotonic deque stores the minimum adjusted DP value in that window, making every candidate enter and leave once.
+
+**Time:** O(n). **Space:** O(n).
+
+```python
+def box_delivering(boxes, portsCount, maxBoxes, maxWeight):
+    from collections import deque
+    n = len(boxes)
+    weight = [0] * (n + 1)
+    changes = [0] * (n + 1)
+    for i, (port, box_weight) in enumerate(boxes, 1):
+        weight[i] = weight[i - 1] + box_weight
+        changes[i] = changes[i - 1]
+        if i > 1 and port != boxes[i - 2][0]:
+            changes[i] += 1
+
+    dp = [0] * (n + 1)
+    candidates = deque([(0, 0)])
+    for i in range(1, n + 1):
+        while (i - candidates[0][0] > maxBoxes or
+               weight[i] - weight[candidates[0][0]] > maxWeight):
+            candidates.popleft()
+        dp[i] = changes[i] + 2 + candidates[0][1]
+        if i < n:
+            value = dp[i] - changes[i + 1]
+            while candidates and candidates[-1][1] >= value:
+                candidates.pop()
+            candidates.append((i, value))
+    return dp[n]
+```

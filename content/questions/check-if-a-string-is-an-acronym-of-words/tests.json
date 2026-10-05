@@ -1,0 +1,9 @@
+{
+  "functionName": "isAcronym",
+  "args": ["words", "s"],
+  "cases": [
+    {"input":[["alice","bob","charlie"],"abc"],"expected":true},
+    {"input":[["an","apple"],"a"],"expected":false},
+    {"input":[["never","gonna","give","up","on","you"],"ngguoy"],"expected":true}
+  ]
+}

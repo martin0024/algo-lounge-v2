@@ -130,13 +130,30 @@ function runInWorker(
     const child = spawn(process.execPath, [WORKER_PATH], {
       stdio: ["ignore", "ignore", "pipe", "ipc"],
       env: scrubbedEnv(),
+      // Own process group, so we can SIGKILL the WHOLE tree below. On Linux the
+      // sandbox (bwrap PID ns + --die-with-parent) already reaps children; on
+      // macOS there is no PID namespace, so a native grandchild would otherwise
+      // be reparented to launchd and outlive a kill of the worker alone.
+      detached: true,
     })
     let settled = false
+    const killTree = () => {
+      try {
+        if (child.pid) process.kill(-child.pid, "SIGKILL")
+      } catch {
+        // group already gone, or no permission — fall back to the direct child
+      }
+      try {
+        child.kill("SIGKILL")
+      } catch {
+        // already dead
+      }
+    }
     const settle = (outcome: WorkerOutcome) => {
       if (settled) return
       settled = true
       clearTimeout(timer)
-      child.kill("SIGKILL")
+      killTree()
       resolve(outcome)
     }
     const timer = setTimeout(

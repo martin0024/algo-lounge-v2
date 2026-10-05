@@ -1,0 +1,41 @@
+---
+title: Number of Recent Calls — Solution
+---
+## Number of Recent Calls
+
+**Algorithm (Queue Approach):**
+
+1. Use a queue to store all request timestamps
+2. When a new ping arrives at time `t`, add it to the queue
+3. Remove all timestamps from the front of the queue that are older than `t - 3000`
+4. Return the size of the queue (all remaining requests are within the 3000ms window)
+
+**Time Complexity:** O(1) amortized per ping - Each element is added once and removed once
+
+**Space Complexity:** O(n) where n is the maximum number of requests in a 3000ms window (at most 3000 if requests come every millisecond)
+
+**Key Insights:**
+
+- Queue is perfect for this because we only need to remove old requests from the front
+- Since timestamps are strictly increasing, we never need to look at middle elements
+- The window slides forward in time, matching the FIFO nature of a queue
+- At most 3000 elements can be in the queue at once (if ping called every millisecond)
+
+```python
+from collections import deque
+
+class RecentCounter:
+    def __init__(self):
+        self.requests = deque()
+    
+    def ping(self, t):
+        # Add the new request
+        self.requests.append(t)
+        
+        # Remove requests older than t - 3000
+        while self.requests and self.requests[0] < t - 3000:
+            self.requests.popleft()
+        
+        # Return the count of recent requests
+        return len(self.requests)
+```

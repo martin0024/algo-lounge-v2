@@ -1,0 +1,11 @@
+{
+  "functionName": "minMeetingRooms",
+  "args": ["intervals"],
+  "cases": [
+    {"input":[[[0,30],[5,10],[15,20]]],"expected":2},
+    {"input":[[[7,10],[2,4]]],"expected":1},
+    {"input":[[[1,5],[2,6],[3,7],[4,8]]],"expected":4},
+    {"input":[[[1,5],[8,9],[8,9]]],"expected":2},
+    {"input":[[[9,10],[4,9],[4,17]]],"expected":2}
+  ]
+}

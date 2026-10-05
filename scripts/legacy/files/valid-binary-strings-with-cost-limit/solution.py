@@ -1,0 +1,15 @@
+def generate_valid_strings(n: int, k: int) -> list[str]:
+    # Build left to right; a "1" at index i costs i and can't follow a "1".
+    results = []
+
+    def build(prefix, cost):
+        if len(prefix) == n:
+            results.append(prefix)
+            return
+        build(prefix + "0", cost)
+        i = len(prefix)
+        if (not prefix or prefix[-1] == "0") and cost + i <= k:
+            build(prefix + "1", cost + i)
+
+    build("", 0)
+    return results

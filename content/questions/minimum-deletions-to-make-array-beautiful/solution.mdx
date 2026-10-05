@@ -1,0 +1,20 @@
+---
+title: Minimum Deletions to Make Array Beautiful — Solution
+---
+## Minimum Deletions to Make Array Beautiful
+
+Greedily build the longest valid subsequence. At every even kept index, keep the value; at every odd kept index, keep only a value different from its partner. If the result has odd length, remove its final element.
+
+**Time:** O(n). **Space:** O(n).
+
+```python
+def min_deletion(nums):
+    deletions = 0
+    kept = []
+    for value in nums:
+        if len(kept) % 2 == 0 or kept[-1] != value:
+            kept.append(value)
+        else:
+            deletions += 1
+    return deletions + len(kept) % 2
+```

@@ -1,0 +1,13 @@
+{
+  "functionName": "numDistinct",
+  "args": ["s", "t"],
+  "cases": [
+    {"input":["rabbbit","rabbit"],"expected":3},
+    {"input":["babgbag","bag"],"expected":5},
+    {"input":["a","a"],"expected":1},
+    {"input":["aaaa","aa"],"expected":6},
+    {"input":["aab","ab"],"expected":2},
+    {"input":["aab","b"],"expected":1},
+    {"input":["aabdbbac","aabdac"],"expected":1}
+  ]
+}

@@ -1,0 +1,36 @@
+---
+title: Kth Largest Element in a Stream
+difficulty: easy
+tags:
+  - heap-priority-queue
+migratedFrom: 'algolounge:kth-largest-element-in-a-stream'
+---
+You are part of a university admissions office and need to keep track of the `k^(th)` highest test score from applicants in real-time. This helps to determine cut-off marks for interviews and admissions dynamically as new applicants submit their scores.
+
+You are tasked to implement a class which, for a given integer `k`, maintains a stream of test scores and continuously returns the `k^(th)` highest test score after a new score has been submitted. More specifically, we are looking for the `k^(th)` highest score in the sorted list of all scores.
+
+Implement the `KthLargest` class:
+
+- `KthLargest(k: int, nums: list[int])` Initializes the object with the integer `k` and the stream of test scores `nums`.
+- `add(val: int) -> int` Adds a new test score `val` to the stream and returns the element representing the `k^(th)` largest element in the pool of test scores so far.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  
+```
+
+\["KthLargest", "add", "add", "add", "add", "add"] \[\[3, \[4, 5, 8, 2]], \[3], \[5], \[10], \[9], \[4]] Output: \[null, 4, 5, 5, 8, 8] kth\_largest = KthLargest(3, \[4, 5, 8, 2]) kth\_largest.add(3) # return 4 kth\_largest.add(5) # return 5 kth\_largest.add(10) # return 5 kth\_largest.add(9) # return 8 kth\_largest.add(4) # return 8
+
+## Constraints
+
+- `1 <= k <= 10⁴`
+- `0 <= len(nums) <= 10⁴`
+- `-10⁴ <= nums[i] <= 10⁴`
+- `-10⁴ <= val <= 10⁴`
+- At most `10⁴` calls will be made to `add`.
+- It is guaranteed that there will be at least `k` elements in the array when you search for the `k^(th)` element.
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

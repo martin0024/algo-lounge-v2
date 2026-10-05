@@ -1,0 +1,16 @@
+{
+  "functionName": "isCanadianProvince",
+  "args": ["name"],
+  "cases": [
+    {"input":["Alberta"],"expected":true},
+    {"input":["Yukon"],"expected":false},
+    {"input":["ON"],"expected":true},
+    {"input":["Quebec"],"expected":true},
+    {"input":["Northwest Territories"],"expected":false},
+    {"input":["BC"],"expected":true},
+    {"input":["british columbia"],"expected":true},
+    {"input":["Saskatchewan"],"expected":true},
+    {"input":["Nunavut"],"expected":false},
+    {"input":["NS"],"expected":true}
+  ]
+}

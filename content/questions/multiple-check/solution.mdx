@@ -1,0 +1,25 @@
+---
+title: Multiple Check — Solution
+---
+## Multiple Check
+
+**Algorithm:**
+
+1. Use modulo operator to check if remainder is 0
+2. Handle edge case where y is 0
+
+**Time Complexity:** O(1) - constant time
+
+**Space Complexity:** O(1) - constant space
+
+**Key Insights:**
+
+- x is a multiple of y if x % y == 0
+- Need to handle division by zero
+
+```python
+def is_multiple(x, y):
+    if y == 0:
+        return False
+    return x % y == 0
+```

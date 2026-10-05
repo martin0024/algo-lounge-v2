@@ -1,0 +1,19 @@
+---
+title: Maximize Pair Strength Using GCD — Solution
+---
+## Enumerate Every Pair
+
+Evaluate the strength formula for each pair of distinct indices and retain the maximum. Integer division is exact because the square of the GCD divides the product.
+
+**Time:** O(n² log V), where V is the largest value. **Space:** O(1).
+
+```python
+def max_pair_strength(nums):
+    from math import gcd
+    best = 0
+    for i in range(len(nums)):
+        for j in range(i + 1, len(nums)):
+            common = gcd(nums[i], nums[j])
+            best = max(best, nums[i] * nums[j] // (common * common))
+    return best
+```

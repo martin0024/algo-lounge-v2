@@ -1,0 +1,25 @@
+---
+title: String Reversal — Solution
+---
+## String Reversal
+
+**Algorithm:**
+
+1. Use Python's slicing notation \[::-1]
+2. Return reversed string
+
+**Time Complexity:** O(n) - create reversed copy
+
+**Space Complexity:** O(n) - new string
+
+**Key Insights:**
+
+- Slicing \[::-1] is most Pythonic and efficient for string reversal
+- Start:Stop:Step notation where step -1 means iterate backwards
+- Strings are immutable, so reversal creates new string object
+- Handles empty strings and special characters naturally
+
+```python
+def reverse_string(s):
+    return s[::-1]
+```

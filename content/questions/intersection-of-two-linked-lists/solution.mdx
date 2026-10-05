@@ -1,0 +1,61 @@
+---
+title: Intersection of Two Linked Lists — Solution
+---
+## Intersection of Two Linked Lists
+
+**Algorithm:**
+
+1. Use two pointers, one for each list
+2. Traverse both lists simultaneously
+3. When a pointer reaches the end, redirect it to the other list's head
+4. The pointers will meet at the intersection or both become null
+
+**Time Complexity:** O(m + n) - where m and n are list lengths
+
+**Space Complexity:** O(1) - only using two pointers
+
+**Key Insights:**
+
+- Both pointers travel the same total distance
+- By switching lists, they sync up at the intersection
+- If no intersection exists, both reach null together
+- Works without knowing the list lengths
+
+```typescript
+export class ListNode {
+  val: number
+  next: ListNode | null
+
+  constructor(val = 0, next: ListNode | null = null) {
+    this.val = val
+    this.next = next
+  }
+}
+
+
+export function getIntersectionNode(
+  headA: ListNode | null,
+  headB: ListNode | null
+): ListNode | null {
+  // Each pointer walks A then B (or B then A): both cover the same distance,
+  // so they meet at the intersection — or at null together.
+  let a = headA
+  let b = headB
+  while (a !== b) {
+    a = a ? a.next : headB
+    b = b ? b.next : headA
+  }
+  return a
+}
+```
+
+```python
+def get_intersection_node(headA, headB):
+    l1, l2 = headA, headB
+    
+    while l1 != l2:
+        l1 = l1.next if l1 else headB
+        l2 = l2.next if l2 else headA
+    
+    return l1
+```

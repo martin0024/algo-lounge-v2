@@ -1,0 +1,4 @@
+export function containsDuplicate(nums: number[]): boolean {
+  // Your code here
+  return false
+}

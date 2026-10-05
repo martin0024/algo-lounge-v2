@@ -1,0 +1,39 @@
+---
+title: Daily Temperatures — Solution
+---
+## Daily Temperatures
+
+**Algorithm:**
+
+1. Use stack to store indices of temperatures
+2. For each temperature, pop indices from stack while current temp is warmer
+3. Calculate days difference for each popped index
+4. Push current index to stack
+
+**Time Complexity:** O(n) - each element pushed and popped at most once
+
+**Space Complexity:** O(n) for the stack and result array
+
+**Key Insights:**
+
+- Monotonic decreasing stack maintains indices of unresolved temperatures
+- When warmer temp found, resolve all colder temps in stack
+- Remaining indices in stack have no warmer future day (result = 0)
+
+```python
+def daily_temperatures(temperatures):
+    n = len(temperatures)
+    result = [0] * n
+    stack = []  # Stack to store indices
+    
+    for i in range(n):
+        # While stack not empty and current temperature is warmer
+        # than temperature at index stored at top of stack
+        while stack and temperatures[i] > temperatures[stack[-1]]:
+            prev_index = stack.pop()
+            result[prev_index] = i - prev_index
+        
+        stack.append(i)
+    
+    return result
+```

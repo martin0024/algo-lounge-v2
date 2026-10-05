@@ -1,0 +1,42 @@
+---
+title: Product of Array Except Self — Solution
+---
+## Product of Array Except Self
+
+**Algorithm:**
+
+1. Create result array to store left products
+2. First pass: calculate prefix products (product of all elements to the left)
+3. Second pass: multiply by suffix products (product of all elements to the right)
+4. Use a running variable to avoid extra space for suffix products
+
+**Time Complexity:** O(n) - two passes through the array
+
+**Space Complexity:** O(1) - only using the output array and constant variables
+
+**Key Insights:**
+
+- Split the problem into prefix and suffix products
+- Use the output array itself to store intermediate results
+- Running variable eliminates need for separate suffix array
+- No division operation required
+
+```python
+def product_except_self(nums):
+    n = len(nums)
+    result = [1] * n
+    
+    # First pass: calculate prefix products
+    # result[i] contains product of all elements to the left of i
+    for i in range(1, n):
+        result[i] = result[i-1] * nums[i-1]
+    
+    # Second pass: multiply by suffix products
+    # Use running variable to calculate product of all elements to the right
+    right_product = 1
+    for i in range(n-1, -1, -1):
+        result[i] *= right_product
+        right_product *= nums[i]
+    
+    return result
+```

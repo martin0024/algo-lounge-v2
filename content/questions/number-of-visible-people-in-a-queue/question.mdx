@@ -1,0 +1,40 @@
+---
+title: Number of Visible People in a Queue
+difficulty: hard
+tags:
+  - stack
+migratedFrom: 'algolounge:number-of-visible-people-in-a-queue'
+---
+There are `n` people standing in a queue, numbered from `0` to `n - 1` in left-to-right order. You are given an array `heights` of size `n` that represents the heights of the people.
+
+Person `i` can see person `j` (where `i < j`) if and only if:
+
+`min(heights[i], heights[j]) > max(heights[i+1], heights[i+2], ..., heights[j-1])`
+
+In other words, both people must be taller than everyone standing between them.
+
+Return an array `answer` of size `n` where `answer[i]` is the number of people person `i` can see to their right.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  heights = [10, 6, 8, 5, 11, 9]
+Output: [3, 1, 2, 1, 1, 0]
+```
+
+Person 0 (h=10) can see persons 1 (h=6), 2 (h=8), and 4 (h=11). Person 2 (h=8) can see persons 3 (h=5) and 4 (h=11).
+
+**Example 2**
+
+```
+Input:  heights = [5, 1, 2, 3, 10]
+Output: [4, 1, 1, 1, 0]
+```
+
+## Constraints
+
+- `1 <= heights.length <= 10⁵`
+- `1 <= heights[i] <= 10⁵`
+- All the values of `heights` are **unique**

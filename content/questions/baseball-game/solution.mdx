@@ -1,0 +1,38 @@
+---
+title: Baseball Game — Solution
+---
+## Baseball Game
+
+**Algorithm:**
+
+1. Use a stack to track valid scores
+2. Process each operation: integer, '+', 'D', 'C'
+3. Handle special operations based on previous scores
+4. Sum all remaining scores in the stack
+
+**Time Complexity:** O(n) - process each operation once
+
+**Space Complexity:** O(n) - stack storage for scores
+
+**Key Insights:**
+
+- Stack naturally handles the scoring requirements
+- '+' uses last two scores, 'D' doubles last score
+- 'C' removes the most recent score
+
+```python
+def cal_points(operations):
+    stack = []
+    
+    for op in operations:
+        if op == '+':
+            stack.append(stack[-1] + stack[-2])
+        elif op == 'D':
+            stack.append(stack[-1] * 2)
+        elif op == 'C':
+            stack.pop()
+        else:
+            stack.append(int(op))
+    
+    return sum(stack)
+```

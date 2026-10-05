@@ -1,0 +1,12 @@
+{
+  "functionName": "alienOrder",
+  "args": ["words"],
+  "cases": [
+    {"input":[["z","o"]],"expected":"zo"},
+    {"input":[["hrn","hrf","er","enn","rfnn"]],"expected":"hernf"},
+    {"input":[["wrt","wrf","er","ett","rftt"]],"expected":"wertf"},
+    {"input":[["z","x","z"]],"expected":""},
+    {"input":[["abc","ab"]],"expected":""},
+    {"input":[["z"]],"expected":"z"}
+  ]
+}

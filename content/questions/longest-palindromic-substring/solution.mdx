@@ -1,0 +1,75 @@
+---
+title: Longest Palindromic Substring — Solution
+---
+## Longest Palindromic Substring
+
+**Algorithm: Expand Around Centers**
+
+1. For each possible center (character or between characters), expand outward
+2. Check if characters on both sides match while expanding
+3. Track the longest palindrome found
+4. Handle both odd-length (center is a character) and even-length (center between characters) palindromes
+
+**Time Complexity:** O(n²) - for each center, potentially expand n characters
+
+**Space Complexity:** O(1) - only using variables to track indices
+
+**Key Insights:**
+
+- Palindromes expand from their center symmetrically
+- Two types of centers: single character (odd length) and between characters (even length)
+- More efficient than checking all O(n²) substrings
+- Avoids the O(n³) brute force approach
+
+```typescript
+export function longestPalindrome(s: string): string {
+  let best = ""
+  // Expand around every center (a character, or the gap between two).
+  const expand = (left: number, right: number) => {
+    while (left >= 0 && right < s.length && s[left] === s[right]) {
+      left--
+      right++
+    }
+    const found = s.slice(left + 1, right)
+    if (found.length > best.length) best = found
+  }
+  for (let i = 0; i < s.length; i++) {
+    expand(i, i)
+    expand(i, i + 1)
+  }
+  return best
+}
+```
+
+```python
+def longest_palindrome(s):
+    if not s:
+        return ""
+    
+    if len(s) == 1:
+        return s
+    
+    def expand_around_center(left, right):
+        # Expand around center while characters match
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        # Return the valid palindrome (exclude the mismatched characters)
+        return s[left + 1:right]
+    
+    longest = ""
+    
+    for i in range(len(s)):
+        # Check for odd-length palindromes (center is a character)
+        odd_palindrome = expand_around_center(i, i)
+        if len(odd_palindrome) > len(longest):
+            longest = odd_palindrome
+        
+        # Check for even-length palindromes (center is between characters)
+        if i < len(s) - 1:
+            even_palindrome = expand_around_center(i, i + 1)
+            if len(even_palindrome) > len(longest):
+                longest = even_palindrome
+    
+    return longest
+```

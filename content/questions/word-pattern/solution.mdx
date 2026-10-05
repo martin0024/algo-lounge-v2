@@ -1,0 +1,32 @@
+---
+title: Word Pattern — Solution
+---
+## Approach: Bijection with Two Hash Maps
+
+A valid pattern requires a one-to-one mapping (bijection) between each character in `pattern` and each word in `s`. We need two maps to enforce both directions:
+
+- `char_to_word`: ensures each pattern character always maps to the same word.
+- `word_to_char`: ensures each word always maps back to the same character (prevents two characters mapping to the same word).
+
+If the lengths differ, return `False` immediately. Otherwise iterate both together — any contradiction in either map fails the check.
+
+**Time:** O(n) **Space:** O(n)
+
+```python
+def word_pattern(pattern, s):
+    words = s.split()
+    if len(pattern) != len(words):
+        return False
+    char_to_word = {}
+    word_to_char = {}
+    for c, w in zip(pattern, words):
+        if c in char_to_word:
+            if char_to_word[c] != w:
+                return False
+        else:
+            if w in word_to_char:
+                return False
+            char_to_word[c] = w
+            word_to_char[w] = c
+    return True
+```

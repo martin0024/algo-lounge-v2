@@ -51,10 +51,15 @@ self.onmessage = (event: MessageEvent<InMessage>) => {
   console.log = console.info = console.warn = console.error = capture
 
   let fn: (...args: unknown[]) => unknown
+  let userExports: Record<string, unknown> = {}
+  let invoke:
+    | ((fn: unknown, args: unknown[], user: Record<string, unknown>) => unknown)
+    | undefined
   let prepare: ((args: unknown[]) => unknown[]) | undefined
   let serialize: ((result: unknown, args: unknown[]) => unknown) | undefined
   try {
     const exports = loadModule(code)
+    userExports = exports
     const candidate = exports[functionName] ?? exports.default
     if (typeof candidate !== "function") {
       throw new Error(
@@ -71,6 +76,9 @@ self.onmessage = (event: MessageEvent<InMessage>) => {
       if (typeof harnessExports.serialize === "function") {
         serialize = harnessExports.serialize as typeof serialize
       }
+      if (typeof harnessExports.invoke === "function") {
+        invoke = harnessExports.invoke as typeof invoke
+      }
     }
   } catch (error) {
     post({
@@ -86,7 +94,7 @@ self.onmessage = (event: MessageEvent<InMessage>) => {
     try {
       const args = structuredClone(cases[index].input) as unknown[]
       const prepared = prepare ? prepare(args) : args
-      const got = fn(...prepared)
+      const got = invoke ? invoke(fn, prepared, userExports) : fn(...prepared)
       post({
         type: "case",
         index,

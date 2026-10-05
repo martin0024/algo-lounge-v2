@@ -1,0 +1,73 @@
+---
+title: Rotting Oranges — Solution
+---
+## Rotting Oranges
+
+**Algorithm (Multi-Source BFS):**
+
+1. Count all fresh oranges and collect all initially rotten oranges in a queue
+2. Perform BFS starting from all rotten oranges simultaneously
+3. For each minute (BFS level), rot all fresh oranges adjacent to currently rotten ones
+4. Decrement fresh orange count and add newly rotten oranges to queue
+5. Return minutes elapsed if all oranges rotted, else return -1
+
+**Time Complexity:** O(m × n) - visit each cell at most once
+
+**Space Complexity:** O(m × n) - queue can hold all cells in worst case
+
+**Key Insights:**
+
+- Multi-source BFS: start from all rotten oranges at once
+- Each BFS level represents one minute passing
+- Track fresh orange count to detect impossible cases
+- Use queue to process oranges level by level
+- Return -1 if fresh oranges remain after BFS completes
+
+```python
+def oranges_rotting(grid):
+    from collections import deque
+    
+    if not grid or not grid[0]:
+        return -1
+    
+    rows, cols = len(grid), len(grid[0])
+    queue = deque()
+    fresh_count = 0
+    minutes = 0
+    
+    # Count fresh oranges and collect rotten oranges
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 1:
+                fresh_count += 1
+            elif grid[r][c] == 2:
+                queue.append((r, c))
+    
+    # If no fresh oranges, no time needed
+    if fresh_count == 0:
+        return 0
+    
+    # Directions: up, down, left, right
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    
+    # BFS to rot oranges level by level
+    while queue and fresh_count > 0:
+        minutes += 1
+        
+        # Process all oranges at current level (current minute)
+        for _ in range(len(queue)):
+            r, c = queue.popleft()
+            
+            # Check all 4 adjacent cells
+            for dr, dc in directions:
+                nr, nc = r + dr, c + dc
+                
+                # If adjacent cell is a fresh orange
+                if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == 1:
+                    grid[nr][nc] = 2
+                    fresh_count -= 1
+                    queue.append((nr, nc))
+    
+    # Return minutes if all oranges rotted, else -1
+    return minutes if fresh_count == 0 else -1
+```

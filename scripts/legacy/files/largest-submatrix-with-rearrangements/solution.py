@@ -1,0 +1,11 @@
+def largest_submatrix(matrix: list[list[int]]) -> int:
+    # heights[j] = run of 1s ending at this row in column j. Sorting a row's
+    # heights (columns can be rearranged) makes every prefix a rectangle.
+    n = len(matrix[0])
+    heights = [0] * n
+    best = 0
+    for row in matrix:
+        heights = [heights[j] + 1 if row[j] else 0 for j in range(n)]
+        for width, height in enumerate(sorted(heights, reverse=True), start=1):
+            best = max(best, width * height)
+    return best

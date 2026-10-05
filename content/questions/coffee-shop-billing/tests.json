@@ -1,0 +1,16 @@
+{
+  "functionName": "calculateBill",
+  "args": ["items"],
+  "cases": [
+    {"input":[["Espresso","Latte","Croissant"]],"expected":16},
+    {"input":[["Espresso"]],"expected":3},
+    {"input":[["Latte","Latte"]],"expected":12},
+    {"input":[["Croissant","Croissant","Croissant"]],"expected":21},
+    {"input":[["Espresso","Espresso","Espresso","Espresso"]],"expected":14},
+    {"input":[["Latte","Croissant"]],"expected":13},
+    {"input":[["Espresso","Latte","Latte","Croissant"]],"expected":22},
+    {"input":[["Croissant"]],"expected":7},
+    {"input":[["Latte"]],"expected":6},
+    {"input":[["Espresso","Espresso","Latte","Latte","Croissant","Croissant"]],"expected":32}
+  ]
+}

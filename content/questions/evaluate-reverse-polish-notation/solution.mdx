@@ -1,0 +1,53 @@
+---
+title: Evaluate Reverse Polish Notation — Solution
+---
+## Evaluate Reverse Polish Notation
+
+**Algorithm:**
+
+1. Use a stack to store operands
+2. Iterate through tokens from left to right
+3. If token is number, push to stack
+4. If token is operator, pop two operands, perform operation, push result
+5. Final stack element is the result
+
+**Time Complexity:** O(n) - single pass through tokens
+
+**Space Complexity:** O(n) - stack space for operands
+
+**Key Insights:**
+
+- Stack naturally handles the postfix evaluation order
+- Pop order matters: second operand, then first operand
+- Use int(a / b) for division truncating toward zero
+
+```python
+def evaluate_reverse_polish_notation(tokens):
+    stack = []
+    operators = {'+', '-', '*', '/'}
+    
+    for token in tokens:
+        if token in operators:
+            # Pop two operands (order matters!)
+            b = stack.pop()  # Second operand
+            a = stack.pop()  # First operand
+            
+            # Perform operation
+            if token == '+':
+                result = a + b
+            elif token == '-':
+                result = a - b
+            elif token == '*':
+                result = a * b
+            elif token == '/':
+                # Integer division truncating toward zero
+                result = int(a / b)
+            
+            stack.append(result)
+        else:
+            # Token is a number, push to stack
+            stack.append(int(token))
+    
+    # Final result is the only element left in stack
+    return stack[0]
+```

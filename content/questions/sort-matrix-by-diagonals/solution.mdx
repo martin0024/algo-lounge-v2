@@ -1,0 +1,33 @@
+---
+title: Sort Matrix by Diagonals — Solution
+---
+## Sort Each Diagonal Independently
+
+Every diagonal begins either in the first column or the first row. Collect its values, sort first-column diagonals in descending order and first-row diagonals in ascending order, then write them back.
+
+**Time:** O(n² log n). **Space:** O(n) for one diagonal.
+
+```python
+def sort_matrix(grid):
+    n = len(grid)
+
+    def sort_diagonal(start_row, start_col, descending):
+        row, col = start_row, start_col
+        values = []
+        while row < n and col < n:
+            values.append(grid[row][col])
+            row += 1
+            col += 1
+        values.sort(reverse=descending)
+        row, col = start_row, start_col
+        for value in values:
+            grid[row][col] = value
+            row += 1
+            col += 1
+
+    for row in range(n):
+        sort_diagonal(row, 0, True)
+    for col in range(1, n):
+        sort_diagonal(0, col, False)
+    return grid
+```

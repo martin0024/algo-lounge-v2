@@ -1,0 +1,16 @@
+{
+  "functionName": "maxScore",
+  "args": ["nums", "maxVal"],
+  "cases": [
+    {"input":[[3,4,6],5],"expected":4},
+    {"input":[[1,2,3],4],"expected":3},
+    {"input":[[2,2],1],"expected":1},
+    {"input":[[100000],1],"expected":100000},
+    {"input":[[6,10,15],5],"expected":13},
+    {"input":[[6,10,15],20],"expected":18},
+    {"input":[[2,4,8],7],"expected":6},
+    {"input":[[30,42,70,105],100],"expected":102},
+    {"input":[[1,1,1],10],"expected":9},
+    {"input":[[99991,2],100000],"expected":99999}
+  ]
+}

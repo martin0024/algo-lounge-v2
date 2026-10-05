@@ -1,0 +1,29 @@
+---
+title: Alphabetical Order Checker — Solution
+---
+## Alphabetical Order Checker
+
+**Algorithm:**
+
+1. Iterate through string
+2. Compare each character with previous
+3. Return false if any character is less than previous
+
+**Time Complexity:** O(n) - iterate through string
+
+**Space Complexity:** O(1) - constant space
+
+**Key Insights:**
+
+- Non-decreasing order allows equal consecutive characters (not strictly increasing)
+- Early exit on first violation improves performance
+- Empty strings and single characters are trivially ordered
+- Character comparison uses ASCII values naturally
+
+```python
+def is_alphabetical_order(s):
+    for i in range(1, len(s)):
+        if s[i] < s[i-1]:
+            return False
+    return True
+```

@@ -1,0 +1,18 @@
+{
+  "functionName": "longestConsecutiveSequence",
+  "args": ["nums"],
+  "cases": [
+    {"input":[[2,20,4,10,3,4,5]],"expected":4},
+    {"input":[[0,3,2,5,4,6,1,1]],"expected":7},
+    {"input":[[]],"expected":0},
+    {"input":[[1]],"expected":1},
+    {"input":[[1,2,0,1]],"expected":3},
+    {"input":[[9,1,4,7,3,-1,0,5,8,-1,6]],"expected":7},
+    {"input":[[1,3,5,7,9]],"expected":1},
+    {"input":[[100,4,200,1,3,2]],"expected":4},
+    {"input":[[-1,-2,-3,0,1]],"expected":5},
+    {"input":[[1000000000,-1000000000]],"expected":1},
+    {"input":[[1,2,3,4,5,6,7,8,9,10]],"expected":10},
+    {"input":[[5,5,5,5,5]],"expected":1}
+  ]
+}

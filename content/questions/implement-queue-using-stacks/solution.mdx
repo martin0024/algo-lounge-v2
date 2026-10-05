@@ -1,0 +1,52 @@
+---
+title: Implement Queue Using Stacks — Solution
+---
+## Implement Queue Using Stacks
+
+**Algorithm (Two Stack Approach):**
+
+1. Use two stacks: `stack_in` for enqueue operations and `stack_out` for dequeue operations
+2. **Enqueue:** Simply push element to `stack_in`
+3. **Dequeue/Front:** If `stack_out` is empty, transfer all elements from `stack_in` to `stack_out` (this reverses the order). Then pop/peek from `stack_out`
+4. **Empty:** Return true only if both stacks are empty
+
+**Time Complexity:**
+
+- Enqueue: O(1)
+- Dequeue/Front: Amortized O(1) - Each element is moved at most once from stack\_in to stack\_out
+- Empty: O(1)
+
+**Space Complexity:** O(n) where n is number of elements
+
+**Key Insights:**
+
+- Stack is LIFO (Last In First Out), Queue is FIFO (First In First Out)
+- By using two stacks, we can reverse the order twice to achieve FIFO behavior
+- Lazy transfer: only move elements when stack\_out is empty
+- Amortized analysis: although a single dequeue might take O(n), the average over many operations is O(1)
+
+```python
+class MyQueue:
+    def __init__(self):
+        self.stack_in = []
+        self.stack_out = []
+    
+    def enqueue(self, x):
+        self.stack_in.append(x)
+    
+    def dequeue(self):
+        self._transfer()
+        return self.stack_out.pop()
+    
+    def front(self):
+        self._transfer()
+        return self.stack_out[-1]
+    
+    def empty(self):
+        return not self.stack_in and not self.stack_out
+    
+    def _transfer(self):
+        if not self.stack_out:
+            while self.stack_in:
+                self.stack_out.append(self.stack_in.pop())
+```

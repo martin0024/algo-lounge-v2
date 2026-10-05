@@ -1,0 +1,31 @@
+---
+title: Remove Duplicates from Sorted Array — Solution
+---
+## Remove Duplicates from Sorted Array
+
+**Algorithm (Two Pointers):**
+
+1. Use a slow pointer `k` to track the position of the next unique element
+2. Use a fast pointer to scan every element
+3. When a new unique element is found (different from the one at `nums[k-1]`), write it to `nums[k]` and advance `k`
+4. Return `k`
+
+**Time Complexity:** O(n) — single pass through the array
+
+**Space Complexity:** O(1) — modifies the array in-place
+
+**Key Insights:**
+
+- Because the array is sorted, all duplicates are adjacent — one pass is enough
+- The slow pointer always points to the last written unique element
+- No extra space needed: the unique prefix overwrites the original values in place
+
+```python
+def remove_duplicates(nums):
+    k = 1
+    for i in range(1, len(nums)):
+        if nums[i] != nums[i - 1]:
+            nums[k] = nums[i]
+            k += 1
+    return k
+```

@@ -1,0 +1,9 @@
+{
+  "functionName": "kthLargestValue",
+  "args": ["matrix", "k"],
+  "cases": [
+    {"input":[[[5,2],[1,6]],1],"expected":7},
+    {"input":[[[5,2],[1,6]],2],"expected":5},
+    {"input":[[[5,2],[1,6]],3],"expected":4}
+  ]
+}

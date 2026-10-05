@@ -20,20 +20,16 @@ async function main() {
       .values({
         slug: meta.slug,
         title: meta.title,
-        week: meta.week,
         difficulty: meta.difficulty,
         tags: meta.tags,
-        order: meta.order,
         syncedAt: new Date(),
       })
       .onConflictDoUpdate({
         target: questions.slug,
         set: {
           title: meta.title,
-          week: meta.week,
           difficulty: meta.difficulty,
           tags: meta.tags,
-          order: meta.order,
           syncedAt: new Date(),
         },
       })

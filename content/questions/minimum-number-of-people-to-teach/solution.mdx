@@ -1,0 +1,19 @@
+---
+title: Minimum Number of People to Teach — Solution
+---
+## Reference solution
+
+```python
+def minimum_teachings(n: int, languages: list[list[int]], friendships: list[list[int]]) -> int:
+    # Only people in a friendship with no common language need teaching; pick
+    # the language most of them already know.
+    known = [set(langs) for langs in languages]
+    stuck = set()
+    for u, v in friendships:
+        if not known[u - 1] & known[v - 1]:
+            stuck.update((u - 1, v - 1))
+    if not stuck:
+        return 0
+    best_known = max(sum(1 for person in stuck if lang in known[person]) for lang in range(1, n + 1))
+    return len(stuck) - best_known
+```

@@ -1,0 +1,4 @@
+export function searchInsert(nums: number[], target: number): number {
+  // Your code here
+  return 0
+}

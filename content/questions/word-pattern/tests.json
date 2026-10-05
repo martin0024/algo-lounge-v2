@@ -1,0 +1,12 @@
+{
+  "functionName": "wordPattern",
+  "args": ["pattern", "s"],
+  "cases": [
+    {"input":["abba","dog cat cat dog"],"expected":true},
+    {"input":["abba","dog cat cat fish"],"expected":false},
+    {"input":["aaaa","dog cat cat dog"],"expected":false},
+    {"input":["abba","dog dog dog dog"],"expected":false},
+    {"input":["a","dog"],"expected":true},
+    {"input":["ab","dog dog"],"expected":false}
+  ]
+}

@@ -1,0 +1,43 @@
+---
+title: Best Time to Buy and Sell Stock — Solution
+---
+## Best Time to Buy and Sell Stock
+
+**Algorithm:**
+
+1. Track the minimum price seen so far (best buy price)
+2. For each price, calculate profit if selling today
+3. Keep track of maximum profit seen so far
+4. Return the maximum profit
+
+**Time Complexity:** O(n) - single pass through the array
+
+**Space Complexity:** O(1) - only using constant extra space
+
+**Key Insights:**
+
+- Greedy approach: always buy at the lowest price seen so far
+- For each day, calculate potential profit and update maximum
+- Must buy before selling (can't sell on the same day)
+- Single transaction only (one buy, one sell)
+
+```python
+def max_profit(prices):
+    if not prices or len(prices) < 2:
+        return 0
+    
+    min_price = prices[0]  # Minimum price seen so far (best buy price)
+    max_profit = 0         # Maximum profit achievable
+    
+    for price in prices[1:]:
+        # Calculate profit if we sell at current price
+        current_profit = price - min_price
+        
+        # Update maximum profit if current is better
+        max_profit = max(max_profit, current_profit)
+        
+        # Update minimum price if current is lower
+        min_price = min(min_price, price)
+    
+    return max_profit
+```

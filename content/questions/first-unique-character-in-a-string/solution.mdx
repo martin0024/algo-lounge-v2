@@ -1,0 +1,30 @@
+---
+title: First Unique Character in a String — Solution
+---
+## First Unique Character in a String
+
+**Algorithm:**
+
+1. Count occurrences of each character (hash map or array of size 26)
+2. Scan the string left to right by index
+3. Return the first index whose character count is 1
+4. If none, return -1
+
+**Time Complexity:** O(n) — two passes over the string
+
+**Space Complexity:** O(1) for lowercase English letters (at most 26 counters)
+
+**Key Insights:**
+
+- Order matters: the first character with count 1 in left-to-right order wins
+- A single pass counting then enumerating by index preserves problem order
+
+```python
+def first_uniq_char(s):
+    from collections import Counter
+    count = Counter(s)
+    for i, c in enumerate(s):
+        if count[c] == 1:
+            return i
+    return -1
+```

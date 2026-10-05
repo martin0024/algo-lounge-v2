@@ -1,0 +1,9 @@
+{
+  "functionName": "shortestPath",
+  "args": ["n", "edges", "labels", "k"],
+  "cases": [
+    {"input":[3,[[0,1,1],[1,2,1],[0,2,3]],"aab",1],"expected":3},
+    {"input":[3,[[0,1,1],[1,2,1],[0,2,3]],"aab",2],"expected":2},
+    {"input":[3,[[0,1,1],[1,2,1]],"aaa",2],"expected":-1}
+  ]
+}

@@ -1,0 +1,31 @@
+---
+title: Single Number — Solution
+---
+## Single Number
+
+**Algorithm:**
+
+1. Use the XOR bitwise operation to find the unique number
+2. Initialize result to 0
+3. XOR all numbers in the array with the result
+4. Since XOR of identical numbers equals 0, and XOR of any number with 0 equals the number itself, all pairs cancel out
+5. The remaining value is the single number that appears only once
+
+**Time Complexity:** O(n) - single pass through the array
+
+**Space Complexity:** O(1) - constant extra space
+
+**Key Insights:**
+
+- XOR has commutative and associative properties: order doesn't matter
+- XOR of identical values equals 0: `a XOR a = 0`
+- XOR of any value with 0 equals the value: `a XOR 0 = a`
+- All duplicate pairs cancel out, leaving only the single number
+
+```python
+def single_number(nums):
+    result = 0
+    for num in nums:
+        result ^= num  # XOR operation
+    return result
+```

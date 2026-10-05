@@ -1,0 +1,46 @@
+---
+title: Balanced Binary Tree
+difficulty: easy
+tags:
+  - trees
+migratedFrom: 'algolounge:balanced-binary-tree'
+---
+Given a binary tree, return `true` if it is **height-balanced** and `false` otherwise.
+
+A **height-balanced** binary tree is defined as a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  root = [3,9,20,null,null,15,7]
+Output: true
+```
+
+The tree is balanced as the height difference between left and right subtrees is at most 1 for all nodes.
+
+**Example 2**
+
+```
+Input:  root = [1,2,2,3,3,null,null,4,4]
+Output: false
+```
+
+The tree is not balanced because the left subtree of the root has height 3 while the right subtree has height 1.
+
+**Example 3**
+
+```
+Input:  root = []
+Output: true
+```
+
+An empty tree is considered balanced.
+
+## Constraints
+
+- The number of nodes in the tree is in the range `[0, 1000]`.
+- `-1000 <= Node.val <= 1000`
+
+> **How the tests work:** trees are written as level-order arrays — `[1,null,2]` is a root `1` with a right child `2`. Your function receives real `TreeNode` objects.

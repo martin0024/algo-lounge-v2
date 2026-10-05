@@ -1,0 +1,39 @@
+---
+title: Remove Duplicates from Sorted Array
+difficulty: easy
+tags:
+  - two-pointers
+migratedFrom: 'algolounge:remove-duplicates-from-sorted-array'
+---
+Given an integer array `nums` sorted in non-decreasing order, remove the duplicates **in-place** such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in `nums`.
+
+Consider the number of unique elements of `nums` to be `k`. To get accepted, you need to do the following things:
+
+- Change the array `nums` such that the first `k` elements of `nums` contain the unique elements in the order they were present in `nums` initially.
+- Return `k`.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  nums = [1,1,2]
+Output: 2
+```
+
+The first two elements should be \[1, 2].
+
+**Example 2**
+
+```
+Input:  nums = [0,0,1,1,1,2,2,3,3,4]
+Output: 5
+```
+
+The first five elements should be \[0, 1, 2, 3, 4].
+
+## Constraints
+
+- `1 <= nums.length <= 3 * 10⁴`
+- `-100 <= nums[i] <= 100`
+- `nums` is sorted in non-decreasing order

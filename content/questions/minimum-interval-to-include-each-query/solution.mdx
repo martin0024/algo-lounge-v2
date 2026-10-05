@@ -1,0 +1,62 @@
+---
+title: Minimum Interval to Include Each Query — Solution
+---
+## Minimum Interval to Include Each Query
+
+**Algorithm:**
+
+1. Create list of (query, original\_index) pairs and sort by query value
+2. Sort intervals by left endpoint
+3. Use a min heap to track intervals by size
+4. For each query in sorted order, add all intervals that start \<= query to heap
+5. Remove intervals from heap that end \< query
+6. The top of heap is the smallest valid interval
+7. Place result at original query index
+
+**Time Complexity:** O(n log n + m log m) where n = intervals, m = queries
+
+**Space Complexity:** O(n + m) for heap and result storage
+
+**Key Insights:**
+
+- Processing queries in sorted order optimizes interval filtering
+- Min heap by size allows quick retrieval of smallest interval
+- Tracking original indices maintains query order in result
+- Lazy deletion of invalid intervals from heap is efficient
+
+```python
+import heapq
+
+def min_interval(intervals, queries):
+    # Sort intervals by left endpoint
+    intervals.sort()
+    
+    # Create query list with original indices
+    query_list = [(q, i) for i, q in enumerate(queries)]
+    query_list.sort()
+    
+    result = [-1] * len(queries)
+    min_heap = []  # (size, right endpoint)
+    interval_idx = 0
+    
+    for query, original_idx in query_list:
+        # Add all intervals that start <= query
+        while interval_idx < len(intervals) and intervals[interval_idx][0] <= query:
+            left, right = intervals[interval_idx]
+            size = right - left + 1
+            heapq.heappush(min_heap, (size, right))
+            interval_idx += 1
+        
+        # Remove intervals that end before query
+        while min_heap and min_heap[0][1] < query:
+            heapq.heappop(min_heap)
+        
+        # Get smallest valid interval
+        if min_heap:
+            size, right = min_heap[0]
+            # Verify the interval actually contains the query
+            if right >= query:
+                result[original_idx] = size
+    
+    return result
+```

@@ -1,0 +1,35 @@
+---
+title: Coffee Sales Projection — Solution
+---
+## Coffee Sales Projection
+
+**Algorithm:**
+
+1. Calculate the total sales once
+2. For each variety, use integer math to check if `sale` is strictly more than five percent of the total (`sale * 100 > 5 * total`)
+3. If it stays, compute the boosted value with `(sale * 115) // 100` to avoid floating-point rounding issues; otherwise record 0
+
+**Time Complexity:** O(n) - iterate through sales
+
+**Space Complexity:** O(n) - result array
+
+**Key Insights:**
+
+- Use integer arithmetic (sale \* 100 > 5 \* total) to avoid floating-point precision errors
+- Threshold is strict (>5%), so exactly 5% gets discontinued
+- Integer division (sale \* 115) // 100 correctly rounds down and avoids float inaccuracy
+- Each variety is evaluated independently based on its percentage of total
+
+```python
+def forecast_sales(sales):
+    total = sum(sales)
+    forecast = []
+
+    for sale in sales:
+        if sale * 100 > 5 * total:
+            forecast.append((sale * 115) // 100)
+        else:
+            forecast.append(0)
+
+    return forecast
+```

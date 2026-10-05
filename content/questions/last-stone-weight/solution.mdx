@@ -1,0 +1,44 @@
+---
+title: Last Stone Weight — Solution
+---
+## Last Stone Weight
+
+**Algorithm:**
+
+1. Use a max heap to efficiently get the two heaviest stones
+2. Python's heapq is a min heap, so negate values to simulate max heap
+3. While there are at least 2 stones, pop the two heaviest
+4. If they're different weights, push the difference back
+5. Return the last stone's weight, or 0 if none remain
+
+**Time Complexity:** O(n log n) - each stone operation involves heap push/pop
+
+**Space Complexity:** O(n) - heap storage
+
+**Key Insights:**
+
+- Max heap allows efficient access to heaviest stones
+- Simulate the smashing process until one or zero stones remain
+- Negate values for max heap behavior in Python's min heap
+
+```python
+import heapq
+
+def last_stone_weight(stones):
+    # Create max heap by negating all values
+    max_heap = [-stone for stone in stones]
+    heapq.heapify(max_heap)
+    
+    # Continue until one or zero stones remain
+    while len(max_heap) > 1:
+        # Pop two heaviest stones
+        first = -heapq.heappop(max_heap)
+        second = -heapq.heappop(max_heap)
+        
+        # If they're different, push the difference back
+        if first != second:
+            heapq.heappush(max_heap, -(first - second))
+    
+    # Return the last stone's weight, or 0 if none remain
+    return -max_heap[0] if max_heap else 0
+```

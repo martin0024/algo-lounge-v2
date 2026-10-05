@@ -1,0 +1,40 @@
+---
+title: Boats to Save People — Solution
+---
+## Boats to Save People
+
+**Algorithm:**
+
+1. Sort the people array by weight
+2. Use two pointers: lightest person (left) and heaviest person (right)
+3. Try to pair the lightest with the heaviest in one boat
+4. If they can't fit together, the heavier person goes alone
+5. Move pointers accordingly and count boats
+
+**Time Complexity:** O(n log n) - due to sorting
+
+**Space Complexity:** O(1) - only using two pointers
+
+**Key Insights:**
+
+- Greedy approach: always try to pair lightest with heaviest
+- If heaviest can't pair with lightest, it can't pair with anyone
+- Two pointers technique after sorting optimizes the pairing
+
+```python
+def boats_to_save_people(people, limit):
+    people.sort()
+    left, right = 0, len(people) - 1
+    boats = 0
+    
+    while left <= right:
+        # If both lightest and heaviest can fit in one boat
+        if people[left] + people[right] <= limit:
+            left += 1  # Take the lightest person too
+        
+        # Always take the heaviest person (right pointer)
+        right -= 1
+        boats += 1
+    
+    return boats
+```

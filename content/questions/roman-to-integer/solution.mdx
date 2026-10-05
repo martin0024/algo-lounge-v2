@@ -1,0 +1,33 @@
+---
+title: Roman to Integer — Solution
+---
+## Roman to Integer
+
+**Algorithm:**
+
+1. Build a map of each Roman symbol to its integer value
+2. Iterate through the string from left to right
+3. If the current symbol is less than the next symbol, subtract it (subtraction rule)
+4. Otherwise, add it to the total
+
+**Time Complexity:** O(n) where n is the length of the string
+
+**Space Complexity:** O(1) since the symbol map has a fixed size of 7 entries
+
+**Key Insights:**
+
+- The subtraction rule only occurs when a smaller value appears before a larger one
+- Comparing each symbol with the one that follows it handles all six subtraction cases automatically
+
+```python
+def roman_to_int(s):
+    values = {'I': 1, 'V': 5, 'X': 10, 'L': 50,
+              'C': 100, 'D': 500, 'M': 1000}
+    total = 0
+    for i in range(len(s)):
+        if i + 1 < len(s) and values[s[i]] < values[s[i + 1]]:
+            total -= values[s[i]]
+        else:
+            total += values[s[i]]
+    return total
+```

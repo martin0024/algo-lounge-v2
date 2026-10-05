@@ -1,0 +1,16 @@
+{
+  "functionName": "isAlphabeticalOrder",
+  "args": ["s"],
+  "cases": [
+    {"input":["abc"],"expected":true},
+    {"input":["aab"],"expected":true},
+    {"input":["ba"],"expected":false},
+    {"input":[""],"expected":true},
+    {"input":["abcdefghijklmnopqrstuvwxyz"],"expected":true},
+    {"input":["aaabbbccc"],"expected":true},
+    {"input":["xyz"],"expected":true},
+    {"input":["zyx"],"expected":false},
+    {"input":["a"],"expected":true},
+    {"input":["abcba"],"expected":false}
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "functionName": "getMaxFunctionValue",
+  "args": ["receiver", "k"],
+  "cases": [
+    {"input":[[2,0,1],4],"expected":6},
+    {"input":[[1,1,1,2,3],3],"expected":10},
+    {"input":[[0],1],"expected":0},
+    {"input":[[0],10000000000],"expected":0},
+    {"input":[[0,1,2,3],10000000000],"expected":30000000003},
+    {"input":[[1,2,3,3],5],"expected":18},
+    {"input":[[1,2,0],1],"expected":3},
+    {"input":[[1,2,0],2],"expected":3},
+    {"input":[[1,0,3,2,5,4],7],"expected":36},
+    {"input":[[0,0,1,2,3,4],10],"expected":15}
+  ]
+}

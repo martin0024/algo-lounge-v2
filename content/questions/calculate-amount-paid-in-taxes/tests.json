@@ -1,0 +1,10 @@
+{
+  "functionName": "calculateTax",
+  "args": ["brackets", "income"],
+  "compare": "approx",
+  "cases": [
+    {"input":[[[3,50],[7,10],[12,25]],10],"expected":2.65},
+    {"input":[[[1,0],[4,25],[5,50]],2],"expected":0.25},
+    {"input":[[[2,50]],0],"expected":0}
+  ]
+}

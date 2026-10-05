@@ -1,0 +1,56 @@
+---
+title: Implement Queue Using Stacks
+difficulty: easy
+tags:
+  - queue
+  - stack
+migratedFrom: 'algolounge:implement-queue-using-stacks'
+---
+Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (`enqueue`, `dequeue`, `front`, and `empty`).
+
+Implement the `MyQueue` class:
+
+- `enqueue(x)`: Pushes element x to the back of the queue
+- `dequeue()`: Removes the element from the front of the queue and returns it
+- `front()`: Returns the element at the front of the queue
+- `empty()`: Returns `1` if the queue is empty, `0` otherwise
+
+## Notes
+
+- You must use only standard operations of a stack, which means only `push`, `pop`, `top`, and `empty` operations are valid
+- Depending on your language, the stack may not be supported natively
+
+## Examples
+
+- **Example 1:**\
+  Input: \["MyQueue", "enqueue", "enqueue", "front", "dequeue", "empty"]\
+  \[\[], \[1], \[2], \[], \[], \[]]\
+  Output: \[null, null, null, 1, 1, 0]\
+  Explanation:\
+  MyQueue myQueue = new MyQueue();\
+  myQueue.enqueue(1); // queue is: \[1]\
+  myQueue.enqueue(2); // queue is: \[1, 2]\
+  myQueue.front(); // return 1\
+  myQueue.dequeue(); // return 1, queue is \[2]\
+  myQueue.empty(); // return 0 (false)
+- **Example 2:**\
+  Input: \["MyQueue", "enqueue", "dequeue", "empty"]\
+  \[\[], \[1], \[], \[]]\
+  Output: \[null, null, 1, 1]\
+  Explanation:\
+  MyQueue myQueue = new MyQueue();\
+  myQueue.enqueue(1); // queue is: \[1]\
+  myQueue.dequeue(); // return 1, queue is \[]\
+  myQueue.empty(); // return 1 (true)
+
+## Constraints
+
+- `1 <= x <= 9` for integers, or any string value
+- At most `100` calls will be made to `enqueue`, `dequeue`, `front`, and `empty`
+- All calls to `dequeue` and `front` will be valid
+
+## Follow-up
+
+Can you implement the queue such that each operation is amortized `O(1)` time complexity? In other words, performing `n` operations will take overall `O(n)` time even if one of those operations may take longer.
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

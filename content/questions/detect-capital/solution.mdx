@@ -1,0 +1,15 @@
+---
+title: Detect Capital — Solution
+---
+## Detect Capital
+
+Count uppercase letters. Valid words have zero uppercase letters, all uppercase letters, or exactly one uppercase letter at index 0.
+
+**Time:** O(n). **Space:** O(1).
+
+```python
+def detect_capital_use(word):
+    capitals = sum('A' <= ch <= 'Z' for ch in word)
+    return (capitals == 0 or capitals == len(word) or
+            (capitals == 1 and 'A' <= word[0] <= 'Z'))
+```

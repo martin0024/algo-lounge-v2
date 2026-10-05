@@ -1,0 +1,33 @@
+---
+title: Non-Overlapping Intervals — Solution
+---
+## Non-Overlapping Intervals
+
+**Algorithm:**
+
+1. Sort intervals by end time
+2. Greedily keep intervals that don't overlap with the last kept interval
+3. Count the number of removed intervals
+
+**Time Complexity:** O(n log n) due to sorting
+
+**Space Complexity:** O(1) if sorting in-place
+
+**Key Insights:**
+
+- This is equivalent to finding the maximum number of non-overlapping intervals (activity selection problem)
+- Sorting by end time and greedily picking the earliest-ending interval maximizes the number we can keep
+- The answer is total intervals minus the max non-overlapping count
+
+```python
+def erase_overlap_intervals(intervals):
+    intervals.sort(key=lambda x: x[1])
+    count = 0
+    prev_end = float('-inf')
+    for start, end in intervals:
+        if start >= prev_end:
+            prev_end = end
+        else:
+            count += 1
+    return count
+```

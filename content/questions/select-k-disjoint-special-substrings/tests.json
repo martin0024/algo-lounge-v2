@@ -1,0 +1,9 @@
+{
+  "functionName": "maxSubstringLength",
+  "args": ["s", "k"],
+  "cases": [
+    {"input":["abcdbaefab",2],"expected":true},
+    {"input":["cdefdc",3],"expected":false},
+    {"input":["abeabe",0],"expected":true}
+  ]
+}

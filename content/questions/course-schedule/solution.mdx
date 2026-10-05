@@ -1,0 +1,45 @@
+---
+title: Course Schedule — Solution
+---
+## Approach: topological sort
+
+Treat each course as a graph node. A prerequisite edge points from the prerequisite to the course that depends on it. Courses with no remaining prerequisites can be taken immediately.
+
+1. Build `next_courses` and count each course's `indegree`.
+2. Put every zero-indegree course into a queue.
+3. Remove courses from the queue, count them, and reduce the indegree of each dependent course.
+4. When a dependent course reaches indegree zero, add it to the queue.
+5. Return whether the number processed equals `numCourses`.
+
+**Why it works:** The queue contains exactly the courses whose prerequisites have all been processed. If a directed cycle exists, every course in that cycle keeps a positive indegree and cannot enter the queue.
+
+**Complexity:** With `V` courses and `E` prerequisite pairs, the algorithm uses `O(V + E)` time and `O(V + E)` space.
+
+**Pitfall:** An empty prerequisite list is valid, and disconnected parts of the graph must all be considered.
+
+```python
+def can_finish(numCourses, prerequisites):
+    from collections import deque
+
+    next_courses = [[] for _ in range(numCourses)]
+    indegree = [0] * numCourses
+
+    for course, prerequisite in prerequisites:
+        next_courses[prerequisite].append(course)
+        indegree[course] += 1
+
+    available = deque(
+        course for course in range(numCourses) if indegree[course] == 0
+    )
+    completed = 0
+
+    while available:
+        course = available.popleft()
+        completed += 1
+        for next_course in next_courses[course]:
+            indegree[next_course] -= 1
+            if indegree[next_course] == 0:
+                available.append(next_course)
+
+    return completed == numCourses
+```

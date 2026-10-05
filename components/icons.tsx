@@ -1,8 +1,8 @@
-export function DiscordIcon() {
+export function DiscordIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="size-4"
+      className={className ?? "size-4"}
       fill="currentColor"
       aria-hidden="true"
     >

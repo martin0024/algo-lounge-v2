@@ -1,0 +1,39 @@
+---
+title: Next Greater Element — Solution
+---
+## Next Greater Element
+
+**Algorithm:**
+
+1. Initialize result array with -1 for all positions
+2. Use a monotonic decreasing stack storing indices
+3. Iterate through the array twice (to handle circular nature)
+4. For each element, pop indices from stack while current element is greater
+5. Set result for each popped index to current element
+
+**Time Complexity:** O(n) — each element pushed and popped at most twice
+
+**Space Complexity:** O(n) for stack and result array
+
+**Key Insights:**
+
+- Traversing the array twice simulates the circular behavior
+- Use modulo to wrap indices: `i % n`
+- Only push indices from the first pass onto the stack (avoid duplicates)
+- Monotonic stack ensures we always find the *next* greater efficiently
+
+```python
+def next_greater_elements(nums):
+    n = len(nums)
+    result = [-1] * n
+    stack = []
+    
+    for i in range(2 * n):
+        while stack and nums[stack[-1]] < nums[i % n]:
+            idx = stack.pop()
+            result[idx] = nums[i % n]
+        if i < n:
+            stack.append(i)
+    
+    return result
+```

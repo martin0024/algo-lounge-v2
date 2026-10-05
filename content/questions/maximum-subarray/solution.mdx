@@ -1,0 +1,38 @@
+---
+title: Maximum Subarray — Solution
+---
+## Maximum Subarray - Kadane's Algorithm
+
+**Algorithm:**
+
+1. Initialize max\_sum to first element and current\_sum to 0
+2. For each element, decide: start new subarray or extend current one
+3. current\_sum = max(num, current\_sum + num)
+4. Update max\_sum if current\_sum is larger
+5. Return max\_sum
+
+**Time Complexity:** O(n) - single pass through array
+
+**Space Complexity:** O(1) - constant extra space
+
+**Key Insights:**
+
+- Kadane's algorithm is a classic dynamic programming approach
+- Negative prefixes are discarded as they don't improve the sum
+- Correctly handles arrays with all negative numbers
+- Decision at each step: include current element in subarray or start fresh
+
+```python
+def max_sub_array(nums):
+    if not nums:
+        return 0
+    
+    max_sum = nums[0]
+    current_sum = 0
+    
+    for num in nums:
+        current_sum = max(num, current_sum + num)
+        max_sum = max(max_sum, current_sum)
+    
+    return max_sum
+```

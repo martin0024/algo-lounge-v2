@@ -1,0 +1,40 @@
+---
+title: Tribonacci Sequence
+difficulty: medium
+tags:
+  - dynamic-programming
+migratedFrom: 'algolounge:tribonacci-sequence'
+---
+Calculate the nth tribonacci number where each number is the sum of the three preceding numbers.
+
+**Definition:**
+
+- T(0) = 0
+- T(1) = 1
+- T(2) = 1
+- T(n) = T(n-1) + T(n-2) + T(n-3) for n ≥ 3
+
+## Examples
+
+**Example 1**
+
+```
+Input:  n = 4
+Output: 4
+```
+
+T(4) = T(3) + T(2) + T(1) = 2 + 1 + 1 = 4
+
+**Example 2**
+
+```
+Input:  n = 5
+Output: 7
+```
+
+T(5) = T(4) + T(3) + T(2) = 4 + 2 + 1 = 7
+
+## Constraints
+
+- 0 ≤ n ≤ 37
+- Handle base cases n = 0, 1, 2

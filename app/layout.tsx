@@ -2,8 +2,10 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 
 import "./globals.css"
+import { DiscordAccessProvider } from "@/components/discord-access-provider"
 import { SiteHeader } from "@/components/site-header"
 import { ThemeProvider } from "@/components/theme-provider"
+import { XpProvider } from "@/components/xp-provider"
 import { cn } from "@/lib/utils"
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
@@ -39,8 +41,12 @@ export default function RootLayout({
     >
       <body className="flex min-h-svh flex-col">
         <ThemeProvider>
-          <SiteHeader />
-          <main className="flex flex-1 flex-col">{children}</main>
+          <DiscordAccessProvider>
+            <XpProvider>
+              <SiteHeader />
+              <main className="flex flex-1 flex-col">{children}</main>
+            </XpProvider>
+          </DiscordAccessProvider>
         </ThemeProvider>
       </body>
     </html>

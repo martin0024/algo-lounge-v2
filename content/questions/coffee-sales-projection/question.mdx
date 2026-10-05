@@ -1,0 +1,23 @@
+---
+title: Coffee Sales Projection
+difficulty: medium
+tags: []
+migratedFrom: 'algolounge:coffee-sales-projection'
+---
+Calculate coffee sales forecast where varieties representing more than 5% of total sales get a 15% increase, while varieties at or below 5% are discontinued (forecast = 0).
+
+## Example
+
+**Example 1**
+
+```
+Input:  [100, 200, 10]
+Output: [115, 230, 0]
+```
+
+\- Total sales = 310 - 100/310 ≈ 32.3% → 100 × 1.15 = 115 - 200/310 ≈ 64.5% → 200 × 1.15 = 230 - 10/310 ≈ 3.2% → 0 (discontinued)
+
+## Constraints
+
+- All sales figures are positive integers
+- Return forecast as integer array

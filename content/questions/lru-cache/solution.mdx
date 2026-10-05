@@ -1,0 +1,62 @@
+---
+title: LRU Cache — Solution
+---
+## Approach: HashMap + Doubly Linked List
+
+O(1) get and put requires two data structures working together:
+
+- **HashMap** (`key → node`): gives O(1) lookup of any cached entry.
+- **Doubly Linked List**: maintains recency order. The front is most recently used; the back is least recently used. Dummy `head` and `tail` nodes eliminate edge-case checks.
+
+**get:** Look up the node, move it to the front, return its value.
+
+**put:** If the key exists, remove the old node first. Insert a new node at the front. If over capacity, evict the node just before `tail` and remove its key from the map.
+
+**Time:** O(1) per operation **Space:** O(capacity)
+
+```python
+class Node:
+    def __init__(self, key=0, val=0):
+        self.key = key
+        self.val = val
+        self.prev = None
+        self.next = None
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.cap = capacity
+        self.cache = {}
+        self.head = Node()
+        self.tail = Node()
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def _remove(self, node):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+    def _insert_front(self, node):
+        node.next = self.head.next
+        node.prev = self.head
+        self.head.next.prev = node
+        self.head.next = node
+
+    def get(self, key):
+        if key not in self.cache:
+            return -1
+        node = self.cache[key]
+        self._remove(node)
+        self._insert_front(node)
+        return node.val
+
+    def put(self, key, value):
+        if key in self.cache:
+            self._remove(self.cache[key])
+        node = Node(key, value)
+        self.cache[key] = node
+        self._insert_front(node)
+        if len(self.cache) > self.cap:
+            lru = self.tail.prev
+            self._remove(lru)
+            del self.cache[lru.key]
+```

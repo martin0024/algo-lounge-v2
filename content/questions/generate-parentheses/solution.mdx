@@ -1,0 +1,43 @@
+---
+title: Generate Parentheses — Solution
+---
+## Generate Parentheses
+
+**Algorithm:**
+
+1. Start with empty string and track open/close parentheses count
+2. At each step: add '(' if open count \< n, add ')' if close count \< open count
+3. Base case: when string length equals 2\*n, add to result
+4. Backtrack by trying both options at each valid position
+
+**Time Complexity:** O(4^n / √n) - Catalan number combinations
+
+**Space Complexity:** O(4^n / √n) - for storing all valid combinations
+
+**Key Insights:**
+
+- Only add ')' when we have more '(' than ')' (maintains validity)
+- Recursively build strings character by character
+- Catalan number determines count of valid combinations
+
+```python
+def generate_parentheses(n):
+    result = []
+    
+    def backtrack(current, open_count, close_count):
+        # Base case: complete valid combination
+        if len(current) == 2 * n:
+            result.append(current)
+            return
+        
+        # Add opening parenthesis if we haven't used all
+        if open_count < n:
+            backtrack(current + '(', open_count + 1, close_count)
+        
+        # Add closing parenthesis if it would be valid
+        if close_count < open_count:
+            backtrack(current + ')', open_count, close_count + 1)
+    
+    backtrack('', 0, 0)
+    return result
+```

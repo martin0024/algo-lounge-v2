@@ -1,0 +1,14 @@
+{
+  "functionName": "maxTaskAssign",
+  "args": ["tasks", "workers", "pills", "strength"],
+  "cases": [
+    {"input":[[3,2,1],[0,3,3],1,1],"expected":3},
+    {"input":[[5,4],[0,0,0],1,5],"expected":1},
+    {"input":[[10,15,30],[0,10,10,10,10],3,10],"expected":2},
+    {"input":[[5,9,8,5,9],[1,6,4,2,6],1,5],"expected":3},
+    {"input":[[1],[1],0,0],"expected":1},
+    {"input":[[1,2,3],[3,3,3],0,10],"expected":3},
+    {"input":[[10,20,30],[5,5,5],3,5],"expected":1},
+    {"input":[[1,1,1,1],[0,0,0,0],4,1],"expected":4}
+  ]
+}

@@ -1,0 +1,40 @@
+---
+title: Alice Typing Problem — Solution
+---
+## Alice Typing Problem
+
+**Algorithm:**
+
+1. Walk through the string and measure the length of each run of identical characters
+2. A run of length `L` can shrink to any length from 1 to `L`, but at most one run can shrink overall
+3. Add up `(L - 1)` for every run and include one extra for the "no mistake" possibility
+
+**Time Complexity:** O(n) - iterate through string once
+
+**Space Complexity:** O(1) - constant extra space
+
+**Key Insights:**
+
+- Each run of consecutive identical characters contributes (L - 1) possible mistakes (reducing by 1 to L characters)
+- Always include the "no mistake" case (1 possibility)
+- Single-character runs contribute 0 extra possibilities
+- Use run-length encoding technique to identify groups
+
+```python
+def count_possible_strings(typed):
+    if not typed:
+        return 1
+
+    total = 1  # no mistake case
+    current_len = 1
+
+    for i in range(1, len(typed)):
+        if typed[i] == typed[i - 1]:
+            current_len += 1
+        else:
+            total += current_len - 1
+            current_len = 1
+
+    total += current_len - 1
+    return total
+```

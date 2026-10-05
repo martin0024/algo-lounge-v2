@@ -1,0 +1,16 @@
+{
+  "functionName": "checkInclusion",
+  "args": ["s1", "s2"],
+  "cases": [
+    {"input":["ab","eidbaooo"],"expected":true},
+    {"input":["ab","eidboaoo"],"expected":false},
+    {"input":["a","a"],"expected":true},
+    {"input":["ab","a"],"expected":false},
+    {"input":["adc","dcda"],"expected":true},
+    {"input":["abc","bbbca"],"expected":true},
+    {"input":["abc","ccccbbbbaaaa"],"expected":false},
+    {"input":["hello","ooolleoooleh"],"expected":false},
+    {"input":["ab","ab"],"expected":true},
+    {"input":["abc","cba"],"expected":true}
+  ]
+}

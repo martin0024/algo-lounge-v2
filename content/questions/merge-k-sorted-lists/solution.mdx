@@ -1,0 +1,99 @@
+---
+title: Merge k Sorted Lists — Solution
+---
+## Merge k Sorted Lists
+
+**Algorithm (Divide & Conquer):**
+
+1. Recursively split the list of linked lists in half
+2. Merge each pair of lists using a helper merge function
+3. Continue until only one merged list remains
+
+**Time Complexity:** O(N log k) where N is total nodes and k is number of lists
+
+**Space Complexity:** O(log k) recursion stack for divide & conquer
+
+**Key Insights:**
+
+- Divide and conquer reduces k-way merge to log(k) rounds of 2-way merges
+- Each round processes all N nodes once, giving O(N log k) total
+- This is more efficient than merging lists one by one, which would be O(Nk)
+
+```typescript
+export class ListNode {
+  val: number
+  next: ListNode | null
+
+  constructor(val = 0, next: ListNode | null = null) {
+    this.val = val
+    this.next = next
+  }
+}
+
+
+export function mergeKLists(lists: (ListNode | null)[]): ListNode | null {
+  // Divide and conquer: merge pairs until one list remains — O(n log k).
+  const mergeTwo = (a: ListNode | null, b: ListNode | null) => {
+    const dummy = new ListNode()
+    let tail = dummy
+    while (a && b) {
+      if (a.val <= b.val) {
+        tail.next = a
+        a = a.next
+      } else {
+        tail.next = b
+        b = b.next
+      }
+      tail = tail.next
+    }
+    tail.next = a ?? b
+    return dummy.next
+  }
+  let round = lists.filter((l) => l !== null)
+  if (round.length === 0) return null
+  while (round.length > 1) {
+    const next: (ListNode | null)[] = []
+    for (let i = 0; i < round.length; i += 2) {
+      next.push(mergeTwo(round[i], round[i + 1] ?? null))
+    }
+    round = next
+  }
+  return round[0]
+}
+```
+
+```python
+class ListNode:
+    def __init__(self, val: int = 0, next: "ListNode | None" = None):
+        self.val = val
+        self.next = next
+
+
+def merge_k_lists(lists):
+    if not lists:
+        return None
+    
+    def mergeTwoLists(l1, l2):
+        dummy = ListNode(0)
+        current = dummy
+        while l1 and l2:
+            if l1.val <= l2.val:
+                current.next = l1
+                l1 = l1.next
+            else:
+                current.next = l2
+                l2 = l2.next
+            current = current.next
+        current.next = l1 or l2
+        return dummy.next
+    
+    def divideAndConquer(lists, left, right):
+        if left == right:
+            return lists[left]
+        mid = (left + right) // 2
+        l = divideAndConquer(lists, left, mid)
+        r = divideAndConquer(lists, mid + 1, right)
+        return mergeTwoLists(l, r)
+    
+    return divideAndConquer(lists, 0, len(lists) - 1)
+```

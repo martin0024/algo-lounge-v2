@@ -1,0 +1,48 @@
+---
+title: Largest Rectangle In Histogram — Solution
+---
+## Largest Rectangle In Histogram
+
+**Algorithm:**
+
+1. Use a stack to maintain indices of bars with increasing heights
+2. For each bar, pop from stack while current height is smaller than stack top
+3. Calculate area using popped height as the smallest bar in the rectangle
+4. Width is determined by current index and previous stack top index
+5. Track maximum area found
+6. Process remaining bars in stack after iteration
+
+**Time Complexity:** O(n) - each element pushed and popped at most once
+
+**Space Complexity:** O(n) - stack space in worst case
+
+**Key Insights:**
+
+- Stack maintains increasing heights for potential rectangles
+- When we find a smaller height, we can complete rectangles ending at current position
+- Width of rectangle is determined by stack indices
+- This is a classic monotonic stack problem
+
+```python
+def largest_rectangle_in_histogram(heights):
+    stack = []
+    max_area = 0
+    
+    for i, height in enumerate(heights):
+        # Pop from stack while current height is smaller
+        while stack and heights[stack[-1]] > height:
+            h = heights[stack.pop()]
+            # Width is determined by current index and previous stack top
+            w = i if not stack else i - stack[-1] - 1
+            max_area = max(max_area, h * w)
+        
+        stack.append(i)
+    
+    # Process remaining bars in stack
+    while stack:
+        h = heights[stack.pop()]
+        w = len(heights) if not stack else len(heights) - stack[-1] - 1
+        max_area = max(max_area, h * w)
+    
+    return max_area
+```

@@ -12,7 +12,10 @@
     "typecheck": "tsc --noEmit",
     "db:push": "drizzle-kit push",
     "db:sync": "tsx scripts/sync-questions.ts",
-    "merge-users": "tsx scripts/merge-users.ts"
+    "xp:verify": "tsx scripts/verify-xp.ts",
+    "merge-users": "tsx scripts/merge-users.ts",
+    "legacy:migrate": "tsx scripts/legacy/migrate.ts",
+    "content:test": "tsx scripts/test-questions.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -64,8 +67,13 @@
     "eslint-config-next": "16.2.6",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "rehype-parse": "^9.0.1",
+    "rehype-remark": "^10.0.1",
+    "remark-mdx": "^3.1.1",
+    "remark-stringify": "^11.0.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "unified": "^11.0.5"
   }
 }

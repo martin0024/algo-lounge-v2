@@ -1,0 +1,9 @@
+{
+  "functionName": "totalMoney",
+  "args": ["n"],
+  "cases": [
+    {"input":[4],"expected":10},
+    {"input":[10],"expected":37},
+    {"input":[20],"expected":96}
+  ]
+}

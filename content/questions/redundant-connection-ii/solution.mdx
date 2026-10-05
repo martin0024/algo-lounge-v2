@@ -1,0 +1,67 @@
+---
+title: Redundant Connection II — Solution
+---
+## Redundant Connection II
+
+**Algorithm:**
+
+1. Detect if any node has two parents (invalid tree structure)
+2. Use Union-Find to detect cycles in the directed graph
+3. Handle three cases: node with two parents, cycle without double parent, or both
+4. Return the edge that should be removed to restore valid tree structure
+
+**Time Complexity:** O(n) - single pass with union-find operations
+
+**Space Complexity:** O(n) - parent tracking and union-find structure
+
+**Key Insights:**
+
+- Problem combines cycle detection with parent validation
+- Union-Find efficiently detects cycles
+- Need to handle case where node has two parents
+- Return last occurring edge when multiple solutions exist
+
+```python
+def find_redundant_directed_connection(edges):
+    n = len(edges)
+    parent = list(range(n + 1))
+    
+    def find(x):
+        if parent[x] != x:
+            parent[x] = find(parent[x])
+        return parent[x]
+    
+    def union(x, y):
+        px, py = find(x), find(y)
+        if px == py:
+            return False
+        parent[px] = py
+        return True
+    
+    # Check for node with two parents
+    indegree = {}
+    candidate1 = candidate2 = None
+    
+    for u, v in edges:
+        if v in indegree:
+            candidate1 = [indegree[v], v]
+            candidate2 = [u, v]
+            break
+        indegree[v] = u
+    
+    # Reset parent for union-find
+    parent = list(range(n + 1))
+    
+    for u, v in edges:
+        # Skip candidate2 if we found two parents
+        if candidate2 and [u, v] == candidate2:
+            continue
+        
+        if not union(u, v):
+            # Cycle detected
+            if candidate1:
+                return candidate1
+            return [u, v]
+    
+    return candidate2
+```

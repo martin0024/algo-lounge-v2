@@ -1,0 +1,25 @@
+---
+title: Implement Trie (Prefix Tree)
+difficulty: medium
+tags:
+  - trie
+migratedFrom: 'algolounge:implement-trie-prefix-tree'
+---
+A **trie** (pronounced as "try") or **prefix tree** is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.
+
+Implement the `Trie` class:
+
+- `Trie()` Initializes the trie object.
+- `void insert(String word)` Inserts the string `word` into the trie.
+- `boolean search(String word)` Returns `true` if the string `word` is in the trie (i.e., was inserted before), and `false` otherwise.
+- `boolean startsWith(String prefix)` Returns `true` if there is a previously inserted string `word` that has the prefix `prefix`, and `false` otherwise.
+
+Operations are exercised via the runner `executeTrieOperations(operations)` using strings like `Trie()`, `insert("apple")`, `search("apple")`, `startsWith("app")`. Boolean results are returned as `1` (true) or `0` (false).
+
+## Constraints
+
+- `1 <= word.length, prefix.length <= 2000`
+- `word` and `prefix` consist only of lowercase English letters
+- At most `3 * 10⁴` calls in total to `insert`, `search`, and `startsWith`
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

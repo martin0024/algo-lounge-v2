@@ -1,0 +1,36 @@
+---
+title: Binary Tree Postorder Traversal — Solution
+---
+## Binary Tree Postorder Traversal
+
+**Algorithm:**
+
+1. Traverse left subtree recursively
+2. Traverse right subtree recursively
+3. Process current node (add to result)
+
+**Time Complexity:** O(n) - visit each node once
+
+**Space Complexity:** O(h) - recursion stack depth, where h is tree height
+
+**Key Insights:**
+
+- Postorder: Left -> Right -> Root
+- Node is processed after both subtrees
+- Useful for deleting trees or calculating node depths
+
+```python
+def binary_tree_postorder_traversal(root):
+    result = []
+    
+    def postorder(node):
+        if not node:
+            return
+        
+        postorder(node.left)   # Traverse left subtree
+        postorder(node.right)  # Traverse right subtree
+        result.append(node.val)  # Process current node
+    
+    postorder(root)
+    return result
+```

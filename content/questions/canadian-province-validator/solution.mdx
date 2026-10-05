@@ -1,0 +1,38 @@
+---
+title: Canadian Province Validator — Solution
+---
+## Canadian Province Validator
+
+**Algorithm:**
+
+1. Create set of valid province names and abbreviations
+2. Normalize input to lowercase
+3. Check if input is in the set
+
+**Time Complexity:** O(1) - set lookup
+
+**Space Complexity:** O(1) - fixed set size
+
+**Key Insights:**
+
+- Set provides O(1) lookup vs O(n) for list/array
+- Lowercase normalization handles case-insensitive matching
+- Territories (Yukon, Northwest Territories, Nunavut) are excluded
+- Both full names and abbreviations stored in same set for simplicity
+
+```python
+def is_canadian_province(name):
+    provinces = {
+        'alberta', 'ab',
+        'british columbia', 'bc',
+        'manitoba', 'mb',
+        'new brunswick', 'nb',
+        'newfoundland and labrador', 'nl',
+        'nova scotia', 'ns',
+        'ontario', 'on',
+        'prince edward island', 'pe',
+        'quebec', 'qc',
+        'saskatchewan', 'sk'
+    }
+    return name.lower() in provinces
+```

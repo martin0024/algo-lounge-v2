@@ -1,0 +1,16 @@
+{
+  "functionName": "countVowels",
+  "args": ["s"],
+  "cases": [
+    {"input":["hello"],"expected":2},
+    {"input":["PROGRAMMING"],"expected":3},
+    {"input":[""],"expected":0},
+    {"input":["bcdfg"],"expected":0},
+    {"input":["aeiou"],"expected":5},
+    {"input":["AEIOU"],"expected":5},
+    {"input":["The quick brown fox"],"expected":5},
+    {"input":["xyz"],"expected":0},
+    {"input":["Education"],"expected":5},
+    {"input":["rhythm"],"expected":0}
+  ]
+}

@@ -1,0 +1,56 @@
+---
+title: 3Sum — Solution
+---
+## 3Sum
+
+**Algorithm:**
+
+1. Sort the array to enable two pointers technique
+2. Fix first element and use two pointers for remaining two
+3. Skip duplicates to avoid duplicate triplets
+4. Move pointers based on sum comparison with target
+
+**Time Complexity:** O(n²) - nested loops with two pointers
+
+**Space Complexity:** O(1) - excluding output array
+
+**Key Insights:**
+
+- Sorting enables duplicate skipping and two pointers
+- Fix one element, find pair with remaining two pointers
+- Careful duplicate handling prevents redundant results
+
+```python
+def three_sum(nums):
+    nums.sort()
+    result = []
+    n = len(nums)
+    
+    for i in range(n-2):
+        # Skip duplicates for first number
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+        
+        left, right = i+1, n-1
+        
+        while left < right:
+            current_sum = nums[i] + nums[left] + nums[right]
+            
+            if current_sum == 0:
+                result.append([nums[i], nums[left], nums[right]])
+                
+                # Skip duplicates
+                while left < right and nums[left] == nums[left+1]:
+                    left += 1
+                while left < right and nums[right] == nums[right-1]:
+                    right -= 1
+                
+                left += 1
+                right -= 1
+            elif current_sum < 0:
+                left += 1
+            else:
+                right -= 1
+    
+    return result
+```

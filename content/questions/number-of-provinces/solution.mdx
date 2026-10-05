@@ -1,0 +1,28 @@
+---
+title: Number of Provinces — Solution
+---
+## Count Connected Components
+
+Start a depth-first search from every city that has not been visited. One search reaches exactly one province, so the number of searches is the answer.
+
+**Time:** O(n²) for the adjacency matrix. **Space:** O(n).
+
+```python
+def find_circle_num(isConnected):
+    n = len(isConnected)
+    visited = [False] * n
+    provinces = 0
+    for city in range(n):
+        if visited[city]:
+            continue
+        provinces += 1
+        visited[city] = True
+        stack = [city]
+        while stack:
+            current = stack.pop()
+            for neighbor, connected in enumerate(isConnected[current]):
+                if connected and not visited[neighbor]:
+                    visited[neighbor] = True
+                    stack.append(neighbor)
+    return provinces
+```

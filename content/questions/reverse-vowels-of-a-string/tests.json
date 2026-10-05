@@ -1,0 +1,13 @@
+{
+  "functionName": "reverseVowels",
+  "args": ["s"],
+  "cases": [
+    {"input":["IceCreAm"],"expected":"AceCreIm"},
+    {"input":["leetcode"],"expected":"leotcede"},
+    {"input":["hello"],"expected":"holle"},
+    {"input":["aA"],"expected":"Aa"},
+    {"input":["xyz"],"expected":"xyz"},
+    {"input":["aeiou"],"expected":"uoiea"},
+    {"input":["a"],"expected":"a"}
+  ]
+}

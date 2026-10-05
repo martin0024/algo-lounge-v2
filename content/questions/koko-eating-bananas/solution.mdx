@@ -1,0 +1,36 @@
+---
+title: Koko Eating Bananas — Solution
+---
+## Koko Eating Bananas
+
+**Key Insight:** This is a classic *binary search on the answer* problem. The answer `k` lies in the range `[1, max(piles)]`. For a given speed `k`, the total hours needed is `sum(ceil(p / k) for p in piles)`. This is a monotone decreasing function of `k`, so we can binary search for the smallest valid `k`.
+
+**Algorithm:**
+
+1. Set `left = 1`, `right = max(piles)`.
+2. At each `mid`, compute the total hours needed.
+3. If hours `<= h`, the speed is feasible — try slower (move right pointer left).
+4. Otherwise try faster (move left pointer right).
+5. Return `left`.
+
+**Time Complexity:** O(n log m) where m = max(piles)
+
+**Space Complexity:** O(1)
+
+```python
+import math
+
+def min_eating_speed(piles, h):
+    left, right = 1, max(piles)
+
+    while left < right:
+        mid = (left + right) // 2
+        hours = sum(math.ceil(p / mid) for p in piles)
+
+        if hours <= h:
+            right = mid
+        else:
+            left = mid + 1
+
+    return left
+```

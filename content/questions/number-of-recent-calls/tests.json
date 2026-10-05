@@ -1,0 +1,15 @@
+{
+  "functionName": "RecentCounter",
+  "args": ["operations", "arguments"],
+  "harness": "design",
+  "cases": [
+    {"input":[["RecentCounter","ping","ping","ping","ping"],[[],[1],[100],[3001],[3002]]],"expected":[null,1,2,3,3]},
+    {"input":[["RecentCounter","ping","ping","ping","ping","ping"],[[],[1],[2],[3],[4],[3004]]],"expected":[null,1,2,3,4,2]},
+    {"input":[["RecentCounter","ping"],[[],[642]]],"expected":[null,1]},
+    {"input":[["RecentCounter","ping","ping","ping","ping","ping","ping","ping"],[[],[1],[1000],[2000],[3000],[4000],[5000],[6000]]],"expected":[null,1,2,3,4,4,4,4]},
+    {"input":[["RecentCounter","ping","ping","ping"],[[],[1000],[2000],[5001]]],"expected":[null,1,2,1]},
+    {"input":[["RecentCounter","ping","ping","ping","ping","ping"],[[],[100],[200],[3100],[3200],[6300]]],"expected":[null,1,2,3,3,1]},
+    {"input":[["RecentCounter","ping","ping","ping","ping","ping","ping"],[[],[1],[50],[100],[3050],[3100],[6100]]],"expected":[null,1,2,3,3,3,2]},
+    {"input":[["RecentCounter","ping","ping","ping","ping","ping","ping","ping","ping"],[[],[500],[1500],[2500],[3500],[4500],[5500],[6500],[7500]]],"expected":[null,1,2,3,4,4,4,4,4]}
+  ]
+}

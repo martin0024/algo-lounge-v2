@@ -1,0 +1,24 @@
+export class MyQueue {
+  constructor() {
+    // Your code here
+  }
+
+  enqueue(x: unknown): void {
+    // Your code here
+  }
+
+  dequeue(): unknown {
+    // Your code here
+    return null
+  }
+
+  front(): unknown {
+    // Your code here
+    return null
+  }
+
+  empty(): boolean {
+    // Your code here
+    return false
+  }
+}

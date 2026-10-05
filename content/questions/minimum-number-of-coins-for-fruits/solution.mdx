@@ -1,0 +1,62 @@
+---
+title: Minimum Number of Coins for Fruits — Solution
+---
+## Minimum Number of Coins for Fruits
+
+**Approach 1: Dynamic Programming**
+
+1. Define dp\[i] as the minimum cost to acquire all fruits from index i to the end
+
+2. For each position i, we have two choices:
+
+   - Buy fruit i: cost is prices\[i] + min(dp\[i+1], dp\[i+2], ..., dp\[min(i+i+1, n)])
+   - The range represents all fruits we can get for free after buying fruit i
+
+3. Work backwards from the last fruit to the first
+
+4. Return dp\[0]
+
+**Time Complexity:** O(n²) for basic DP
+
+**Space Complexity:** O(n)
+
+**Approach 2: DP + Monotonic Deque (Optimized)**
+
+1. Use a monotonic deque to efficiently find the minimum in the range
+2. The deque maintains indices in increasing order of their dp values
+3. As we process each position, we remove elements outside our range and elements with higher dp values
+4. This optimizes the range minimum query from O(n) to O(1)
+
+**Time Complexity:** O(n)
+
+**Space Complexity:** O(n)
+
+**Key Insights:**
+
+- Buying earlier fruits can give more free fruits, but they cost more
+- We need to find the optimal balance between cost and free fruits
+- The problem has optimal substructure - we can solve smaller subproblems
+- Monotonic deque is useful for sliding window minimum problems
+
+```python
+def minimum_coins(prices):
+    n = len(prices)
+    # dp[i] represents minimum coins needed to get all fruits from index i onwards
+    # We use 1-indexed as per problem, so adjust
+    dp = [float('inf')] * (n + 1)
+    dp[n] = 0  # No cost for empty range
+    
+    # Process from right to left
+    for i in range(n - 1, -1, -1):
+        # If we buy fruit at index i (1-indexed: i+1)
+        # We can get next i+1 fruits for free
+        # So we need to check positions from i+1 to min(i+1+i+1, n)
+        for j in range(i + 1, min(i + 1 + i + 1, n) + 1):
+            dp[i] = min(dp[i], prices[i] + dp[j])
+        
+        # Edge case: if we can reach the end with free fruits
+        if i + 1 + i + 1 >= n:
+            dp[i] = min(dp[i], prices[i])
+    
+    return dp[0]
+```

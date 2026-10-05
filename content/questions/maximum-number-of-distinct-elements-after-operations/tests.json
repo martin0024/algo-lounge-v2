@@ -1,0 +1,18 @@
+{
+  "functionName": "maxDistinctElements",
+  "args": ["nums", "k"],
+  "cases": [
+    {"input":[[1,2,2,3,3,4],2],"expected":6},
+    {"input":[[4,4,4,4],1],"expected":3},
+    {"input":[[1],0],"expected":1},
+    {"input":[[1,1,1,1,1],0],"expected":1},
+    {"input":[[1,1,1,1,1],2],"expected":5},
+    {"input":[[1,2,3,4,5],0],"expected":5},
+    {"input":[[5,5,5,5,5,5,5],3],"expected":7},
+    {"input":[[10,20,30,40],5],"expected":4},
+    {"input":[[1,1,2,2,3,3,4,4,5,5],1],"expected":7},
+    {"input":[[100,100,100],1000000000],"expected":3},
+    {"input":[[7,7,7,7,7,7,7,7,7,7],5],"expected":10},
+    {"input":[[3,1,4,1,5,9,2,6,5,3,5],2],"expected":11}
+  ]
+}

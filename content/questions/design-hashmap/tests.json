@@ -1,0 +1,17 @@
+{
+  "functionName": "MyHashMap",
+  "args": ["operations", "arguments"],
+  "harness": "design",
+  "cases": [
+    {"input":[["MyHashMap","put","put","get","get","put","get","remove","get"],[[],[1,1],[2,2],[1],[3],[2,1],[2],[2],[2]]],"expected":[null,null,null,1,-1,null,1,null,-1]},
+    {"input":[["MyHashMap","put","put","get","remove","get"],[[],[1,10],[1,20],[1],[1],[1]]],"expected":[null,null,null,20,null,-1]},
+    {"input":[["MyHashMap","get","put","get","put","get","get"],[[],[10],[10,100],[10],[10,200],[10],[0]]],"expected":[null,-1,null,100,null,200,-1]},
+    {"input":[["MyHashMap","put","remove","put","remove","get","get"],[[],[5,50],[5],[5,55],[0],[5],[0]]],"expected":[null,null,null,null,null,55,-1]},
+    {"input":[["MyHashMap","put","put","put","get","get","get"],[[],[1,1],[1001,2],[2001,3],[1],[1001],[2001]]],"expected":[null,null,null,null,1,2,3]},
+    {"input":[["MyHashMap","put","put","remove","remove","get","get"],[[],[0,0],[1000000,1],[0],[1000000],[0],[1000000]]],"expected":[null,null,null,null,null,-1,-1]},
+    {"input":[["MyHashMap","put","put","get","put","get"],[[],[1,1],[2,2],[1],[2,1],[2]]],"expected":[null,null,null,1,null,1]},
+    {"input":[["MyHashMap","remove","get"],[[],[14],[14]]],"expected":[null,null,-1]},
+    {"input":[["MyHashMap","put","put","put","remove","remove","remove"],[[],[1,1],[2,2],[3,3],[1],[2],[3]]],"expected":[null,null,null,null,null,null,null]},
+    {"input":[["MyHashMap","put","get","put","get"],[[],[1,1],[1],[1,2],[1]]],"expected":[null,null,1,null,2]}
+  ]
+}

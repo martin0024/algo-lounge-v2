@@ -1,0 +1,44 @@
+---
+title: Maximum Depth of Binary Tree
+difficulty: easy
+tags:
+  - trees
+migratedFrom: 'algolounge:maximum-depth-of-binary-tree'
+---
+Leetcode 104. Maximum Depth of Binary Tree
+
+Given the `root` of a binary tree, return its **depth**.
+
+The **depth** of a binary tree is defined as the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  root = [3,9,20,null,null,15,7]
+```
+
+3 / \ 9 20 / \ 15 7Output: 3 (depth: 3 levels)
+
+**Example 2**
+
+```
+Input:  root = [1,null,2]
+```
+
+1 \ 2Output: 2
+
+**Example 3**
+
+```
+Input:  root = []
+Output: 0
+```
+
+## Constraints
+
+- 0 \<= The number of nodes in the tree \<= 100
+- -100 \<= Node.val \<= 100
+
+> **How the tests work:** trees are written as level-order arrays — `[1,null,2]` is a root `1` with a right child `2`. Your function receives real `TreeNode` objects.

@@ -1,0 +1,14 @@
+{
+  "functionName": "getSum",
+  "args": ["a", "b"],
+  "cases": [
+    {"input":[1,2],"expected":3},
+    {"input":[2,3],"expected":5},
+    {"input":[0,0],"expected":0},
+    {"input":[-1,1],"expected":0},
+    {"input":[5,7],"expected":12},
+    {"input":[-12,-8],"expected":-20},
+    {"input":[100,-100],"expected":0},
+    {"input":[15,15],"expected":30}
+  ]
+}

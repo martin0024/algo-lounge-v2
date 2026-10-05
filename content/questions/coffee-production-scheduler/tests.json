@@ -1,0 +1,11 @@
+{
+  "functionName": "calculateCoffees",
+  "args": ["schedule"],
+  "cases": [
+    {"input":["wwww"],"expected":15},
+    {"input":["wwbw"],"expected":15},
+    {"input":["wwwbwww"],"expected":30},
+    {"input":["wwwww"],"expected":15},
+    {"input":["bbbwww"],"expected":15}
+  ]
+}

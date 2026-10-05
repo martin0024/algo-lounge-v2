@@ -1,0 +1,42 @@
+---
+title: Number of Visible People in a Queue — Solution
+---
+## Number of Visible People in a Queue
+
+**Algorithm (Monotonic Decreasing Stack, Right to Left):**
+
+1. Process each person from right to left, maintaining a monotonic decreasing stack of heights seen so far
+
+2. For each person at index `i`, count how many people they can see:
+
+   - While the stack top is shorter than `heights[i]`, pop it — this shorter person is visible and then becomes blocked by the next taller person
+   - If the stack still has an element after the while loop, that person is also visible (they are the first one taller than person `i`)
+
+3. Push `heights[i]` onto the stack
+
+**Time Complexity:** O(n) — each height is pushed and popped at most once
+
+**Space Complexity:** O(n) for the stack
+
+**Key Insights:**
+
+- A shorter person between `i` and `j` never blocks visibility — only someone taller than both blocks the view
+- Once a height is popped (consumed by a taller person scanning left), it can never be visible to anyone further left — making each pop permanent
+- The +1 after the while loop accounts for the first blocking taller person, who is visible precisely because they terminated the scan
+
+```python
+def can_see_persons_count(heights):
+    n = len(heights)
+    result = [0] * n
+    stack = []
+    for i in range(n - 1, -1, -1):
+        count = 0
+        while stack and heights[i] > stack[-1]:
+            stack.pop()
+            count += 1
+        if stack:
+            count += 1
+        result[i] = count
+        stack.append(heights[i])
+    return result
+```

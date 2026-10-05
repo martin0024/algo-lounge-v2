@@ -1,0 +1,16 @@
+{
+  "functionName": "reverseString",
+  "args": ["s"],
+  "cases": [
+    {"input":["hello"],"expected":"olleh"},
+    {"input":["abc"],"expected":"cba"},
+    {"input":[""],"expected":""},
+    {"input":["a"],"expected":"a"},
+    {"input":["hello world"],"expected":"dlrow olleh"},
+    {"input":["12345"],"expected":"54321"},
+    {"input":["racecar"],"expected":"racecar"},
+    {"input":["Python"],"expected":"nohtyP"},
+    {"input":["  spaces  "],"expected":"  secaps  "},
+    {"input":["!@#"],"expected":"#@!"}
+  ]
+}

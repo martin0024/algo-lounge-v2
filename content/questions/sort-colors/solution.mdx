@@ -1,0 +1,44 @@
+---
+title: Sort Colors — Solution
+---
+## Sort Colors - Dutch National Flag Algorithm
+
+**Algorithm:**
+
+1. Initialize three pointers: left = 0, mid = 0, right = len(nums) - 1
+2. Iterate while mid \<= right
+3. If nums\[mid] == 0, swap with left pointer, increment both left and mid
+4. If nums\[mid] == 1, just increment mid
+5. If nums\[mid] == 2, swap with right pointer, decrement right
+6. Continue until mid passes right pointer
+
+**Time Complexity:** O(n) - single pass through array
+
+**Space Complexity:** O(1) - only using pointers
+
+**Key Insights:**
+
+- Dutch National Flag algorithm is optimal for this problem
+- Three-pointer partition maintains 0s on left, 1s in middle, 2s on right
+- One pass with constant space - best possible
+- When swapping with right, don't increment mid (might get another 2)
+- All elements to the left of left pointer are 0s
+- All elements to the right of right pointer are 2s
+
+```python
+def sort_colors(nums):
+    left = 0
+    mid = 0
+    right = len(nums) - 1
+    
+    while mid <= right:
+        if nums[mid] == 0:
+            nums[left], nums[mid] = nums[mid], nums[left]
+            left += 1
+            mid += 1
+        elif nums[mid] == 1:
+            mid += 1
+        else:  # nums[mid] == 2
+            nums[mid], nums[right] = nums[right], nums[mid]
+            right -= 1
+```

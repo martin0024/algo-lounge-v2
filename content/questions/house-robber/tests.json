@@ -1,0 +1,16 @@
+{
+  "functionName": "rob",
+  "args": ["nums"],
+  "cases": [
+    {"input":[[1,2,3,1]],"expected":4},
+    {"input":[[2,7,9,3,1]],"expected":12},
+    {"input":[[0]],"expected":0},
+    {"input":[[0,0]],"expected":0},
+    {"input":[[2,1]],"expected":2},
+    {"input":[[2,1,1,2]],"expected":4},
+    {"input":[[5,5,10,100,10,5]],"expected":110},
+    {"input":[[1,2,3,4,5,6,7,8,9,10]],"expected":30},
+    {"input":[[400,0,400,0,400]],"expected":1200},
+    {"input":[[6,7,1,30,8,2,4]],"expected":41}
+  ]
+}

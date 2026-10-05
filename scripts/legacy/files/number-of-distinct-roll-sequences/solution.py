@@ -1,0 +1,23 @@
+from math import gcd
+
+MOD = 10**9 + 7
+
+
+def distinct_sequences(n: int) -> int:
+    # dp[a][b]: sequences whose last two rolls are a then b (a = 0: none yet).
+    if n == 1:
+        return 6
+    dp = [[0] * 7 for _ in range(7)]
+    for b in range(1, 7):
+        dp[0][b] = 1
+    for _ in range(n - 1):
+        new = [[0] * 7 for _ in range(7)]
+        for a in range(7):
+            for b in range(1, 7):
+                if not dp[a][b]:
+                    continue
+                for c in range(1, 7):
+                    if c != b and c != a and gcd(b, c) == 1:
+                        new[b][c] = (new[b][c] + dp[a][b]) % MOD
+        dp = new
+    return sum(map(sum, dp)) % MOD

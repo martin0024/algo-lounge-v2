@@ -1,0 +1,33 @@
+---
+title: Maximum Subarray Sum After Multiplier — Solution
+---
+## Reference solution
+
+```python
+def max_subarray_sum(nums: list[int], k: int) -> int:
+    # The transformed part of the summed subarray is a contiguous (possibly
+    # empty) piece of it. Kadane with three states: before / inside / after
+    # the transformed piece, once for "multiply" and once for "divide".
+    def divide(x):
+        return x // k if x >= 0 else -((-x) // k)
+
+    best = float("-inf")
+    for transform in (lambda x: x * k, divide):
+        before = inside = after = float("-inf")
+        for x in nums:
+            t = transform(x)
+            after = max(inside, after) + x
+            inside = max(before, inside, 0) + t
+            before = max(before, 0) + x
+            best = max(best, inside, after)
+
+    # Or leave the summed subarray untouched and transform elsewhere — only
+    # possible when it isn't the whole array.
+    if len(nums) >= 2:
+        for part in (nums[1:], nums[:-1]):
+            run = float("-inf")
+            for x in part:
+                run = max(run, 0) + x
+                best = max(best, run)
+    return best
+```

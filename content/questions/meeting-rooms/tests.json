@@ -1,0 +1,11 @@
+{
+  "functionName": "canAttendMeetings",
+  "args": ["intervals"],
+  "cases": [
+    {"input":[[[0,30],[5,10],[15,20]]],"expected":false},
+    {"input":[[[7,10],[2,4]]],"expected":true},
+    {"input":[[]],"expected":true},
+    {"input":[[[1,5],[8,9]]],"expected":true},
+    {"input":[[[1,5],[5,9]]],"expected":true}
+  ]
+}

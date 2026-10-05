@@ -1,0 +1,36 @@
+---
+title: Backspace String Compare — Solution
+---
+## Backspace String Compare
+
+**Algorithm:**
+
+1. Build the final string for both s and t using a stack
+2. For each character, if it's '#', pop from stack (if non-empty)
+3. Otherwise, push the character onto the stack
+4. Compare the two resulting stacks
+
+**Time Complexity:** O(n + m) where n and m are the lengths of s and t
+
+**Space Complexity:** O(n + m) for the two stacks
+
+**Key Insights:**
+
+- Stack naturally handles the backspace operation (push characters, pop on '#')
+- Process both strings independently, then compare results
+- Handle edge case where '#' appears when stack is empty
+
+```python
+def backspace_compare(s, t):
+    def build(string):
+        stack = []
+        for char in string:
+            if char == '#':
+                if stack:
+                    stack.pop()
+            else:
+                stack.append(char)
+        return stack
+    
+    return build(s) == build(t)
+```

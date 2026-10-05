@@ -1,0 +1,8 @@
+{
+  "functionName": "maxSubarraySum",
+  "args": ["nums", "k"],
+  "cases": [
+    {"input":[[1,-2,3,4,-5],2],"expected":14},
+    {"input":[[-5,-4,-3],2],"expected":-1}
+  ]
+}

@@ -1,0 +1,29 @@
+---
+title: House Robber — Solution
+---
+## Approach: best total up to each house
+
+At each house, choose between skipping it and keeping the best total so far, or robbing it and adding its money to the best total from two houses earlier.
+
+1. Let `two_back` be the best total before the previous house and `one_back` the best total through the previous house.
+2. For each amount, compute `current = max(one_back, two_back + amount)`.
+3. Shift the saved totals forward.
+4. Return `one_back`.
+
+**Why it works:** An optimal plan through the current house either excludes it, giving `one_back`, or includes it, which forbids only the previous house and gives `two_back + amount`.
+
+**Complexity:** For `n` houses, `O(n)` time and `O(1)` extra space.
+
+**Pitfall:** A locally largest house is not always part of the best global plan.
+
+```python
+def rob(nums):
+    two_back = 0
+    one_back = 0
+
+    for amount in nums:
+        current = max(one_back, two_back + amount)
+        two_back, one_back = one_back, current
+
+    return one_back
+```

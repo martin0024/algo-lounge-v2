@@ -1,0 +1,77 @@
+---
+title: Find in Mountain Array — Solution
+---
+## Reference solution
+
+```typescript
+interface MountainArray {
+  get(index: number): number
+  length(): number
+}
+
+export function findInMountainArray(
+  mountainArr: MountainArray,
+  target: number
+): number {
+  const n = mountainArr.length()
+  // 1. Binary search for the peak.
+  let lo = 0
+  let hi = n - 1
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1
+    if (mountainArr.get(mid) < mountainArr.get(mid + 1)) lo = mid + 1
+    else hi = mid
+  }
+  const peak = lo
+  // 2. Search the rising side, then the falling side.
+  const search = (from: number, to: number, rising: boolean) => {
+    while (from <= to) {
+      const mid = (from + to) >> 1
+      const value = mountainArr.get(mid)
+      if (value === target) return mid
+      if (value < target === rising) from = mid + 1
+      else to = mid - 1
+    }
+    return -1
+  }
+  const left = search(0, peak, true)
+  return left !== -1 ? left : search(peak + 1, n - 1, false)
+}
+```
+
+```python
+def find_in_mountain_array(mountain_arr: "MountainArray", target: int) -> int:
+    # Three binary searches: the peak, then the rising side, then the falling side.
+    n = mountain_arr.length()
+    lo, hi = 0, n - 1
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if mountain_arr.get(mid) < mountain_arr.get(mid + 1):
+            lo = mid + 1
+        else:
+            hi = mid
+    peak = lo
+
+    lo, hi = 0, peak
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        value = mountain_arr.get(mid)
+        if value == target:
+            return mid
+        if value < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+
+    lo, hi = peak + 1, n - 1
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        value = mountain_arr.get(mid)
+        if value == target:
+            return mid
+        if value > target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1
+```

@@ -1,0 +1,27 @@
+---
+title: Sum of Digits Times Seven — Solution
+---
+## Sum of Digits Times Seven
+
+**Algorithm:**
+
+1. Convert number to string to iterate digits
+2. Sum all digits
+3. Multiply by 7
+
+**Time Complexity:** O(d) - where d is number of digits
+
+**Space Complexity:** O(1) - constant space
+
+**Key Insights:**
+
+- String conversion simplifies digit extraction (vs modulo/division)
+- Generator expression with sum() is memory efficient
+- Each character digit needs int() conversion to perform addition
+- Number of digits ≈ log₁₀(n), very small even for large numbers
+
+```python
+def sum_digits_times7(n):
+    digit_sum = sum(int(d) for d in str(n))
+    return digit_sum * 7
+```

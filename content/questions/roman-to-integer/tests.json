@@ -1,0 +1,16 @@
+{
+  "functionName": "romanToInt",
+  "args": ["s"],
+  "cases": [
+    {"input":["III"],"expected":3},
+    {"input":["IV"],"expected":4},
+    {"input":["IX"],"expected":9},
+    {"input":["LVIII"],"expected":58},
+    {"input":["MCMXCIV"],"expected":1994},
+    {"input":["XL"],"expected":40},
+    {"input":["XC"],"expected":90},
+    {"input":["CD"],"expected":400},
+    {"input":["CM"],"expected":900},
+    {"input":["MMMDCCXLIX"],"expected":3749}
+  ]
+}

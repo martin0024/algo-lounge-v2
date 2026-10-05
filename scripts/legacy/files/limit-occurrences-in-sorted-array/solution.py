@@ -1,0 +1,7 @@
+def limit_occurrences(nums: list[int], k: int) -> list[int]:
+    # nums is sorted: keep x unless the last k kept values are already x.
+    result = []
+    for x in nums:
+        if len(result) < k or result[-k] != x:
+            result.append(x)
+    return result

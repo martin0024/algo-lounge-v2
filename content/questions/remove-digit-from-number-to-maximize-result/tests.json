@@ -1,0 +1,16 @@
+{
+  "functionName": "removeDigit",
+  "args": ["number", "digit"],
+  "cases": [
+    {"input":["123","3"],"expected":"12"},
+    {"input":["1231","1"],"expected":"231"},
+    {"input":["551","5"],"expected":"51"},
+    {"input":["12345","1"],"expected":"2345"},
+    {"input":["987654","4"],"expected":"98765"},
+    {"input":["76557","5"],"expected":"7657"},
+    {"input":["919191","9"],"expected":"91911"},
+    {"input":["112","1"],"expected":"12"},
+    {"input":["999","9"],"expected":"99"},
+    {"input":["6786876","6"],"expected":"786876"}
+  ]
+}

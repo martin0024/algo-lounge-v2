@@ -1,0 +1,55 @@
+---
+title: Remove Nth Node From End of List — Solution
+---
+## Remove Nth Node From End of List
+
+**Algorithm:**
+
+1. Use two pointers technique with n+1 gap
+2. Move first pointer n steps ahead
+3. Move both pointers until first reaches end
+4. Second pointer will be at node before target
+5. Remove target node by adjusting pointers
+
+**Time Complexity:** O(L) where L is length of list
+
+**Space Complexity:** O(1) - only using constant extra space
+
+**Key Insights:**
+
+- Two pointers maintain constant gap
+- Use dummy node to handle edge cases
+- One pass solution
+- Handle removing head node correctly
+
+```python
+class ListNode:
+    def __init__(self, val: int = 0, next: "ListNode | None" = None):
+        self.val = val
+        self.next = next
+
+
+
+def remove_nth_from_end(head, n):
+    # Create dummy node to handle edge cases
+    dummy = ListNode(0)
+    dummy.next = head
+    
+    # Two pointers
+    first = dummy
+    second = dummy
+    
+    # Move first pointer n+1 steps ahead
+    for i in range(n + 1):
+        first = first.next
+    
+    # Move both pointers until first reaches end
+    while first is not None:
+        first = first.next
+        second = second.next
+    
+    # Remove the nth node from end
+    second.next = second.next.next
+    
+    return dummy.next
+```

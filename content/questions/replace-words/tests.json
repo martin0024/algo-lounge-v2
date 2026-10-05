@@ -1,0 +1,9 @@
+{
+  "functionName": "replaceWords",
+  "args": ["dictionary", "sentence"],
+  "cases": [
+    {"input":[["cat","bat","rat"],"the cattle was rattled by the battery"],"expected":"the cat was rat by the bat"},
+    {"input":[["a","b","c"],"aadsfasf absbs bbab cadsfafs"],"expected":"a a b c"},
+    {"input":[["ca","cat","cats"],"cat cats concatenate"],"expected":"ca ca concatenate"}
+  ]
+}

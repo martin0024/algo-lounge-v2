@@ -1,0 +1,16 @@
+{
+  "functionName": "CarFactory",
+  "args": ["operations"],
+  "cases": [
+    {"input":[["carFactory = CarFactory()","myCar = carFactory.createVehicle()","myCar.getType()"]],"expected":[null,null,"Car"]},
+    {"input":[["bikeFactory = BikeFactory()","myBike = bikeFactory.createVehicle()","myBike.getType()"]],"expected":[null,null,"Bike"]},
+    {"input":[["truckFactory = TruckFactory()","myTruck = truckFactory.createVehicle()","myTruck.getType()"]],"expected":[null,null,"Truck"]},
+    {"input":[["carFactory = CarFactory()","bikeFactory = BikeFactory()","truckFactory = TruckFactory()","car = carFactory.createVehicle()","bike = bikeFactory.createVehicle()","truck = truckFactory.createVehicle()","car.getType()","bike.getType()","truck.getType()"]],"expected":[null,null,null,null,null,null,"Car","Bike","Truck"]},
+    {"input":[["f1 = CarFactory()","f2 = CarFactory()","v1 = f1.createVehicle()","v2 = f2.createVehicle()","v1.getType()","v2.getType()"]],"expected":[null,null,null,null,"Car","Car"]},
+    {"input":[["factory = BikeFactory()","b1 = factory.createVehicle()","b2 = factory.createVehicle()","b3 = factory.createVehicle()","b1.getType()","b2.getType()","b3.getType()"]],"expected":[null,null,null,null,"Bike","Bike","Bike"]},
+    {"input":[["tf = TruckFactory()","t = tf.createVehicle()","t.getType()"]],"expected":[null,null,"Truck"]},
+    {"input":[["a = CarFactory()","b = BikeFactory()","c = TruckFactory()","x = a.createVehicle()","y = b.createVehicle()","z = c.createVehicle()","z.getType()","y.getType()","x.getType()"]],"expected":[null,null,null,null,null,null,"Truck","Bike","Car"]},
+    {"input":[["carFactory = CarFactory()","car1 = carFactory.createVehicle()","car1.getType()","car2 = carFactory.createVehicle()","car2.getType()"]],"expected":[null,null,"Car",null,"Car"]},
+    {"input":[["bf = BikeFactory()","cf = CarFactory()","bike = bf.createVehicle()","car = cf.createVehicle()","bike.getType()","car.getType()","bike.getType()"]],"expected":[null,null,null,null,"Bike","Car","Bike"]}
+  ]
+}

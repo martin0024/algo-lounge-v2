@@ -1,0 +1,44 @@
+---
+title: Implement Linked List
+difficulty: easy
+tags:
+  - linked-list
+  - data-structure-design
+migratedFrom: 'algolounge:implement-linked-list'
+---
+Implement a singly linked list data structure with a `Node` class and a `LinkedList` class that supports the following operations:
+
+- `prepend(val)`: Prepend a new node with the given value to the beginning of the list
+- `append(val)`: Append a new node with the given value at the end of the list
+- `get(index)`: Return the value of the node at the specified index. Return `-1` if the index is invalid
+- `insert(index, val)`: Insert a new node with the given value at the specified index. If the index is greater than the length, append to the end
+- `delete(index)`: Delete the node at the specified index. Do nothing if the index is invalid
+
+The `Node` class should have:
+
+- `val`: The value stored in the node
+- `next`: A pointer to the next node (initially `None`)
+
+## Examples
+
+**Example 1**
+
+```
+Input:  ["LinkedList()", "append(1)", "append(2)", "get(1)", "prepend(0)", "get(0)"]
+Output: [null, null, null, 2, null, 0]
+```
+
+**Example 2**
+
+```
+Input:  ["LinkedList()", "append(1)", "append(2)", "append(3)", "delete(1)", "get(1)"]
+Output: [null, null, null, null, null, 3]
+```
+
+## Constraints
+
+- `0 <= index <= 1000`
+- `-1000 <= val <= 1000`
+- At most `1000` calls will be made to the methods
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

@@ -1,0 +1,40 @@
+---
+title: Maximize Value of Function in a Ball Passing Game — Solution
+---
+## Binary Lifting
+
+Precompute, for every player and power of two, both the destination after that many passes and the sum of receiver indices encountered. Decompose k into powers of two to score each starting player in O(log k).
+
+**Time:** O(n log k). **Space:** O(n log k).
+
+```python
+def get_max_function_value(receiver, k):
+    n = len(receiver)
+    levels = k.bit_length()
+    jump = [receiver[:]]
+    total = [[receiver[i] for i in range(n)]]
+
+    for _ in range(1, levels):
+        previous_jump = jump[-1]
+        previous_total = total[-1]
+        jump.append([previous_jump[previous_jump[i]] for i in range(n)])
+        total.append([
+            previous_total[i] + previous_total[previous_jump[i]]
+            for i in range(n)
+        ])
+
+    answer = 0
+    for start in range(n):
+        node = start
+        score = start
+        passes = k
+        bit = 0
+        while passes:
+            if passes & 1:
+                score += total[bit][node]
+                node = jump[bit][node]
+            passes >>= 1
+            bit += 1
+        answer = max(answer, score)
+    return answer
+```

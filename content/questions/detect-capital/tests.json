@@ -1,0 +1,16 @@
+{
+  "functionName": "detectCapitalUse",
+  "args": ["word"],
+  "cases": [
+    {"input":["USA"],"expected":true},
+    {"input":["FlaG"],"expected":false},
+    {"input":["leetcode"],"expected":true},
+    {"input":["Google"],"expected":true},
+    {"input":["g"],"expected":true},
+    {"input":["Z"],"expected":true},
+    {"input":["mL"],"expected":false},
+    {"input":["LeetCode"],"expected":false},
+    {"input":["PYTHON"],"expected":true},
+    {"input":["Python"],"expected":true}
+  ]
+}

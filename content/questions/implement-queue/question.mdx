@@ -1,0 +1,45 @@
+---
+title: Implement Queue
+difficulty: easy
+tags:
+  - queue
+  - data-structure-design
+migratedFrom: 'algolounge:implement-queue'
+---
+Implement a queue data structure with the following operations:
+
+- `enqueue(val)`: Add an element to the end of the queue
+- `dequeue()`: Remove and return the front element from the queue
+- `front()`: Return the front element without removing it
+- `empty()`: Return whether the queue is empty
+
+You can choose to implement the queue using either:
+
+- **Linked List** - Each node points to the next node
+- **Circular Array** - Fixed-size array with wrapping
+
+## Examples
+
+**Example 1**
+
+```
+Input:  ["Queue", "enqueue", "enqueue", "front", "dequeue", "empty"]
+```
+
+\[\[], \[1], \[2], \[], \[], \[]] Output: \[null, null, null, 1, 1, false]
+
+**Example 2**
+
+```
+Input:  ["Queue", "enqueue", "dequeue", "empty"]
+```
+
+\[\[], \[10], \[], \[]] Output: \[null, null, 10, true]
+
+## Constraints
+
+- `1 <= val <= 10^9`
+- At most `10^4` calls will be made to each function
+- `dequeue` and `front` will only be called on non-empty queues
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

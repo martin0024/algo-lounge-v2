@@ -1,0 +1,38 @@
+---
+title: Longest Repeating Character Replacement — Solution
+---
+## Longest Repeating Character Replacement
+
+**Algorithm (Sliding Window with Frequency Count):**
+
+1. Use a sliding window with left pointer `l` and right pointer `r`.
+2. Track the frequency of each character in the window.
+3. Track `max_freq` — the count of the most frequent character in the window.
+4. If `window_size - max_freq > k`, we need more than `k` replacements, so shrink from the left.
+5. The answer is the maximum window size seen.
+
+**Time Complexity:** O(n)
+
+**Space Complexity:** O(1) — at most 26 characters
+
+**Key Insight:** We don't need to decrease `max_freq` when shrinking the window. It only needs to increase to find a longer valid window.
+
+```python
+def character_replacement(s, k):
+    count = {}
+    l = 0
+    max_freq = 0
+    res = 0
+    
+    for r in range(len(s)):
+        count[s[r]] = count.get(s[r], 0) + 1
+        max_freq = max(max_freq, count[s[r]])
+        
+        while (r - l + 1) - max_freq > k:
+            count[s[l]] -= 1
+            l += 1
+        
+        res = max(res, r - l + 1)
+    
+    return res
+```

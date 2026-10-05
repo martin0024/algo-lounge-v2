@@ -1,0 +1,16 @@
+{
+  "functionName": "sumDigitsTimes7",
+  "args": ["n"],
+  "cases": [
+    {"input":[123],"expected":42},
+    {"input":[999],"expected":189},
+    {"input":[0],"expected":0},
+    {"input":[5],"expected":35},
+    {"input":[1000],"expected":7},
+    {"input":[111],"expected":21},
+    {"input":[9999],"expected":252},
+    {"input":[1234],"expected":70},
+    {"input":[100],"expected":7},
+    {"input":[777],"expected":147}
+  ]
+}

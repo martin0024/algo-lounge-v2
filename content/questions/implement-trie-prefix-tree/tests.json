@@ -1,0 +1,11 @@
+{
+  "functionName": "Trie",
+  "args": ["operations", "arguments"],
+  "harness": "design",
+  "cases": [
+    {"input":[["Trie","insert","search","search","startsWith","insert","search"],[[],["apple"],["apple"],["app"],["app"],["app"],["app"]]],"expected":[null,null,true,false,true,null,true]},
+    {"input":[["Trie","insert","search","search","startsWith"],[[],["a"],["a"],["ab"],["a"]]],"expected":[null,null,true,false,true]},
+    {"input":[["Trie","insert","startsWith","startsWith","search","search"],[[],["hello"],["hell"],["hello"],["hello"],["hell"]]],"expected":[null,null,true,true,true,false]},
+    {"input":[["Trie","insert","search","startsWith","startsWith","search"],[[],["xyz"],["xyz"],["x"],["xy"],["x"]]],"expected":[null,null,true,true,true,false]}
+  ]
+}

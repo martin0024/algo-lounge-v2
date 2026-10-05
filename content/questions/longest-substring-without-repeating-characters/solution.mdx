@@ -1,0 +1,32 @@
+---
+title: Longest Substring Without Repeating Characters — Solution
+---
+## Longest Substring Without Repeating Characters
+
+**Algorithm (Sliding Window with Hash Set):**
+
+1. Use two pointers `l` and `r` to define a sliding window.
+2. Use a set to track characters in the current window.
+3. Expand the window by moving `r` right.
+4. If a duplicate is found, shrink the window from the left until the duplicate is removed.
+5. Track the maximum window size.
+
+**Time Complexity:** O(n) - each character is visited at most twice
+
+**Space Complexity:** O(min(n, m)) where m is the character set size
+
+```python
+def length_of_longest_substring(s):
+    char_set = set()
+    l = 0
+    res = 0
+    
+    for r in range(len(s)):
+        while s[r] in char_set:
+            char_set.remove(s[l])
+            l += 1
+        char_set.add(s[r])
+        res = max(res, r - l + 1)
+    
+    return res
+```

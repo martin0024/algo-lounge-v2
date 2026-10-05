@@ -1,0 +1,16 @@
+{
+  "functionName": "lowestCommonAncestor",
+  "args": ["root", "p", "q"],
+  "cases": [
+    {"input":[[6,2,8,0,4,7,9,null,null,3,5],2,8],"expected":6},
+    {"input":[[6,2,8,0,4,7,9,null,null,3,5],2,4],"expected":2},
+    {"input":[[2,1],2,1],"expected":2},
+    {"input":[[6,2,8,0,4,7,9,null,null,3,5],3,5],"expected":4},
+    {"input":[[6,2,8,0,4,7,9,null,null,3,5],7,9],"expected":8},
+    {"input":[[6,2,8,0,4,7,9,null,null,3,5],0,5],"expected":2},
+    {"input":[[6,2,8,0,4,7,9,null,null,3,5],3,9],"expected":6},
+    {"input":[[5,3,8,1,4,7,10],1,4],"expected":3},
+    {"input":[[5,3,8,1,4,7,10],7,10],"expected":8},
+    {"input":[[5,3,8,1,4,7,10],1,10],"expected":5}
+  ]
+}

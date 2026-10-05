@@ -1,0 +1,29 @@
+---
+title: Count Number of Homogenous Substrings — Solution
+---
+## Track the Current Run
+
+Suppose the equal-character run ending at the current position has length r. There are exactly r new homogenous substrings ending here: the last character, the last two characters, and so on through the whole run.
+
+Reset the run length to 1 when the character changes; otherwise increase it. Adding the current run length at every position counts every valid substring once.
+
+**Time:** O(n). **Space:** O(1).
+
+```python
+def count_homogenous(s):
+    MOD = 1000000007
+    answer = 0
+    run_length = 0
+    previous = ''
+    for character in s:
+        if character == previous:
+            run_length += 1
+        else:
+            previous = character
+            run_length = 1
+
+        # Every suffix of the current equal-character run is a new
+        # homogenous substring ending at this position.
+        answer = (answer + run_length) % MOD
+    return answer
+```

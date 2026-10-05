@@ -1,0 +1,44 @@
+---
+title: Add Binary — Solution
+---
+## Add Binary
+
+**Algorithm:**
+
+1. Start from the rightmost digits of both strings
+2. Add corresponding digits with carry
+3. Handle carry propagation
+4. Continue until both strings are processed
+
+**Time Complexity:** O(max(m, n)) - where m, n are string lengths
+
+**Space Complexity:** O(max(m, n)) - for result string
+
+**Key Insights:**
+
+- Process from right to left like manual addition
+- Handle carry carefully
+- Pad shorter string with leading zeros conceptually
+
+```python
+def add_binary(a, b):
+    result = []
+    carry = 0
+    i, j = len(a) - 1, len(b) - 1
+    
+    while i >= 0 or j >= 0 or carry:
+        digit_sum = carry
+        
+        if i >= 0:
+            digit_sum += int(a[i])
+            i -= 1
+        
+        if j >= 0:
+            digit_sum += int(b[j])
+            j -= 1
+        
+        result.append(str(digit_sum % 2))
+        carry = digit_sum // 2
+    
+    return ''.join(reversed(result))
+```

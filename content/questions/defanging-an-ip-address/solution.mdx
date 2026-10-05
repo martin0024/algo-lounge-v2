@@ -1,0 +1,13 @@
+---
+title: Defanging an IP Address — Solution
+---
+## Replace Each Period
+
+Replace every `.` with `[.]`. Python's string replacement performs all three substitutions in one pass.
+
+**Time:** O(n). **Space:** O(n) for the returned string.
+
+```python
+def defang_i_paddr(address):
+    return address.replace('.', '[.]')
+```

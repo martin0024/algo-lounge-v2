@@ -1,0 +1,34 @@
+---
+title: Alex's Brew Coffee Shop Billing — Solution
+---
+## Coffee Shop Billing
+
+**Algorithm:**
+
+1. Create price map for menu items
+2. Sum prices for all items
+3. Apply 15% tax
+4. Round to nearest dollar
+
+**Time Complexity:** O(n) - iterate through items
+
+**Space Complexity:** O(1) - constant space for price map
+
+**Key Insights:**
+
+- Dictionary lookup provides O(1) access to item prices
+- sum() with generator expression avoids creating intermediate list
+- round() function implements banker's rounding (round half to even)
+- Tax is applied to subtotal, then result is rounded to nearest integer
+
+```python
+def calculate_bill(items):
+    prices = {
+        'Espresso': 3,
+        'Latte': 5,
+        'Croissant': 6
+    }
+    subtotal = sum(prices[item] for item in items)
+    total_with_tax = subtotal * 1.15
+    return round(total_with_tax)
+```

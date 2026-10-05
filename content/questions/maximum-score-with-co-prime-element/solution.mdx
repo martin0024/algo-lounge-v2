@@ -1,0 +1,59 @@
+---
+title: Maximum Score with Co-Prime Element — Solution
+---
+## Count Incompatible Values by Prime Factors
+
+For a chosen value x, unchanged elements only need modification when their GCD with x exceeds 1. Count those elements with inclusion-exclusion over x's distinct prime factors. If x already occurs, select that occurrence and save one modification; otherwise changing an incompatible element into x costs no more than the incompatible count (or costs one when all elements were already co-prime).
+
+A divisor sieve supplies the count of input values divisible by every divisor. Check all permitted changed values and all unchanged input values.
+
+**Time:** O(U log U + U · 2^(\&omega(U))), where U is the largest relevant value. **Space:** O(U).
+
+```python
+def max_score(nums, maxVal):
+    n = len(nums)
+    limit = max(max(nums), maxVal)
+    frequency = [0] * (limit + 1)
+    for value in nums:
+        frequency[value] += 1
+
+    divisible = [0] * (limit + 1)
+    for divisor in range(1, limit + 1):
+        total = 0
+        for multiple in range(divisor, limit + 1, divisor):
+            total += frequency[multiple]
+        divisible[divisor] = total
+
+    smallest_prime = list(range(limit + 1))
+    for prime in range(2, int(limit ** 0.5) + 1):
+        if smallest_prime[prime] == prime:
+            for multiple in range(prime * prime, limit + 1, prime):
+                if smallest_prime[multiple] == multiple:
+                    smallest_prime[multiple] = prime
+
+    best = 1 - (0 if frequency[1] else 1)
+    for selected in range(1, limit + 1):
+        if selected > maxVal and frequency[selected] == 0:
+            continue
+
+        value = selected
+        factors = []
+        while value > 1:
+            prime = smallest_prime[value]
+            factors.append(prime)
+            while value % prime == 0:
+                value //= prime
+
+        terms = [(1, 1)]
+        for prime in factors:
+            terms += [(divisor * prime, -sign) for divisor, sign in terms]
+        coprime = sum(sign * divisible[divisor] for divisor, sign in terms)
+        incompatible = n - coprime
+
+        if frequency[selected]:
+            cost = max(0, incompatible - 1)
+        else:
+            cost = incompatible if incompatible else 1
+        best = max(best, selected - cost)
+    return best
+```

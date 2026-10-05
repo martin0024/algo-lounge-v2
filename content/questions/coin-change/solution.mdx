@@ -1,0 +1,41 @@
+---
+title: Coin Change — Solution
+---
+## Coin Change
+
+**Algorithm:**
+
+1. Use dynamic programming where dp\[i] = minimum coins needed to make amount i
+2. Initialize dp\[0] = 0 (base case: 0 coins for amount 0)
+3. Initialize all other values to infinity (impossible initially)
+4. For each amount from 1 to target, try using each coin denomination
+5. If coin value \<= current amount, update: dp\[amount] = min(dp\[amount], dp\[amount - coin] + 1)
+6. Return dp\[target] if reachable, otherwise -1
+
+**Time Complexity:** O(amount × coins.length) - fill entire DP table
+
+**Space Complexity:** O(amount) - DP array storage
+
+**Key Insights:**
+
+- This is an unbounded knapsack problem (coins can be reused)
+- Greedy approach doesn't work - must try all combinations
+- Use infinity as initial value to detect impossible amounts
+- Bottom-up DP builds solution from smaller subproblems
+
+```python
+def coin_change(coins, amount):
+    # dp[i] = minimum coins needed to make amount i
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0  # Base case: 0 coins needed for amount 0
+    
+    # Fill dp table for each amount from 1 to target
+    for i in range(1, amount + 1):
+        # Try each coin denomination
+        for coin in coins:
+            if coin <= i:  # Can use this coin
+                dp[i] = min(dp[i], dp[i - coin] + 1)
+    
+    # Return result: -1 if impossible, else minimum coins
+    return dp[amount] if dp[amount] != float('inf') else -1
+```

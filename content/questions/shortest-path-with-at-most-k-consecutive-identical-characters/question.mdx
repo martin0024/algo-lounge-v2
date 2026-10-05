@@ -1,0 +1,52 @@
+---
+title: Shortest Path With At Most K Consecutive Identical Characters
+difficulty: medium
+tags:
+  - string
+migratedFrom: 'algolounge:shortest-path-with-at-most-k-consecutive-identical-characters'
+---
+You are given an integer `n` representing the number of nodes in a **directed weighted** graph, numbered from 0 to `n - 1`. This is represented by a 2D integer array `edges`, where `edges[i] = [uᵢ, vᵢ, wᵢ]` represents a directed edge from node `uᵢ` to node `vᵢ` with weight `wᵢ`.
+
+You are also given a string `labels` of length `n`, where `labels[i]` is the character assigned to node `i`, and an integer `k`.
+
+Return the **minimum** **total** edge weight of a path from node 0 to node `n - 1` such that the concatenation of the labels of the nodes along the path contains **at most** `k` **consecutive** **identical** characters. If no valid path exists, return -1.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  n = 3, edges = [[0,1,1],[1,2,1],[0,2,3]], labels = "aab", k = 1
+Output: 3
+```
+
+The optimal valid path from node 0 to node 2 is as follows: Use edges\[2] = \[0, 2, 3] to reach node 2 with a weight wᵢ = 3. The corresponding concatenation of labels is "ab", which satisfies at most k = 1 consecutive identical characters. Thus, the answer is 3.
+
+**Example 2**
+
+```
+Input:  n = 3, edges = [[0,1,1],[1,2,1],[0,2,3]], labels = "aab", k = 2
+Output: 2
+```
+
+The optimal valid path from node 0 to node 2 is as follows: Use edges\[0] = \[0, 1, 1] to reach node 1 with weight wᵢ = 1. Use edges\[1] = \[1, 2, 1] to reach node 2 with weight wᵢ = 1. The corresponding concatenation of labels is "aab", which satisfies at most k = 2 consecutive identical characters. Thus, the answer is 2.
+
+**Example 3**
+
+```
+Input:  n = 3, edges = [[0,1,1],[1,2,1]], labels = "aaa", k = 2
+Output: -1
+```
+
+There is no valid path from node 0 to node 2 that satisfies at most k = 2 consecutive identical characters. Thus, the answer is -1.
+
+## Constraints
+
+- `1 <= n == labels.length <= 5 * 10⁴`
+- `0 <= edges.length <= 5 * 10⁴`
+- `edges[i] == [uᵢ, vᵢ, wᵢ]`
+- `0 <= uᵢ, vᵢ <= n - 1`
+- `uᵢ != vᵢ`
+- `1 <= wᵢ <= 10⁴`
+- `labels` consists of lowercase English letters
+- `1 <= k <= 50`
