@@ -1,0 +1,42 @@
+---
+title: Remove Element
+difficulty: easy
+tags:
+  - arrays-and-hashing
+  - two-pointers
+migratedFrom: 'algolounge:remove-element'
+---
+Given an integer array `nums` and an integer `val`, remove all occurrences of `val` in `nums` in-place. The order of the elements may be changed. Then return the number of elements in `nums` which are not equal to `val`.
+
+Consider the number of elements in `nums` which are not equal to `val` be `k`, then you need to do the following things:
+
+- Change the array `nums` such that the first `k` elements of `nums` contain the elements which are not equal to `val`.
+- Return `k`.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  nums = [3,2,2,3], val = 3
+Output: 2, nums = [2,2,_,_]
+```
+
+Your function should return k = 2, with the first two elements of nums being 2.
+
+**Example 2**
+
+```
+Input:  nums = [0,1,2,2,3,0,4,2], val = 2
+Output: 5, nums = [0,1,3,0,4,_,_,_]
+```
+
+Your function should return k = 5, with the first five elements of nums containing 0, 0, 1, 2, 3.
+
+## Constraints
+
+- `0 <= nums.length <= 100`
+- `0 <= nums[i] <= 50`
+- `0 <= val <= 100`
+
+> **How the tests work:** the answer is `k` together with the first `k` elements of `nums` (sorted, since their order doesn't matter).

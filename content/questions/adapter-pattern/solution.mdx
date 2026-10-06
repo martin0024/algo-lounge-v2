@@ -1,0 +1,95 @@
+---
+title: Adapter Pattern — Solution
+---
+## Adapter Pattern
+
+**Concept:**
+
+The Adapter Pattern wraps an existing class with a new interface so that it becomes compatible with the client's expected interface. In this case, we adapt a Circle to behave like a Square so it can be used with the SquareHole's `canFit` method.
+
+**Implementation:**
+
+1. Create `CircleToSquareAdapter` that extends `Square`
+2. Store a reference to the `Circle` object
+3. Override `getSideLength()` to return the circle's diameter (2 \* radius)
+
+**Key Insight:**
+
+A circle fits into a square hole if its diameter is less than or equal to the hole's side length. By returning the diameter as the "side length", we make the circle compatible with the SquareHole's existing `canFit` logic.
+
+**Benefits:**
+
+- **Interface Compatibility:** Allows Circle to work with SquareHole without modifying either class
+- **Single Responsibility:** Separates interface conversion from business logic
+- **Open/Closed Principle:** New adapters can be added without modifying existing code
+
+**Time Complexity:** O(1) for all operations
+
+**Space Complexity:** O(1) for the adapter object
+
+```typescript
+export class Square {
+  constructor(private sideLength: number = 0) {}
+
+  getSideLength(): number {
+    return this.sideLength
+  }
+}
+
+export class SquareHole {
+  constructor(private sideLength: number) {}
+
+  canFit(square: Square): boolean {
+    return this.sideLength >= square.getSideLength()
+  }
+}
+
+export class Circle {
+  constructor(private radius: number) {}
+
+  getRadius(): number {
+    return this.radius
+  }
+}
+
+export class CircleToSquareAdapter extends Square {
+  constructor(private circle: Circle) {
+    super()
+  }
+
+  // The smallest square that holds the circle has side = diameter.
+  getSideLength(): number {
+    return 2 * this.circle.getRadius()
+  }
+}
+```
+
+```python
+class Square:
+    def __init__(self, sideLength: float = 0.0):
+        self.sideLength = sideLength
+
+    def getSideLength(self) -> float:
+        return self.sideLength
+
+class SquareHole:
+    def __init__(self, sideLength: float):
+        self.sideLength = sideLength
+
+    def canFit(self, square: Square) -> bool:
+        return self.sideLength >= square.getSideLength()
+
+class Circle:
+    def __init__(self, radius: float):
+        self.radius = radius
+
+    def getRadius(self) -> float:
+        return self.radius
+
+class CircleToSquareAdapter(Square):
+    def __init__(self, circle: Circle):
+        self.circle = circle
+
+    def getSideLength(self) -> float:
+        return 2 * self.circle.getRadius()
+```

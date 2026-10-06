@@ -1,0 +1,18 @@
+---
+title: Maximum Number of Distinct Elements After Operations — Solution
+---
+## Reference solution
+
+```python
+def max_distinct_elements(nums: list[int], k: int) -> int:
+    # Greedy on sorted values: give each number the smallest free value in
+    # [x - k, x + k] above the last one used.
+    count = 0
+    last = float("-inf")
+    for x in sorted(nums):
+        candidate = max(last + 1, x - k)
+        if candidate <= x + k:
+            count += 1
+            last = candidate
+    return count
+```

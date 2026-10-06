@@ -1,0 +1,33 @@
+---
+title: Maximum Frequency Stack
+difficulty: hard
+tags:
+  - stack
+  - hash-map
+migratedFrom: 'algolounge:maximum-frequency-stack'
+---
+Design a stack-like data structure that pops the most frequent element.
+
+Implement the `FreqStack` class:
+
+- `FreqStack()`: Constructs an empty frequency stack
+- `push(val)`: Pushes an integer `val` onto the top of the stack
+- `pop()`: Removes and returns the most frequent element in the stack. If there is a tie for the most frequent element, the element closest to the stack's top is removed and returned
+
+## Examples
+
+**Example 1**
+
+```
+Input:  
+```
+
+\["FreqStack", "push", "push", "push", "push", "push", "push", "pop", "pop", "pop", "pop"] \[\[], \[5], \[7], \[5], \[7], \[4], \[5], \[], \[], \[], \[]] Output: \[null, null, null, null, null, null, null, 5, 7, 5, 4] FreqStack freqStack = new FreqStack(); freqStack.push(5); // stack: \[5] freqStack.push(7); // stack: \[5,7] freqStack.push(5); // stack: \[5,7,5] freqStack.push(7); // stack: \[5,7,5,7] freqStack.push(4); // stack: \[5,7,5,7,4] freqStack.push(5); // stack: \[5,7,5,7,4,5] freqStack.pop(); // return 5 (freq=3), stack: \[5,7,5,7,4] freqStack.pop(); // return 7 (freq=2), stack: \[5,7,5,4] freqStack.pop(); // return 5 (freq=2), stack: \[5,7,4] freqStack.pop(); // return 4 (freq=1), stack: \[5,7]
+
+## Constraints
+
+- `0 <= val <= 10^9`
+- At most `2 * 10^4` calls will be made to `push` and `pop`
+- It is guaranteed that there will be at least one element in the stack before calling `pop`
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

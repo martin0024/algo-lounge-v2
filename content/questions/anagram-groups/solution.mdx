@@ -1,0 +1,35 @@
+---
+title: Group Anagrams — Solution
+---
+## Group Anagrams
+
+**Algorithm:**
+
+1. Create a hash map with sorted string as key
+2. For each string, sort its characters to create key
+3. Group strings with the same sorted key
+4. Return all groups as result
+
+**Time Complexity:** O(N \* M log M) where N = number of strings, M = max string length
+
+**Space Complexity:** O(N \* M) for storing the groups
+
+**Key Insights:**
+
+- Sorted characters form unique key for anagrams
+- Hash map efficiently groups anagrams
+- All anagrams will have same sorted key
+
+```python
+def group_anagrams(strs):
+    from collections import defaultdict
+    
+    groups = defaultdict(list)
+    
+    for s in strs:
+        # Sort characters to create key
+        key = ''.join(sorted(s))
+        groups[key].append(s)
+    
+    return list(groups.values())
+```

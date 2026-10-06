@@ -1,0 +1,19 @@
+{
+  "functionName": "MyQueue",
+  "args": ["operations", "arguments"],
+  "harness": "design",
+  "cases": [
+    {"input":[["MyQueue","enqueue","enqueue","front","dequeue","empty"],[[],[1],[2],[],[],[]]],"expected":[null,null,null,1,1,false]},
+    {"input":[["MyQueue","enqueue","dequeue","empty"],[[],[1],[],[]]],"expected":[null,null,1,true]},
+    {"input":[["MyQueue","enqueue","enqueue","enqueue","front","dequeue","front"],[[],["hello"],["world"],["test"],[],[],[]]],"expected":[null,null,null,null,"hello","hello","world"]},
+    {"input":[["MyQueue","enqueue","enqueue","dequeue","enqueue","dequeue","dequeue","empty"],[[],["a"],["b"],[],["c"],[],[],[]]],"expected":[null,null,null,"a",null,"b","c",true]},
+    {"input":[["MyQueue","enqueue","enqueue","enqueue","dequeue","enqueue","dequeue","dequeue","dequeue","empty"],[[],[1],[2],[3],[],[4],[],[],[],[]]],"expected":[null,null,null,null,1,null,2,3,4,true]},
+    {"input":[["MyQueue","enqueue","enqueue","dequeue","enqueue","front","dequeue","front"],[[],[5],[6],[],[7],[],[],[]]],"expected":[null,null,null,5,null,6,6,7]},
+    {"input":[["MyQueue","empty","enqueue","empty"],[[],[],[9],[]]],"expected":[null,true,null,false]},
+    {"input":[["MyQueue","enqueue","enqueue","enqueue","enqueue","enqueue","dequeue","dequeue","dequeue","dequeue","dequeue","empty"],[[],[1],[2],[3],[4],[5],[],[],[],[],[],[]]],"expected":[null,null,null,null,null,null,1,2,3,4,5,true]},
+    {"input":[["MyQueue","enqueue","front","enqueue","front","dequeue","front"],[[],[8],[],[9],[],[],[]]],"expected":[null,null,8,null,8,8,9]},
+    {"input":[["MyQueue","enqueue","enqueue","dequeue","enqueue","dequeue","empty","enqueue","front"],[[],[2],[3],[],[4],[],[],[5],[]]],"expected":[null,null,null,2,null,3,false,null,4]},
+    {"input":[["MyQueue","enqueue","enqueue","enqueue","dequeue","dequeue","front","dequeue","empty"],[[],["x"],["y"],["z"],[],[],[],[],[]]],"expected":[null,null,null,null,"x","y","z","z",true]},
+    {"input":[["MyQueue","enqueue","front","enqueue","enqueue","dequeue","dequeue","front"],[[],["foo"],[],["bar"],["baz"],[],[],[]]],"expected":[null,null,"foo",null,null,"foo","bar","baz"]}
+  ]
+}

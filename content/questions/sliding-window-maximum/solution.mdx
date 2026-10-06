@@ -1,0 +1,41 @@
+---
+title: Sliding Window Maximum — Solution
+---
+## Sliding Window Maximum
+
+**Algorithm (Monotonic Deque):**
+
+1. Use a deque to store indices of elements in decreasing order of their values.
+2. For each element, remove indices from the back of the deque if their values are smaller (they can never be the max).
+3. Remove the front of the deque if it's outside the current window.
+4. The front of the deque always holds the index of the current window's maximum.
+5. Once we've processed at least `k` elements, add the front element's value to the result.
+
+**Time Complexity:** O(n) - each element is added and removed from the deque at most once
+
+**Space Complexity:** O(k) - the deque holds at most k elements
+
+```python
+from collections import deque
+
+def max_sliding_window(nums, k):
+    result = []
+    q = deque()  # stores indices
+    
+    for i in range(len(nums)):
+        # Remove elements smaller than current from back
+        while q and nums[q[-1]] <= nums[i]:
+            q.pop()
+        
+        q.append(i)
+        
+        # Remove front if outside window
+        if q[0] < i - k + 1:
+            q.popleft()
+        
+        # Add to result once window is full
+        if i >= k - 1:
+            result.append(nums[q[0]])
+    
+    return result
+```

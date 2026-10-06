@@ -1,0 +1,9 @@
+{
+  "functionName": "sumOfUnique",
+  "args": ["nums"],
+  "cases": [
+    {"input":[[1,2,3,2]],"expected":4},
+    {"input":[[1,1,1,1,1]],"expected":0},
+    {"input":[[1,2,3,4,5]],"expected":15}
+  ]
+}

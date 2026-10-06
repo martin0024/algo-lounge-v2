@@ -1,0 +1,16 @@
+{
+  "functionName": "canConstruct",
+  "args": ["ransomNote", "magazine"],
+  "cases": [
+    {"input":["a","b"],"expected":false},
+    {"input":["aa","ab"],"expected":false},
+    {"input":["aa","aab"],"expected":true},
+    {"input":["abc","abc"],"expected":true},
+    {"input":["abc","ab"],"expected":false},
+    {"input":["aab","baa"],"expected":true},
+    {"input":["aaab","aabaa"],"expected":true},
+    {"input":["aabbc","ababc"],"expected":true},
+    {"input":["zz","z"],"expected":false},
+    {"input":["aabc","abcc"],"expected":false}
+  ]
+}

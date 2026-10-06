@@ -1,0 +1,53 @@
+---
+title: Car Pooling — Solution
+---
+**Car Pooling Solution using Difference Array:**
+
+Track passenger count changes at pickup and dropoff points.
+
+**Algorithm:**
+
+1. Create events for pickup (+passengers) and dropoff (-passengers)
+2. Sort events by location
+3. Process events and track current passenger count
+4. Check if capacity is ever exceeded
+
+**Alternative: Difference Array**
+
+1. Use array to track passenger changes at each location
+2. Increment at pickup, decrement at dropoff
+3. Calculate running sum and check capacity
+
+**Time Complexity:** O(n log n) for sorting or O(max\_location) for difference array
+
+**Space Complexity:** O(n) or O(max\_location)
+
+**Key Insights:**
+
+- Event-based approach tracks state changes at specific locations
+- Sorting events allows single pass through locations in order
+- Dropoff and pickup at same location: pickup happens first (tuples sort naturally)
+- Early exit when capacity exceeded saves unnecessary processing
+
+```python
+def car_pooling(trips, capacity):
+    # Create events: (location, passenger_change)
+    events = []
+    
+    for passengers, start, end in trips:
+        events.append((start, passengers))    # pickup: add passengers
+        events.append((end, -passengers))     # dropoff: remove passengers
+    
+    # Sort events by location
+    events.sort()
+    
+    # Process events and track current passenger count
+    current_passengers = 0
+    
+    for location, change in events:
+        current_passengers += change
+        if current_passengers > capacity:
+            return False
+    
+    return True
+```

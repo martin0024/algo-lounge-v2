@@ -1,0 +1,38 @@
+---
+title: HW13 - Coffee Production Scheduler
+difficulty: medium
+tags: []
+migratedFrom: 'algolounge:coffee-production-scheduler'
+---
+Calculate total coffees produced based on work/break schedule with fatigue rules.
+
+**Rules:**
+
+- `w` = work block (produces 5 coffees normally)
+- `b` = break block (produces 0 coffees, resets fatigue)
+- After 4 consecutive work blocks, fatigue sets in (0 coffees until break)
+
+## Examples
+
+**Example 1**
+
+```
+Input:  "wwww"
+Output: 15
+```
+
+5 + 5 + 5 + 0 (fatigue after 4th consecutive work)
+
+**Example 2**
+
+```
+Input:  "wwbw"
+Output: 15
+```
+
+5 + 5 + 0 + 5 (break resets fatigue)
+
+## Constraints
+
+- Track consecutive work blocks
+- Breaks reset fatigue counter

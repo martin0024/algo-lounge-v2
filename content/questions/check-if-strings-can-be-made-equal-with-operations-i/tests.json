@@ -1,0 +1,8 @@
+{
+  "functionName": "canBeEqual",
+  "args": ["s1", "s2"],
+  "cases": [
+    {"input":["abcd","cdab"],"expected":true},
+    {"input":["abcd","dacb"],"expected":false}
+  ]
+}

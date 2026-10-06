@@ -1,0 +1,32 @@
+---
+title: Jump Game — Solution
+---
+## Jump Game
+
+**Algorithm:**
+
+1. Track the furthest index you can currently reach (`max_reach`)
+2. Iterate through the array; if the current index exceeds `max_reach`, you can't be here — return `false`
+3. Otherwise, update `max_reach` to the max of itself and `i + nums[i]`
+4. If you finish the loop, the last index was reachable
+
+**Time Complexity:** O(n) — single pass
+
+**Space Complexity:** O(1)
+
+**Key Insights:**
+
+- Greedy: at each step, only the *furthest reachable index* matters — you don't need to enumerate paths
+- If any position inside `max_reach` can extend it past the end, you're done
+- An alternative equivalent formulation scans from the right, tracking a shrinking "goal" index
+
+```python
+def can_jump(nums):
+    max_reach = 0
+    for i, jump in enumerate(nums):
+        if i > max_reach:
+            return False
+        if i + jump > max_reach:
+            max_reach = i + jump
+    return True
+```

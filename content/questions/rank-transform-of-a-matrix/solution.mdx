@@ -1,0 +1,72 @@
+---
+title: Rank Transform of a Matrix — Solution
+---
+## Approach: process values in order and join equal cells
+
+Smaller values must receive ranks first. For one value, equal cells connected through a shared row or column must receive the same rank, so a disjoint-set structure groups them.
+
+1. Collect every cell by its value and process the values from smallest to largest.
+2. For the current value, union each cell's row node with its column node.
+3. Group cells by their union-find root.
+4. For each group, choose one more than the largest rank already used by any of its rows or columns.
+5. Write all ranks for the value, then update the saved row and column ranks.
+
+**Why it works:** Earlier groups contain only smaller values. Their row and column maxima are exactly the lower bounds the current group must exceed. Giving the group one more than its largest bound is valid and is the smallest possible choice. Union-find guarantees all equal cells linked by rows or columns share that choice.
+
+**Complexity:** For `k = m * n` cells, sorting costs `O(k log k)`; the union-find work is nearly linear, `O(k alpha(m + n))`. Stored groups and the answer use `O(k + m + n)` space.
+
+**Pitfall:** All groups for the same value must be ranked before row and column maxima are updated, so equal values never incorrectly influence one another.
+
+```python
+def matrix_rank_transform(matrix):
+    from collections import defaultdict
+
+    row_count = len(matrix)
+    column_count = len(matrix[0])
+    cells_by_value = defaultdict(list)
+    for row in range(row_count):
+        for column in range(column_count):
+            cells_by_value[matrix[row][column]].append((row, column))
+
+    row_rank = [0] * row_count
+    column_rank = [0] * column_count
+    answer = [[0] * column_count for _ in range(row_count)]
+
+    for value in sorted(cells_by_value):
+        parent = {}
+
+        def find(node):
+            parent.setdefault(node, node)
+            if parent[node] != node:
+                parent[node] = find(parent[node])
+            return parent[node]
+
+        def union(first, second):
+            first_root = find(first)
+            second_root = find(second)
+            if first_root != second_root:
+                parent[second_root] = first_root
+
+        for row, column in cells_by_value[value]:
+            union(row, row_count + column)
+
+        components = defaultdict(list)
+        for row, column in cells_by_value[value]:
+            components[find(row)].append((row, column))
+
+        pending = []
+        for cells in components.values():
+            rank = 1 + max(
+                max(row_rank[row], column_rank[column])
+                for row, column in cells
+            )
+            for row, column in cells:
+                answer[row][column] = rank
+                pending.append((row, column, rank))
+
+        for row, column, rank in pending:
+            row_rank[row] = max(row_rank[row], rank)
+            column_rank[column] = max(column_rank[column], rank)
+
+    return answer
+```

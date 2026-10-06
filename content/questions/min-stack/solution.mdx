@@ -1,0 +1,44 @@
+---
+title: Min Stack — Solution
+---
+## Min Stack
+
+**Algorithm (Auxiliary Min Stack):**
+
+1. Maintain two stacks in parallel: the main stack and a `min_stack`
+2. On each push, compute the running minimum and push it onto `min_stack`
+3. On each pop, pop both stacks together to keep them in sync
+4. `getMin()` simply reads the top of `min_stack`
+
+**Time Complexity:** O(1) for all operations
+
+**Space Complexity:** O(n) — the auxiliary stack mirrors the main stack
+
+**Key Insights:**
+
+- The minimum at any point depends on which elements are currently in the stack — it changes as elements are pushed and popped
+- By shadowing every push with the running minimum, the current minimum is always available in O(1) at the top of `min_stack`
+- Popping both stacks together ensures `min_stack` always reflects the minimum of the current main stack contents
+
+```python
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+        self.min_stack = []
+
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        min_val = min(val, self.min_stack[-1] if self.min_stack else val)
+        self.min_stack.append(min_val)
+
+    def pop(self) -> None:
+        self.stack.pop()
+        self.min_stack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.min_stack[-1]
+```

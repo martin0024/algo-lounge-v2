@@ -1,0 +1,43 @@
+---
+title: Search in Rotated Sorted Array — Solution
+---
+## Search in Rotated Sorted Array
+
+**Key Insight:** Even after rotation, one half of the array around `mid` is always sorted. Determine which half is sorted, then check if `target` falls in that range to decide where to move the pointers.
+
+**Algorithm:**
+
+1. Standard binary search setup.
+2. At each step, check if the left half (`nums[left..mid]`) is sorted.
+3. If left half is sorted and target is in its range, search left; otherwise search right.
+4. Else the right half must be sorted — apply the same logic to it.
+
+**Time Complexity:** O(log n)
+
+**Space Complexity:** O(1)
+
+```python
+def search(nums, target):
+    left, right = 0, len(nums) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        if nums[mid] == target:
+            return mid
+
+        # Left half is sorted
+        if nums[left] <= nums[mid]:
+            if nums[left] <= target < nums[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        # Right half is sorted
+        else:
+            if nums[mid] < target <= nums[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+    return -1
+```

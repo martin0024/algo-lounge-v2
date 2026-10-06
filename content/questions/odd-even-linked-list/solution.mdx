@@ -1,0 +1,28 @@
+---
+title: Odd Even Linked List — Solution
+---
+## Approach: Two-Pointer Weaving
+
+Maintain two pointers: `odd` (starts at head) and `even` (starts at head.next). Save `even_head` so we can reconnect at the end.
+
+Each iteration skips one node for each pointer — `odd.next` jumps over the current even node, and `even.next` jumps over the next odd node. When the even pointer reaches the end, link `odd.next = even_head` to join both chains.
+
+Everything happens in-place with no extra nodes allocated.
+
+**Time:** O(n) **Space:** O(1)
+
+```python
+def odd_even_list(head):
+    if not head:
+        return head
+    odd = head
+    even = head.next
+    even_head = even
+    while even and even.next:
+        odd.next = even.next
+        odd = odd.next
+        even.next = odd.next
+        even = even.next
+    odd.next = even_head
+    return head
+```

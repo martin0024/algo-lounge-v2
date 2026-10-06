@@ -1,0 +1,48 @@
+---
+title: Burst Balloons — Solution
+---
+## Burst Balloons
+
+**Algorithm:**
+
+1. Use dynamic programming with interval DP approach
+2. Add virtual balloons with value 1 at both ends
+3. For each interval \[i,j], try every possible last balloon k to burst
+4. dp\[i]\[j] = max coins from bursting all balloons between i and j (exclusive)
+5. The answer is dp\[0]\[n+1] where n is the original array length
+
+**Time Complexity:** O(n³) - three nested loops for DP
+
+**Space Complexity:** O(n²) - 2D DP table
+
+**Key Insights:**
+
+- Think backwards: which balloon to burst last in each interval
+- Add dummy balloons to handle boundary conditions
+- Interval DP pattern: combine smaller solved subproblems
+
+```python
+def burst_balloons(nums):
+    # Add dummy balloons with value 1 at both ends
+    balloons = [1] + nums + [1]
+    n = len(balloons)
+    
+    # dp[i][j] = max coins from bursting balloons between i and j (exclusive)
+    dp = [[0] * n for _ in range(n)]
+    
+    # Length of the interval
+    for length in range(2, n):
+        # Start position
+        for i in range(n - length):
+            j = i + length
+            
+            # Try every balloon k as the last one to burst in interval [i,j]
+            for k in range(i + 1, j):
+                # Coins from bursting balloon k last
+                coins = balloons[i] * balloons[k] * balloons[j]
+                # Total coins = coins from k + left subproblem + right subproblem
+                dp[i][j] = max(dp[i][j], dp[i][k] + coins + dp[k][j])
+    
+    # Return max coins from the entire array (excluding dummy balloons)
+    return dp[0][n - 1]
+```

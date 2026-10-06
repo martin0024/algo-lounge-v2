@@ -1,0 +1,18 @@
+{
+  "functionName": "groupAnagrams",
+  "args": ["strs"],
+  "compare": "unordered-nested",
+  "cases": [
+    {"input":[["act","pots","tops","cat","stop","hat"]],"expected":[["hat"],["act","cat"],["stop","pots","tops"]]},
+    {"input":[["x"]],"expected":[["x"]]},
+    {"input":[[""]],"expected":[[""]]},
+    {"input":[["eat","tea","tan","ate","nat","bat"]],"expected":[["bat"],["nat","tan"],["ate","eat","tea"]]},
+    {"input":[["a"]],"expected":[["a"]]},
+    {"input":[["ab","ba"]],"expected":[["ab","ba"]]},
+    {"input":[["abc","def","ghi"]],"expected":[["abc"],["def"],["ghi"]]},
+    {"input":[["listen","silent","elbow","below"]],"expected":[["listen","silent"],["elbow","below"]]},
+    {"input":[["aab","aba","baa","abc","acb","bac","bca","cab","cba"]],"expected":[["aab","aba","baa"],["abc","acb","bac","bca","cab","cba"]]},
+    {"input":[["race","care","acre","god","dog"]],"expected":[["race","care","acre"],["god","dog"]]},
+    {"input":[["zoo","ooz","zzo","abc","bca"]],"expected":[["zoo","ooz"],["zzo"],["abc","bca"]]}
+  ]
+}

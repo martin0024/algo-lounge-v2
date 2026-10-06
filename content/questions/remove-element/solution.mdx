@@ -1,0 +1,46 @@
+---
+title: Remove Element — Solution
+---
+## Remove Element - Two Pointer Technique
+
+**Algorithm:**
+
+1. Initialize left pointer at the start of array
+2. Iterate through array with right pointer
+3. If current element is not equal to val, place it at left pointer position
+4. Only increment left pointer when we place a valid element
+5. Return left pointer (count of elements not equal to val)
+
+**Time Complexity:** O(n) - single pass through array
+
+**Space Complexity:** O(1) - only using pointers
+
+**Key Insights:**
+
+- Two pointer approach for in-place modification
+- Left pointer marks position for next valid element
+- Right pointer scans through entire array
+- No need to create new array or remove elements
+- Order can change, only first k elements matter
+
+```typescript
+export function removeElement(nums: number[], val: number): number {
+  let k = 0
+  for (const num of nums) {
+    if (num !== val) nums[k++] = num
+  }
+  return k
+}
+```
+
+```python
+def remove_element(nums, val):
+    left = 0
+    
+    for right in range(len(nums)):
+        if nums[right] != val:
+            nums[left] = nums[right]
+            left += 1
+    
+    return left
+```

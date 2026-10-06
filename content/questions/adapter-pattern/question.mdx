@@ -1,0 +1,36 @@
+---
+title: Adapter Pattern
+difficulty: easy
+tags:
+  - design-patterns
+migratedFrom: 'algolounge:adapter-pattern'
+---
+Implement the Adapter design pattern.
+
+The Adapter is a structural design pattern that allows incompatible interfaces to work together. It wraps an existing class with a new interface so that it becomes compatible with the client's interface.
+
+You are given completed `SquareHole`, `Square` and `Circle` classes. A Square fits into a SquareHole if the Square's side length is less than or equal to the SquareHole's length. A Circle has a radius and a Circle fits into a SquareHole if the Circle's diameter is less than or equal to the SquareHole's length.
+
+Complete the implementation of the `CircleToSquareAdapter` class such that it adapts a Circle to a Square.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  squareHole = SquareHole(5), square = Square(5), circle = Circle(5)
+Output: squareHole.canFit(square) = true, squareHole.canFit(CircleToSquareAdapter(circle)) = false
+```
+
+Square with side 5 fits in hole of size 5. Circle with radius 5 has diameter 10, which does not fit.
+
+**Example 2**
+
+```
+Input:  squareHole = SquareHole(5), square = Square(6), circle = Circle(2)
+Output: squareHole.canFit(square) = false, squareHole.canFit(CircleToSquareAdapter(circle)) = true
+```
+
+Square with side 6 does not fit in hole of size 5. Circle with radius 2 has diameter 4, which fits.
+
+> **How the tests work:** each test puts one shape in a `SquareHole` of size `holeSize` — a `Square` directly, or a `Circle` wrapped in your adapter — and checks `canFit`.

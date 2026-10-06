@@ -1,0 +1,16 @@
+{
+  "functionName": "minCoffeeVolume",
+  "args": ["minCaffeine", "concentration"],
+  "cases": [
+    {"input":[100,15],"expected":7},
+    {"input":[50,10],"expected":5},
+    {"input":[75,20],"expected":4},
+    {"input":[200,25],"expected":8},
+    {"input":[1,1],"expected":1},
+    {"input":[150,30],"expected":5},
+    {"input":[95,12],"expected":8},
+    {"input":[1000,100],"expected":10},
+    {"input":[33,11],"expected":3},
+    {"input":[250,40],"expected":7}
+  ]
+}

@@ -1,0 +1,31 @@
+---
+title: Apply Discount to Prices — Solution
+---
+## Apply Discount to Prices
+
+**Algorithm:**
+
+1. Split the sentence by single spaces to get individual words.
+2. For each word, treat it as a price only if it starts with `'$'` and every remaining character is a digit.
+3. Compute the discounted amount in integer cents to avoid floating-point rounding surprises for prices with up to 10 digits: `cents = price * (100 - discount)`.
+4. Format with exactly two decimals using `divmod`.
+5. Join the words back with single spaces.
+
+**Time Complexity:** O(n) in the length of the sentence.
+
+**Space Complexity:** O(n) for the split words and the output.
+
+**Key Insight:** doing the arithmetic in cents (`price * factor`, then `divmod(..., 100)`) is exact for the given constraints — using floats risks tiny rounding errors on large prices.
+
+```python
+def discount_prices(sentence, discount):
+    factor = 100 - discount
+    words = sentence.split(' ')
+    for i, w in enumerate(words):
+        if len(w) > 1 and w[0] == '$' and w[1:].isdigit():
+            price = int(w[1:])
+            cents = price * factor
+            dollars, c = divmod(cents, 100)
+            words[i] = f'${dollars}.{c:02d}'
+    return ' '.join(words)
+```

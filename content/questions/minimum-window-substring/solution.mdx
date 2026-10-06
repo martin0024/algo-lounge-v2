@@ -1,0 +1,52 @@
+---
+title: Minimum Window Substring — Solution
+---
+## Minimum Window Substring
+
+**Algorithm (Sliding Window with Two Pointers):**
+
+1. Count character frequencies of `t`.
+2. Expand the window by moving the right pointer, adding characters to the window count.
+3. Track `have` — the number of characters that meet the required frequency.
+4. When `have == need`, we have a valid window. Try to shrink from the left to minimize.
+5. Track the minimum valid window found.
+
+**Time Complexity:** O(m + n) where m = len(s), n = len(t)
+
+**Space Complexity:** O(m + n)
+
+```python
+def min_window(s, t):
+    if not t or not s:
+        return ""
+    
+    count_t = {}
+    for c in t:
+        count_t[c] = count_t.get(c, 0) + 1
+    
+    need = len(count_t)
+    have = 0
+    window = {}
+    res = ""
+    res_len = float('inf')
+    l = 0
+    
+    for r in range(len(s)):
+        c = s[r]
+        window[c] = window.get(c, 0) + 1
+        
+        if c in count_t and window[c] == count_t[c]:
+            have += 1
+        
+        while have == need:
+            if (r - l + 1) < res_len:
+                res_len = r - l + 1
+                res = s[l:r + 1]
+            
+            window[s[l]] -= 1
+            if s[l] in count_t and window[s[l]] < count_t[s[l]]:
+                have -= 1
+            l += 1
+    
+    return res
+```

@@ -1,0 +1,19 @@
+{
+  "functionName": "minRefuelStops",
+  "args": ["target", "startFuel", "stations"],
+  "cases": [
+    {"input":[1,1,[]],"expected":0},
+    {"input":[100,1,[[10,100]]],"expected":-1},
+    {"input":[100,10,[[10,60],[20,30],[30,30],[60,40]]],"expected":2},
+    {"input":[100,50,[[50,50]]],"expected":1},
+    {"input":[10,10,[]],"expected":0},
+    {"input":[10,5,[[5,5]]],"expected":1},
+    {"input":[100,10,[[10,60]]],"expected":-1},
+    {"input":[100,50,[[25,25],[50,25],[75,25]]],"expected":2},
+    {"input":[100,50,[[10,1],[20,60],[50,1]]],"expected":1},
+    {"input":[100,100,[]],"expected":0},
+    {"input":[100,10,[[60,100]]],"expected":-1},
+    {"input":[200,50,[[50,50],[100,50],[150,50]]],"expected":3},
+    {"input":[350,100,[[100,50],[150,200],[200,100]]],"expected":2}
+  ]
+}

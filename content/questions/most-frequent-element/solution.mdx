@@ -1,0 +1,31 @@
+---
+title: Most Frequent Element — Solution
+---
+## Most Frequent Element
+
+**Algorithm:**
+
+1. Count frequency of each element
+2. Find maximum frequency
+3. Among elements with max frequency, return smallest
+
+**Time Complexity:** O(n) - count frequencies
+
+**Space Complexity:** O(n) - frequency map
+
+**Key Insights:**
+
+- Counter class from collections provides efficient frequency counting
+- Tie-breaking: filter elements with max frequency, then use min() to get smallest
+- max(freq.values()) finds the maximum count across all elements
+- List comprehension filters all elements with maximum frequency
+
+```python
+from collections import Counter
+
+def most_frequent(arr):
+    freq = Counter(arr)
+    max_freq = max(freq.values())
+    candidates = [num for num, count in freq.items() if count == max_freq]
+    return min(candidates)
+```

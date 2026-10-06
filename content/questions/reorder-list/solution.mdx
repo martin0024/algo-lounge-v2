@@ -1,0 +1,107 @@
+---
+title: Reorder Linked List — Solution
+---
+## Reorder Linked List - Three Step Approach
+
+**Algorithm:**
+
+1. Find the middle of the linked list using slow/fast pointers
+2. Reverse the second half of the list
+3. Merge the two halves by alternating nodes
+
+**Time Complexity:** O(n) - visit each node constant times
+
+**Space Complexity:** O(1) - only using pointers
+
+**Key Insights:**
+
+- Split list at midpoint to get two halves
+- Reverse second half to get nodes from end
+- Merge by taking alternately from each half
+- Modify pointers in-place without extra space
+
+```typescript
+export class ListNode {
+  val: number
+  next: ListNode | null
+
+  constructor(val = 0, next: ListNode | null = null) {
+    this.val = val
+    this.next = next
+  }
+}
+
+/** Do not return anything — modify the list in place. */
+
+
+export function reorderList(head: ListNode | null): void {
+  if (!head || !head.next) return
+  // 1. Find the middle.
+  let slow: ListNode = head
+  let fast: ListNode | null = head
+  while (fast.next && fast.next.next) {
+    slow = slow.next!
+    fast = fast.next.next
+  }
+  // 2. Reverse the second half.
+  let prev: ListNode | null = null
+  let curr = slow.next
+  slow.next = null
+  while (curr) {
+    const next: ListNode | null = curr.next
+    curr.next = prev
+    prev = curr
+    curr = next
+  }
+  // 3. Weave the two halves together.
+  let first: ListNode | null = head
+  let second = prev
+  while (second) {
+    const nextFirst: ListNode | null = first!.next
+    const nextSecond: ListNode | null = second.next
+    first!.next = second
+    second.next = nextFirst
+    first = nextFirst
+    second = nextSecond
+  }
+}
+```
+
+```python
+def reorder_list(head):
+    if not head or not head.next:
+        return head
+    
+    # Step 1: Find middle using slow/fast pointers
+    slow = head
+    fast = head
+    while fast.next and fast.next.next:
+        slow = slow.next
+        fast = fast.next.next
+    
+    # Step 2: Reverse second half
+    second = slow.next
+    slow.next = None  # Split the list
+    
+    prev = None
+    while second:
+        temp = second.next
+        second.next = prev
+        prev = second
+        second = temp
+    second = prev
+    
+    # Step 3: Merge two halves
+    first = head
+    while second:
+        temp1 = first.next
+        temp2 = second.next
+        
+        first.next = second
+        second.next = temp1
+        
+        first = temp1
+        second = temp2
+    
+    return head
+```

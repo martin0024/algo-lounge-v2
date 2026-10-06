@@ -1,0 +1,71 @@
+---
+title: Reverse Nodes in K-Group — Solution
+---
+## Reverse Nodes in K-Group
+
+**Algorithm:**
+
+1. Create a dummy node pointing to head to handle edge cases
+2. For each group of k nodes:
+3. - First, check if there are k nodes remaining
+   - If yes, reverse those k nodes
+   - Reconnect the reversed segment to the rest of the list
+   If fewer than k nodes remain, leave them as is
+
+**Helper function to reverse a segment:**
+
+Given a segment of nodes, reverse them by adjusting the `next` pointers.
+
+**Time Complexity:** O(n) - each node is visited at most twice
+
+**Space Complexity:** O(1) - only using pointers
+
+**Key Insights:**
+
+- A dummy node simplifies handling the head of the list
+- Track the node before each group to reconnect after reversal
+- Count nodes first to know if we have a complete group
+
+```python
+class ListNode:
+    def __init__(self, val: int = 0, next: "ListNode | None" = None):
+        self.val = val
+        self.next = next
+
+
+
+def reverse_k_group(head, k):
+    def reverse(head, tail):
+        prev = tail.next
+        curr = head
+        while prev != tail:
+            next_node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_node
+        return tail, head
+    
+    dummy = ListNode(0, head)
+    pre = dummy
+    
+    while head:
+        tail = pre
+        # Check if there are k nodes remaining
+        for _ in range(k):
+            tail = tail.next
+            if not tail:
+                return dummy.next
+        
+        next_group = tail.next
+        head, tail = reverse(head, tail)
+        
+        # Connect with previous part
+        pre.next = head
+        tail.next = next_group
+        
+        # Move to next group
+        pre = tail
+        head = next_group
+    
+    return dummy.next
+```

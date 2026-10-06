@@ -1,0 +1,14 @@
+def total_steps(nums: list[int]) -> int:
+    # Monotonic stack of (value, steps until it is removed). An element is
+    # removed one step after the slowest smaller element between it and the
+    # bigger element that eventually eats it.
+    stack = []
+    answer = 0
+    for x in nums:
+        steps = 0
+        while stack and stack[-1][0] <= x:
+            steps = max(steps, stack.pop()[1])
+        steps = steps + 1 if stack else 0
+        answer = max(answer, steps)
+        stack.append((x, steps))
+    return answer

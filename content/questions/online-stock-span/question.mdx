@@ -1,0 +1,37 @@
+---
+title: Online Stock Span
+difficulty: medium
+tags:
+  - stack
+migratedFrom: 'algolounge:online-stock-span'
+---
+Design an algorithm that collects daily price quotes for some stock and returns the **span** of that stock's price for the current day.
+
+The **span** of the stock's price today is defined as the maximum number of consecutive days (starting from today and going backward) for which the stock price was less than or equal to today's price.
+
+- For example, if the price of a stock over the next 7 days were `[100, 80, 60, 70, 60, 75, 85]`, then the stock spans would be `[1, 1, 1, 2, 1, 4, 6]`.
+
+Implement the `StockSpanner` class:
+
+- `StockSpanner()` initializes the object of the class
+- `int next(int price)` returns the span of the stock's price given that today's price is `price`
+
+## Example
+
+```
+StockSpanner s = new StockSpanner();
+s.next(100); // return 1
+s.next(80);  // return 1
+s.next(60);  // return 1
+s.next(70);  // return 2 (70 >= 60)
+s.next(60);  // return 1
+s.next(75);  // return 4 (75 >= 60, 70, 60)
+s.next(85);  // return 6 (85 >= all previous)
+```
+
+## Constraints
+
+- `1 <= price <= 10⁵`
+- At most `10⁴` calls will be made to `next`
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

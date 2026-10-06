@@ -1,0 +1,66 @@
+---
+title: Design Twitter — Solution
+---
+## Design Twitter
+
+**Algorithm:**
+
+1. Track each user's tweets with a timestamp for ordering
+2. Track follow relationships using a hash map of sets
+3. For `getNewsFeed`, use a max heap to merge tweets from the user and all followees
+4. Pop from the heap up to 10 times to get the most recent tweets
+
+**Time Complexity:** O(k log n) for getNewsFeed where k=10 and n is number of followees, O(1) for other operations
+
+**Space Complexity:** O(total tweets + total follow relationships)
+
+**Key Insights:**
+
+- A heap efficiently merges multiple sorted tweet lists
+- Each user's tweets are already sorted by time (appended in order)
+- We only need the 10 most recent, so we can stop early
+- Using a max heap (negate timestamp) gives us most recent first
+
+```python
+import heapq
+from collections import defaultdict
+
+class Twitter:
+    def __init__(self):
+        self.time = 0
+        self.tweets = defaultdict(list)
+        self.following = defaultdict(set)
+
+    def postTweet(self, userId, tweetId):
+        self.tweets[userId].append((self.time, tweetId))
+        self.time += 1
+
+    def getNewsFeed(self, userId):
+        heap = []
+        users = self.following[userId] | {userId}
+
+        for uid in users:
+            if self.tweets[uid]:
+                idx = len(self.tweets[uid]) - 1
+                time, tweetId = self.tweets[uid][idx]
+                heap.append((-time, tweetId, uid, idx))
+
+        heapq.heapify(heap)
+        feed = []
+
+        while heap and len(feed) < 10:
+            neg_time, tweetId, uid, idx = heapq.heappop(heap)
+            feed.append(tweetId)
+            if idx > 0:
+                idx -= 1
+                time, tweetId = self.tweets[uid][idx]
+                heapq.heappush(heap, (-time, tweetId, uid, idx))
+
+        return feed
+
+    def follow(self, followerId, followeeId):
+        self.following[followerId].add(followeeId)
+
+    def unfollow(self, followerId, followeeId):
+        self.following[followerId].discard(followeeId)
+```

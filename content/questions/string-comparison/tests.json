@@ -1,0 +1,16 @@
+{
+  "functionName": "areStringsEqual",
+  "args": ["s1", "s2"],
+  "cases": [
+    {"input":["hello","hello"],"expected":true},
+    {"input":["Hello","hello"],"expected":false},
+    {"input":["",""],"expected":true},
+    {"input":["test ","test"],"expected":false},
+    {"input":["abc","abc"],"expected":true},
+    {"input":["hello world","hello world"],"expected":true},
+    {"input":["Test","test"],"expected":false},
+    {"input":["a","a"],"expected":true},
+    {"input":["  "," "],"expected":false},
+    {"input":["123","123"],"expected":true}
+  ]
+}

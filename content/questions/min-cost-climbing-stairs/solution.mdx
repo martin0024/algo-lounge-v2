@@ -1,0 +1,42 @@
+---
+title: Min Cost Climbing Stairs — Solution
+---
+## Min Cost Climbing Stairs
+
+**Algorithm:**
+
+1. Use dynamic programming to find minimum cost to reach each step
+2. For each step, we can either come from step i-1 or i-2
+3. Choose the path with minimum cost
+4. Can start from step 0 or step 1
+
+**Time Complexity:** O(n) - single pass through the array
+
+**Space Complexity:** O(1) - optimized to use only two variables
+
+**Key Insights:**
+
+- Bottom-up dynamic programming approach
+- Space optimization using rolling variables
+- Handle edge cases for small arrays
+
+```python
+def min_cost_climbing_stairs(cost):
+    if not cost:
+        return 0
+    if len(cost) <= 2:
+        return min(cost)
+    
+    # We can start from step 0 or step 1
+    prev2 = cost[0]
+    prev1 = cost[1]
+    
+    # Calculate min cost to reach each step
+    for i in range(2, len(cost)):
+        current = cost[i] + min(prev1, prev2)
+        prev2 = prev1
+        prev1 = current
+    
+    # We can reach the top from either of the last two steps
+    return min(prev1, prev2)
+```

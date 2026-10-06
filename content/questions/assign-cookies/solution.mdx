@@ -1,0 +1,35 @@
+---
+title: Assign Cookies — Solution
+---
+## Assign Cookies
+
+**Algorithm:**
+
+1. Sort both the greed factors and the cookie sizes in ascending order
+2. Use two pointers: one for children (`i`) and one for cookies (`j`)
+3. For each cookie, if it can satisfy the current child (`s[j] >= g[i]`), give it to them and advance both pointers
+4. Otherwise, advance only the cookie pointer (cookie too small, try next)
+5. Return the number of content children
+
+**Time Complexity:** O(n log n + m log m) where n and m are the lengths of `g` and `s`
+
+**Space Complexity:** O(1) extra beyond the sort
+
+**Key Insights:**
+
+- Greedy choice: always try to satisfy the least-greedy remaining child with the smallest cookie that works
+- This leaves larger cookies available for greedier children
+- Sorting exposes the natural pairing order
+
+```python
+def find_content_children(g, s):
+    g.sort()
+    s.sort()
+    i = 0
+    j = 0
+    while i < len(g) and j < len(s):
+        if s[j] >= g[i]:
+            i += 1
+        j += 1
+    return i
+```

@@ -1,0 +1,57 @@
+---
+title: Max Area of Island — Solution
+---
+## Max Area of Island
+
+**Algorithm (DFS Approach):**
+
+1. Iterate through each cell in the grid
+2. When finding an unvisited land cell (1), start DFS to calculate area
+3. DFS returns the total area of the island starting from that cell
+4. Mark visited cells by changing 1 to 0
+5. Track the maximum area found across all islands
+
+**Time Complexity:** O(m × n) - visit each cell at most once
+
+**Space Complexity:** O(m × n) - worst case recursion depth if entire grid is one island
+
+**Key Insights:**
+
+- DFS function returns 1 + sum of areas from all 4 neighbors
+- Base case returns 0 for out-of-bounds or water cells
+- Modify grid in-place to mark visited cells
+- Keep track of maximum area seen so far
+
+```python
+def max_area_of_island(grid):
+    if not grid or not grid[0]:
+        return 0
+    
+    rows, cols = len(grid), len(grid[0])
+    max_area = 0
+    
+    def dfs(r, c):
+        # Base cases: out of bounds or water
+        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == 0:
+            return 0
+        
+        # Mark current cell as visited
+        grid[r][c] = 0
+        
+        # Calculate area: 1 (current cell) + areas from all 4 directions
+        area = 1
+        area += dfs(r + 1, c)  # down
+        area += dfs(r - 1, c)  # up
+        area += dfs(r, c + 1)  # right
+        area += dfs(r, c - 1)  # left
+        
+        return area
+    
+    # Iterate through each cell
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 1:
+                max_area = max(max_area, dfs(r, c))
+    
+    return max_area
+```

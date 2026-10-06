@@ -28,8 +28,10 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import { useXp } from "@/components/xp-provider"
 import { signIn, useSession } from "@/lib/auth-client"
 import type { Language, TestSuite } from "@/lib/content"
+import type { XpAward } from "@/lib/xp/award"
 import {
   runTests,
   type RunHandle,
@@ -37,6 +39,11 @@ import {
   type WorkerCase,
 } from "@/lib/judge/browser/run"
 import { resultsMatch } from "@/lib/judge/shared/compare"
+import {
+  isCompiled,
+  runButtonLabel,
+  stageText,
+} from "@/lib/judge/shared/run-stage"
 import {
   formatNamedInputs,
   formatTestValue,
@@ -66,6 +73,8 @@ type SubmitVerdict = {
   passedCount: number
   totalCount: number
   message?: string
+  /** Null when the XP ledger errored — the verdict still stands. */
+  xp?: XpAward | null
   cases: {
     index: number
     status: "pass" | "fail" | "error"
@@ -102,6 +111,7 @@ export function QuestionWorkspace({
   const [historyToken, setHistoryToken] = React.useState(0)
   const runRef = React.useRef<RunHandle | null>(null)
   const { data: session } = useSession()
+  const { applyAward } = useXp()
 
   React.useEffect(() => {
     const saved = localStorage.getItem(draftKey(slug, language))
@@ -183,6 +193,7 @@ export function QuestionWorkspace({
       const result = data as SubmitVerdict
       setVerdict(result)
       setHistoryToken((n) => n + 1)
+      applyAward(result.xp)
       setCases(
         tests.cases.map((_, index) => {
           const caseResult = result.cases.find((c) => c.index === index)
@@ -228,6 +239,7 @@ export function QuestionWorkspace({
       code: code[language],
       tests,
       harness: harness?.[language],
+      slug,
       onStage: setStage,
       onCase: (update: WorkerCase) => {
         setCases((prev) =>
@@ -318,7 +330,7 @@ export function QuestionWorkspace({
                 ) : (
                   <IconPlayerPlay data-icon="inline-start" />
                 )}
-                {stage === "loading-runtime" ? "Loading Python…" : "Run"}
+                {running ? runButtonLabel(stage, language) : "Run"}
               </Button>
               <Button
                 variant="outline"
@@ -388,8 +400,14 @@ export function QuestionWorkspace({
                 {passed}/{cases.length} passed
               </Badge>
             )}
-            {running && stage === "running" && (
-              <span className="text-xs text-muted-foreground">running…</span>
+            {running && (
+              <span className="text-xs text-muted-foreground">
+                {stage === "loading-runtime"
+                  ? "loading…"
+                  : stage === "compiling"
+                    ? "compiling…"
+                    : "running…"}
+              </span>
             )}
           </div>
           <div className="min-h-0 flex-1 overflow-y-auto p-3">
@@ -422,12 +440,37 @@ export function QuestionWorkspace({
                     </pre>
                   )}
                 </div>
+                {verdict.xp &&
+                  (verdict.xp.gained > 0 ? (
+                    <span className="ml-auto shrink-0 rounded-full bg-primary/15 px-2 py-0.5 font-semibold text-primary tabular-nums">
+                      +{verdict.xp.gained} XP
+                    </span>
+                  ) : (
+                    <span className="ml-auto shrink-0 text-muted-foreground">
+                      no new XP
+                    </span>
+                  ))}
               </div>
             )}
             {fatal && (
               <div className="mb-2 flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-700 dark:text-red-400">
                 <IconAlertTriangle className="mt-0.5 size-4 shrink-0" />
                 <pre className="font-mono whitespace-pre-wrap">{fatal}</pre>
+              </div>
+            )}
+            {running && settled === 0 && (
+              <div className="mb-2 flex items-center gap-3 rounded-lg border border-primary/30 bg-primary/[0.07] px-3 py-2.5 text-xs">
+                <IconLoader2 className="size-4 shrink-0 animate-spin" />
+                <div className="flex flex-col gap-0.5">
+                  <span className="font-medium text-foreground">
+                    {stageText(stage, language)}
+                  </span>
+                  {isCompiled(language) && stage === "running" && (
+                    <span className="text-muted-foreground">
+                      Compiled languages build hang tight.
+                    </span>
+                  )}
+                </div>
               </div>
             )}
             <div className="flex flex-col gap-2">

@@ -1,0 +1,11 @@
+{
+  "functionName": "longestWord",
+  "args": ["words"],
+  "cases": [
+    {"input":[["w","wo","wor","worl","world"]],"expected":"world"},
+    {"input":[["a","banana","app","appl","ap","apply","apple"]],"expected":"apple"},
+    {"input":[["m","ma","mat","math"]],"expected":"math"},
+    {"input":[["a","ab","abc"]],"expected":"abc"},
+    {"input":[["b","br","bre","brea","bread"]],"expected":"bread"}
+  ]
+}

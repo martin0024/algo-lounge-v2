@@ -1,0 +1,55 @@
+{
+  "title": "Hello World 2025",
+  "description": "Problems from the SCS Hello World 2025 competition.",
+  "kind": "competition",
+  "units": [
+    {
+      "title": "Tutorial",
+      "questions": [
+        "hello-world"
+      ]
+    },
+    {
+      "title": "Stage 2",
+      "questions": [
+        "sum-two-integers",
+        "string-comparison",
+        "multiple-check"
+      ]
+    },
+    {
+      "title": "Stage 3",
+      "questions": [
+        "last-even-index",
+        "sum-of-digits-times-seven",
+        "count-vowels",
+        "coffee-shop-billing",
+        "greatest-common-divisor",
+        "canadian-province-validator",
+        "string-reversal",
+        "caffeine-calculator"
+      ]
+    },
+    {
+      "title": "Medium",
+      "questions": [
+        "palindrome-checker",
+        "coffee-production-scheduler",
+        "alice-typing-problem",
+        "binary-representation",
+        "most-frequent-element",
+        "string-matching",
+        "alphabetical-order-checker",
+        "coffee-sales-projection"
+      ]
+    },
+    {
+      "title": "Hard",
+      "questions": [
+        "coin-change",
+        "tribonacci-sequence",
+        "dice-ways"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+---
+title: Linked List Cycle II — Solution
+---
+## Linked List Cycle II - Floyd's Tortoise and Hare
+
+**Algorithm:**
+
+1. Use two pointers: slow (moves 1 step) and fast (moves 2 steps)
+2. If they meet, a cycle exists
+3. Reset one pointer to head, keep the other at meeting point
+4. Move both one step at a time - they'll meet at cycle start
+
+**Why does this work?**
+
+Let's say the distance from head to cycle start is `a`, and the distance from cycle start to meeting point is `b`. When slow and fast meet:
+
+- Slow traveled: `a + b`
+- Fast traveled: `2(a + b)`
+- The difference `a + b` equals one full cycle length
+- So traveling `a` more steps from meeting point reaches cycle start
+
+**Time Complexity:** O(n)
+
+**Space Complexity:** O(1)
+
+```typescript
+export class ListNode {
+  val: number
+  next: ListNode | null
+
+  constructor(val = 0, next: ListNode | null = null) {
+    this.val = val
+    this.next = next
+  }
+}
+
+
+export function detectCycle(head: ListNode | null): ListNode | null {
+  let slow = head
+  let fast = head
+  while (fast && fast.next) {
+    slow = slow!.next
+    fast = fast.next.next
+    if (slow === fast) {
+      // Distance head → cycle start equals meeting point → cycle start.
+      slow = head
+      while (slow !== fast) {
+        slow = slow!.next
+        fast = fast!.next
+      }
+      return slow
+    }
+  }
+  return null
+}
+```
+
+```python
+def detect_cycle(head):
+    if not head or not head.next:
+        return None
+    
+    # Phase 1: Detect if cycle exists using Floyd's algorithm
+    slow = head
+    fast = head
+    
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        
+        if slow == fast:
+            # Cycle detected, now find the start
+            # Phase 2: Find cycle start
+            slow = head
+            while slow != fast:
+                slow = slow.next
+                fast = fast.next
+            return slow
+    
+    # No cycle
+    return None
+```

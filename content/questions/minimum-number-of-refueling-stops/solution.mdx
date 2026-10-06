@@ -1,0 +1,41 @@
+---
+title: Minimum Number of Refueling Stops — Solution
+---
+## Minimum Number of Refueling Stops
+
+**Algorithm (Greedy + Max-Heap):**
+
+1. Track how far the car can currently reach (`fuel`, equivalent to total fuel accumulated)
+2. Walk through stations in order. Every station the car *can* reach goes into a max-heap of "potential fuel we could tap into"
+3. If the car can't reach the next unseen station (or the target), pop the largest fuel from the heap and count a stop
+4. If the heap is empty and we still can't reach the target, return `-1`
+
+**Time Complexity:** O(n log n) — each station is pushed and popped once
+
+**Space Complexity:** O(n) for the heap
+
+**Key Insights:**
+
+- Greedy choice: when we *must* refuel, always pick the station with the **largest** tank we've already passed — regardless of when we passed it
+- This works because stopping is order-independent: we only need the *count* of stops, not the order
+- The heap lets us defer the "where to refuel" decision until we actually run out of gas
+
+```python
+import heapq
+
+def min_refuel_stops(target, startFuel, stations):
+    heap = []
+    stops = 0
+    fuel = startFuel
+    i = 0
+    n = len(stations)
+    while fuel < target:
+        while i < n and stations[i][0] <= fuel:
+            heapq.heappush(heap, -stations[i][1])
+            i += 1
+        if not heap:
+            return -1
+        fuel += -heapq.heappop(heap)
+        stops += 1
+    return stops
+```

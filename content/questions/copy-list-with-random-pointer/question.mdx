@@ -1,0 +1,89 @@
+---
+title: Copy List with Random Pointer
+difficulty: medium
+tags:
+  - linked-list
+migratedFrom: 'algolounge:copy-list-with-random-pointer'
+---
+You are given the head of a linked list of length `n`. Unlike a singly linked list, each node contains an additional pointer `random`, which may point to any node in the list, or `null`.
+
+Create a **deep copy** of the list.
+
+The deep copy should consist of exactly `n` **new** nodes, each including:
+
+- The original value `val` of the copied node
+- A `next` pointer to the new node corresponding to the `next` pointer of the original node
+- A `random` pointer to the new node corresponding to the `random` pointer of the original node
+
+Note: None of the pointers in the new list should point to nodes in the original list.
+
+*Return the head of the copied linked list.*
+
+In the examples, the linked list is represented as a list of `n` nodes. Each node is represented as a pair of `[val, random_index]` where `random_index` is the index of the node (0-indexed) that the `random` pointer points to, or `null` if it does not point to any node.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
+```
+
+```
+╭───╮ next ╭────╮ next ╭────╮ next ╭────╮ next ╭───╮
+│ 7 │─────→│ 13 │─────→│ 11 │─────→│ 10 │─────→│ 1 │
+╰───╯      ╰────╯      ╰────╯      ╰────╯      ╰───╯
+idx:0       idx:1       idx:2       idx:3       idx:4
+
+random pointers:
+  7  → null
+  13 → 7  (idx 0)
+  11 → 1  (idx 4)
+  10 → 11 (idx 2)
+  1  → 7  (idx 0)
+```
+
+Output: `[[7,null],[13,0],[11,4],[10,2],[1,0]]`
+
+**Example 2:**
+
+Input: `head = [[1,1],[2,1]]`
+
+```
+╭───╮ next ╭───╮
+│ 1 │─────→│ 2 │
+╰───╯      ╰───╯
+idx:0       idx:1
+
+random pointers:
+  1 → 2 (idx 1)
+  2 → 2 (idx 1)
+```
+
+Output: `[[1,1],[2,1]]`
+
+**Example 3:**
+
+Input: `head = [[3,null],[3,0],[3,null]]`
+
+```
+╭───╮ next ╭───╮ next ╭───╮
+│ 3 │─────→│ 3 │─────→│ 3 │
+╰───╯      ╰───╯      ╰───╯
+idx:0       idx:1       idx:2
+
+random pointers:
+  3 (idx 0) → null
+  3 (idx 1) → 3 (idx 0)
+  3 (idx 2) → null
+```
+
+Output: `[[3,null],[3,0],[3,null]]`
+
+## Constraints
+
+- `0 <= n <= 1000`
+- `-10^4 <= Node.val <= 10^4`
+- `random` is `null` or is pointing to some node in the linked list.
+
+> **How the tests work:** each node is written as `[val, randomIndex]` (`null`: no random pointer). The copy is read back the same way and must not reuse any original node.

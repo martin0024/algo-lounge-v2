@@ -1,0 +1,43 @@
+---
+title: Unique Paths
+difficulty: medium
+tags:
+  - dynamic-programming
+migratedFrom: 'algolounge:unique-paths'
+---
+There is a robot on an `m x n` grid. The robot starts at the top-left corner `(0, 0)` and tries to reach the bottom-right corner `(m - 1, n - 1)`. The robot can only move **down** or **right** at any point in time.
+
+Return the number of unique paths the robot can take to reach the bottom-right corner.
+
+```
+  +---+---+---+---+---+---+---+
+  | R |   |   |   |   |   |   |  R = Robot (start)
+  +---+---+---+---+---+---+---+
+  |   |   |   |   |   |   |   |  * = Goal (end)
+  +---+---+---+---+---+---+---+
+  |   |   |   |   |   |   | * |  Moves: → or ↓ only
+  +---+---+---+---+---+---+---+
+```
+
+## Examples
+
+**Example 1**
+
+```
+Input:  m = 3, n = 2
+Output: 3
+```
+
+The three possible paths are: Path 1 Path 2 Path 3 ┌─────┬─────┐ ┌─────┬─────┐ ┌─────┬─────┐ │ R → ███ │ │ R │ │ │ R │ │ ├─────┼──↓──┤ ├──↓──┼─────┤ ├──↓──┼─────┤ │ │ ███ │ │ ███ → ███ │ │ ███ │ │ ├─────┼──↓──┤ ├─────┼──↓──┤ ├──↓──┼─────┤ │ │ ★★★ │ │ │ ★★★ │ │ ███ → ★★★ │ └─────┴─────┘ └─────┴─────┘ └─────┴─────┘ Route: → ↓ ↓ Route: ↓ → ↓ Route: ↓ ↓ →
+
+**Example 2**
+
+```
+Input:  m = 3, n = 7
+Output: 28
+```
+
+## Constraints
+
+- `1 <= m, n <= 100`
+- The answer is guaranteed to be less than or equal to `2 * 10^9`

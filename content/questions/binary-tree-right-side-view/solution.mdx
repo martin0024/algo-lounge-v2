@@ -1,0 +1,47 @@
+---
+title: Binary Tree Right Side View — Solution
+---
+## Binary Tree Right Side View
+
+**Algorithm:**
+
+1. Use level-order traversal (BFS) to process nodes level by level
+2. For each level, only keep the rightmost node value
+3. Alternative: Use DFS with depth tracking, prioritize right subtree
+
+**Time Complexity:** O(n) - visit each node once
+
+**Space Complexity:** O(h) - queue size for BFS or recursion depth for DFS
+
+**Key Insights:**
+
+- Right side view means rightmost node at each level
+- BFS naturally processes nodes level by level
+- DFS approach: visit right subtree first, track depth
+
+```python
+def binary_tree_right_side_view(root):
+    if not root:
+        return []
+    
+    result = []
+    queue = [root]
+    
+    while queue:
+        level_size = len(queue)
+        
+        for i in range(level_size):
+            node = queue.pop(0)
+            
+            # If this is the rightmost node in current level
+            if i == level_size - 1:
+                result.append(node.val)
+            
+            # Add children to queue
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+    
+    return result
+```

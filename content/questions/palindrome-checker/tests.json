@@ -1,0 +1,16 @@
+{
+  "functionName": "isPalindrome",
+  "args": ["s"],
+  "cases": [
+    {"input":["A man, a plan, a canal: Panama"],"expected":true},
+    {"input":["race a car"],"expected":false},
+    {"input":[""],"expected":true},
+    {"input":["Was it a car or a cat I saw?"],"expected":true},
+    {"input":["hello"],"expected":false},
+    {"input":["Madam"],"expected":true},
+    {"input":["12321"],"expected":true},
+    {"input":["No lemon, no melon"],"expected":true},
+    {"input":["a"],"expected":true},
+    {"input":["ab"],"expected":false}
+  ]
+}

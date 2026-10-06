@@ -1,0 +1,42 @@
+---
+title: Invert Binary Tree
+difficulty: easy
+tags:
+  - trees
+migratedFrom: 'algolounge:invert-binary-tree'
+---
+Leetcode 226. Invert Binary Tree
+
+You are given the root of a binary tree \`root\`. Invert the binary tree and return its root.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  root = [4,2,7,1,3,6,9]
+```
+
+4 4 / \ / \ 2 7 => 7 2 / \ / \ / \ / \ 1 3 6 9 9 6 3 1Output: \[4,7,2,9,6,3,1]
+
+**Example 2**
+
+```
+Input:  root = [2,1,3]
+```
+
+2 2 / \ => / \ 1 3 3 1Output: \[2,3,1]
+
+**Example 3**
+
+```
+Input:  root = []
+Output: []
+```
+
+## Constraints
+
+- 0 \<= The number of nodes in the tree \<= 100
+- -100 \<= Node.val \<= 100
+
+> **How the tests work:** trees are written as level-order arrays — `[1,null,2]` is a root `1` with a right child `2`. Your function receives real `TreeNode` objects, and the tree you return is read back into an array.

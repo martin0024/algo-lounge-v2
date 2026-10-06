@@ -1,0 +1,64 @@
+---
+title: Longest Increasing Path in a Matrix — Solution
+---
+## Longest Increasing Path in a Matrix
+
+**Algorithm:**
+
+1. Use DFS with memoization to find longest path from each cell
+2. For each cell, explore all four directions (up, down, left, right)
+3. Only move to adjacent cells with strictly greater values
+4. Cache results to avoid recomputing paths from same cell
+5. Return maximum path length found across all starting positions
+
+**Time Complexity:** O(m × n) - each cell visited at most once due to memoization
+
+**Space Complexity:** O(m × n) - memoization cache and recursion stack
+
+**Key Insights:**
+
+- DFS naturally explores all possible paths from each starting point
+- Memoization prevents redundant calculations for overlapping subproblems
+- Strictly increasing constraint ensures no cycles
+- Can use topological sort alternative for iterative approach
+
+```python
+def longest_increasing_path(matrix):
+    if not matrix or not matrix[0]:
+        return 0
+    
+    m, n = len(matrix), len(matrix[0])
+    memo = {}
+    
+    def dfs(row, col):
+        if (row, col) in memo:
+            return memo[(row, col)]
+        
+        # Base case: current cell contributes 1 to the path length
+        max_path = 1
+        
+        # Check all four directions: up, down, left, right
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        
+        for dr, dc in directions:
+            new_row, new_col = row + dr, col + dc
+            
+            # Check if the new position is valid and forms an increasing path
+            if (0 <= new_row < m and 0 <= new_col < n and 
+                matrix[new_row][new_col] > matrix[row][col]):
+                
+                # Recursively find the longest path from the new position
+                path_from_neighbor = 1 + dfs(new_row, new_col)
+                max_path = max(max_path, path_from_neighbor)
+        
+        memo[(row, col)] = max_path
+        return max_path
+    
+    result = 0
+    # Try starting from each cell and find the maximum path length
+    for i in range(m):
+        for j in range(n):
+            result = max(result, dfs(i, j))
+    
+    return result
+```

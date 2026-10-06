@@ -1,0 +1,9 @@
+{
+  "functionName": "largestSubmatrix",
+  "args": ["matrix"],
+  "cases": [
+    {"input":[[[0,0,1],[1,1,1],[1,0,1]]],"expected":4},
+    {"input":[[[1,0,1,0,1]]],"expected":3},
+    {"input":[[[1,1,0],[1,0,1]]],"expected":2}
+  ]
+}

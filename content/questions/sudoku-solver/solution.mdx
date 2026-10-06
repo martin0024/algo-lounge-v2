@@ -1,0 +1,51 @@
+---
+title: Sudoku Solver — Solution
+---
+## Sudoku Solver
+
+**Algorithm (Backtracking with Constraint Tracking):**
+
+Use backtracking to try placing digits 1-9 in each empty cell, using constraint arrays to efficiently check validity.
+
+1. **Setup:** Create three boolean arrays to track which digits are used in each row, column, and 3x3 box.
+2. **Find empty cells:** Collect all positions with '.' into a list.
+3. **Initialize constraints:** Mark existing digits as used in their respective row, column, and box.
+4. **Backtrack:** For each empty cell, try digits 1-9. If a digit is valid (not used in row, column, or box), place it and recurse. If recursion succeeds, we're done. Otherwise, undo and try next digit.
+
+**Time Complexity:** O(9^m) where m is the number of empty cells (worst case)
+
+**Space Complexity:** O(m) for recursion stack + O(81) for constraint arrays
+
+```python
+def solve_sudoku(board):
+    def dfs(k):
+        nonlocal ok
+        if k == len(empty_cells):
+            ok = True
+            return
+        i, j = empty_cells[k]
+        for v in range(9):
+            if not row[i][v] and not col[j][v] and not block[i // 3][j // 3][v]:
+                row[i][v] = col[j][v] = block[i // 3][j // 3][v] = True
+                board[i][j] = str(v + 1)
+                dfs(k + 1)
+                if ok:
+                    return
+                row[i][v] = col[j][v] = block[i // 3][j // 3][v] = False
+
+    row = [[False] * 9 for _ in range(9)]
+    col = [[False] * 9 for _ in range(9)]
+    block = [[[False] * 9 for _ in range(3)] for _ in range(3)]
+    empty_cells = []
+    ok = False
+    
+    for i in range(9):
+        for j in range(9):
+            if board[i][j] == '.':
+                empty_cells.append((i, j))
+            else:
+                v = int(board[i][j]) - 1
+                row[i][v] = col[j][v] = block[i // 3][j // 3][v] = True
+    
+    dfs(0)
+```

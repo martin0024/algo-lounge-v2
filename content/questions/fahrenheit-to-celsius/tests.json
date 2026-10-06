@@ -1,0 +1,15 @@
+{
+  "functionName": "fahrenheitToCelsius",
+  "args": ["fahrenheit"],
+  "compare": "approx",
+  "cases": [
+    {"input":[32],"expected":0},
+    {"input":[212],"expected":100},
+    {"input":[-40],"expected":-40},
+    {"input":[98.6],"expected":37},
+    {"input":[77],"expected":25},
+    {"input":[0],"expected":-17.77777777777778},
+    {"input":[100],"expected":37.77777777777778},
+    {"input":[-459.67],"expected":-273.15}
+  ]
+}

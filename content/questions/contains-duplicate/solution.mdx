@@ -1,0 +1,35 @@
+---
+title: Contains Duplicate — Solution
+---
+## Contains Duplicate
+
+**Algorithm:**
+
+1. Use a hash set to track numbers we've seen
+2. Iterate through each number in the array
+3. If the number is already in the set, return true (duplicate found)
+4. Otherwise, add the number to the set
+5. If we finish the loop without finding duplicates, return false
+
+**Time Complexity:** O(n) - single pass through array
+
+**Space Complexity:** O(n) - hash set storage in worst case
+
+**Key Insights:**
+
+- Hash set provides O(1) lookup and insertion time
+- Early termination on first duplicate found
+- Alternative approaches: sorting O(n log n) or brute force O(n²)
+- Set-based solution is optimal for time complexity
+
+```python
+def contains_duplicate(nums):
+    seen = set()
+    
+    for num in nums:
+        if num in seen:
+            return True
+        seen.add(num)
+    
+    return False
+```

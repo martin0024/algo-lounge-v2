@@ -1,0 +1,55 @@
+---
+title: Number of Islands — Solution
+---
+## Number of Islands
+
+**Algorithm (DFS Approach):**
+
+1. Iterate through each cell in the grid
+2. When finding an unvisited land cell (1), increment island count
+3. Use DFS to mark all connected land cells as visited
+4. DFS explores all 4 directions (up, down, left, right)
+5. Mark visited cells by changing 1 to 0 (or use a visited set)
+
+**Time Complexity:** O(m × n) - visit each cell at most once
+
+**Space Complexity:** O(m × n) - worst case recursion depth if entire grid is one island
+
+**Key Insights:**
+
+- DFS/BFS both work - DFS is more concise
+- Modify grid in-place to mark visited cells (or use separate visited set)
+- Each DFS call explores one complete island
+- Prevents counting same island multiple times
+
+```python
+def num_islands(grid):
+    if not grid or not grid[0]:
+        return 0
+    
+    rows, cols = len(grid), len(grid[0])
+    count = 0
+    
+    def dfs(r, c):
+        # Base cases: out of bounds or water
+        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == 0:
+            return
+        
+        # Mark current cell as visited by changing to 0
+        grid[r][c] = 0
+        
+        # Explore all 4 directions
+        dfs(r + 1, c)  # down
+        dfs(r - 1, c)  # up
+        dfs(r, c + 1)  # right
+        dfs(r, c - 1)  # left
+    
+    # Iterate through each cell
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == 1:
+                count += 1
+                dfs(r, c)
+    
+    return count
+```

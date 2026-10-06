@@ -1,0 +1,17 @@
+{
+  "functionName": "FreqStack",
+  "args": ["operations", "arguments"],
+  "harness": "design",
+  "cases": [
+    {"input":[["FreqStack","push","push","push","push","push","push","pop","pop","pop","pop"],[[],[5],[7],[5],[7],[4],[5],[],[],[],[]]],"expected":[null,null,null,null,null,null,null,5,7,5,4]},
+    {"input":[["FreqStack","push","push","pop","pop"],[[],[1],[1],[],[]]],"expected":[null,null,null,1,1]},
+    {"input":[["FreqStack","push","push","push","pop"],[[],[1],[2],[3],[]]],"expected":[null,null,null,null,3]},
+    {"input":[["FreqStack","push","push","push","push","pop","pop"],[[],[4],[4],[4],[4],[],[]]],"expected":[null,null,null,null,null,4,4]},
+    {"input":[["FreqStack","push","push","push","push","push","pop","push","pop","pop"],[[],[1],[2],[1],[2],[1],[],[3],[],[]]],"expected":[null,null,null,null,null,null,1,null,2,1]},
+    {"input":[["FreqStack","push","push","push","push","push","push","pop","pop","pop"],[[],[9],[8],[9],[8],[9],[8],[],[],[]]],"expected":[null,null,null,null,null,null,null,8,9,8]},
+    {"input":[["FreqStack","push","pop"],[[],[5],[]]],"expected":[null,null,5]},
+    {"input":[["FreqStack","push","push","push","pop","pop","pop"],[[],[1],[2],[3],[],[],[]]],"expected":[null,null,null,null,3,2,1]},
+    {"input":[["FreqStack","push","push","push","push","push","pop","pop","pop","pop","pop"],[[],[10],[20],[10],[30],[10],[],[],[],[],[]]],"expected":[null,null,null,null,null,null,10,10,30,20,10]},
+    {"input":[["FreqStack","push","push","push","push","push","push","pop","pop","push","pop","pop"],[[],[7],[7],[3],[7],[3],[3],[],[],[7],[],[]]],"expected":[null,null,null,null,null,null,null,3,7,null,7,3]}
+  ]
+}

@@ -1,0 +1,64 @@
+---
+title: Alien Dictionary — Solution
+---
+## Alien Dictionary
+
+**Algorithm:**
+
+1. Build a graph of character dependencies by comparing adjacent words
+2. For each adjacent pair, find the first differing character — this gives an edge (earlier char → later char)
+3. Detect invalid input: if a longer word comes before its prefix, return ""
+4. Use BFS topological sort (Kahn's algorithm) to derive the ordering
+5. If not all characters are included in the result, a cycle exists — return ""
+
+**Time Complexity:** O(C) where C is the total length of all words
+
+**Space Complexity:** O(1) or O(U + min(U², N)) where U is unique characters, N is number of words
+
+**Key Insights:**
+
+- Compare adjacent words to extract ordering constraints
+- Build directed graph of character precedence
+- Topological sort gives valid character ordering
+- Handle edge case: word is prefix of previous word (invalid)
+
+```python
+def alien_order(words):
+    from collections import defaultdict, deque
+    
+    # Build graph: adjacency list and in-degree
+    adj = defaultdict(set)
+    in_degree = {c: 0 for word in words for c in word}
+    
+    for i in range(len(words) - 1):
+        w1, w2 = words[i], words[i + 1]
+        min_len = min(len(w1), len(w2))
+        
+        # Invalid case: longer word is prefix
+        if len(w1) > len(w2) and w1[:min_len] == w2[:min_len]:
+            return ""
+        
+        for j in range(min_len):
+            if w1[j] != w2[j]:
+                if w2[j] not in adj[w1[j]]:
+                    adj[w1[j]].add(w2[j])
+                    in_degree[w2[j]] += 1
+                break
+    
+    # BFS topological sort
+    queue = deque([c for c in in_degree if in_degree[c] == 0])
+    result = []
+    
+    while queue:
+        c = queue.popleft()
+        result.append(c)
+        for neighbor in adj[c]:
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+    
+    if len(result) != len(in_degree):
+        return ""
+    
+    return "".join(result)
+```

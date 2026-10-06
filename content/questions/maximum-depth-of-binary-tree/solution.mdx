@@ -1,0 +1,37 @@
+---
+title: Maximum Depth of Binary Tree — Solution
+---
+## Maximum Depth of Binary Tree
+
+**Algorithm:**
+
+1. Base case: if root is None, return 0 (empty tree has depth 0)
+2. Recursively calculate depth of left subtree
+3. Recursively calculate depth of right subtree
+4. Return 1 + max(left\_depth, right\_depth)
+5. The +1 accounts for the current node
+
+**Time Complexity:** O(n) - visit each node once
+
+**Space Complexity:** O(h) - recursion stack depth where h is tree height
+
+**Key Insights:**
+
+- Depth is the longest path from root to any leaf
+- Use recursion to break problem into subproblems
+- Maximum depth = 1 + max depth of subtrees
+- Can also be solved iteratively using level-order traversal
+
+```python
+def maximum_depth_of_binary_tree(root):
+    # Base case: empty tree has depth 0
+    if not root:
+        return 0
+    
+    # Recursively calculate depth of left and right subtrees
+    left_depth = maximum_depth_of_binary_tree(root.left)
+    right_depth = maximum_depth_of_binary_tree(root.right)
+    
+    # Return 1 (current node) + maximum depth of subtrees
+    return 1 + max(left_depth, right_depth)
+```

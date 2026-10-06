@@ -4,11 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import * as React from "react"
 
-import {
-  IconCalendar,
-  IconList,
-  IconSearch,
-} from "@tabler/icons-react"
+import { IconCalendar, IconList, IconSearch } from "@tabler/icons-react"
 
 import { DifficultyBadge } from "@/components/difficulty-badge"
 import { Button } from "@/components/ui/button"
@@ -30,23 +26,30 @@ import { Separator } from "@/components/ui/separator"
 import type { Difficulty } from "@/lib/content"
 import { cn } from "@/lib/utils"
 
-export type QuestionNavWeek = {
-  week: number
+export type QuestionNavSection = {
+  id: string
+  title: string
   questions: { slug: string; title: string; difficulty: Difficulty }[]
 }
 
-export function QuestionNav({ weeks }: { weeks: QuestionNavWeek[] }) {
+export function QuestionNav({
+  courseLabel,
+  sections,
+}: {
+  courseLabel: string
+  sections: QuestionNavSection[]
+}) {
   const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
   const [search, setSearch] = React.useState("")
 
   const query = search.trim().toLowerCase()
-  const filteredWeeks = React.useMemo(
+  const filteredSections = React.useMemo(
     () =>
-      weeks
-        .map(({ week, questions }) => ({
-          week,
-          questions: questions.filter((question) => {
+      sections
+        .map((section) => ({
+          ...section,
+          questions: section.questions.filter((question) => {
             if (!query) return true
             return (
               question.title.toLowerCase().includes(query) ||
@@ -55,16 +58,16 @@ export function QuestionNav({ weeks }: { weeks: QuestionNavWeek[] }) {
             )
           }),
         }))
-        .filter((week) => week.questions.length > 0),
-    [query, weeks]
+        .filter((section) => section.questions.length > 0),
+    [query, sections]
   )
 
-  const totalQuestions = weeks.reduce(
-    (count, week) => count + week.questions.length,
+  const totalQuestions = sections.reduce(
+    (count, section) => count + section.questions.length,
     0
   )
-  const visibleQuestions = filteredWeeks.reduce(
-    (count, week) => count + week.questions.length,
+  const visibleQuestions = filteredSections.reduce(
+    (count, section) => count + section.questions.length,
     0
   )
 
@@ -106,7 +109,7 @@ export function QuestionNav({ weeks }: { weeks: QuestionNavWeek[] }) {
             <DrawerDescription>
               {query
                 ? `${visibleQuestions} of ${totalQuestions} questions`
-                : `${totalQuestions} questions across ${weeks.length} weeks`}
+                : `${courseLabel} · ${totalQuestions} questions`}
             </DrawerDescription>
           </div>
           <InputGroup className="mt-2">
@@ -124,17 +127,17 @@ export function QuestionNav({ weeks }: { weeks: QuestionNavWeek[] }) {
 
         <ScrollArea className="min-h-0 flex-1">
           <nav className="flex flex-col gap-4 p-3">
-            {filteredWeeks.length === 0 ? (
+            {filteredSections.length === 0 ? (
               <p className="px-2 py-6 text-center text-sm text-muted-foreground">
                 No problems match &ldquo;{search.trim()}&rdquo;.
               </p>
             ) : (
-              filteredWeeks.map(({ week, questions }, weekIndex) => (
-                <div key={week}>
-                  {weekIndex > 0 ? <Separator className="mb-4" /> : null}
+              filteredSections.map(({ id, title, questions }, index) => (
+                <div key={id}>
+                  {index > 0 ? <Separator className="mb-4" /> : null}
                   <div className="flex items-center gap-2 px-2 pb-2 text-sm font-semibold text-muted-foreground">
                     <IconCalendar className="size-4" />
-                    Week {week}
+                    {title}
                   </div>
                   <div className="flex flex-col gap-1">
                     {questions.map((question) => {

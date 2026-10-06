@@ -1,0 +1,18 @@
+{
+  "functionName": "bitwiseAndOfNumbersRange",
+  "args": ["left", "right"],
+  "cases": [
+    {"input":[5,7],"expected":4},
+    {"input":[0,0],"expected":0},
+    {"input":[1,2147483647],"expected":0},
+    {"input":[1,5],"expected":0},
+    {"input":[26,30],"expected":24},
+    {"input":[10,12],"expected":8},
+    {"input":[15,15],"expected":15},
+    {"input":[100,110],"expected":96},
+    {"input":[1000,1023],"expected":992},
+    {"input":[2,3],"expected":2},
+    {"input":[8,15],"expected":8},
+    {"input":[2147483646,2147483647],"expected":2147483646}
+  ]
+}

@@ -1,0 +1,37 @@
+---
+title: HW13 - Coffee Production Scheduler — Solution
+---
+## Coffee Production Scheduler
+
+**Algorithm:**
+
+1. Track consecutive work blocks
+2. For each 'w': if consecutive \< 4, add 5 coffees
+3. For each 'b': reset consecutive counter
+
+**Time Complexity:** O(n) - iterate through schedule
+
+**Space Complexity:** O(1) - constant space
+
+**Key Insights:**
+
+- Fatigue kicks in on the 4th consecutive work block (when consecutive\_work == 4)
+- Breaks completely reset fatigue counter (set to 0)
+- Only first 3 consecutive work blocks produce 5 coffees each
+- This is a finite state machine pattern with 2 states: working, fatigued
+
+```python
+def calculate_coffees(schedule):
+    total = 0
+    consecutive_work = 0
+    
+    for block in schedule:
+        if block == 'w':
+            consecutive_work += 1
+            if consecutive_work <= 3:
+                total += 5
+        else:  # block == 'b'
+            consecutive_work = 0
+    
+    return total
+```

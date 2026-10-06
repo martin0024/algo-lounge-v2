@@ -1,0 +1,49 @@
+---
+title: Shut the Box
+difficulty: hard
+tags:
+  - matrix
+  - bfs
+  - 3d-geometry
+  - enumeration
+migratedFrom: 'algolounge:shut-the-box'
+---
+You ordered a box online. What arrived was this. The return policy is “all sales final.” The seller’s username was “definitely\_a\_box.” Determine if they were right. The shape is a connected arrangement of square panels, represented by an `n × n` binary grid with `1` as a panel and `0` as empty space. Determine whether the panels form a valid net for **any** rectangular box with positive integer dimensions *a × b × c*; if so, return `[a, b, c]` sorted in ascending order, otherwise return an empty array.
+
+A valid fold must satisfy all of the following:
+
+- Every panel is used **exactly once**
+- No two panels overlap after folding
+- Every face of the resulting box is completely covered
+- All panels must form a **connected region** — a disconnected region cannot be folded into a single box
+
+## Examples
+
+**Example 1**
+
+```
+Input:  grid = [[0,0,0,0,0,0,0,0],
+```
+
+\[0,0,1,1,0,0,0,0], \[1,1,1,1,1,1,0,0], \[0,0,1,1,0,1,1,1], \[1,1,1,1,0,0,0,0], \[0,0,0,1,0,0,0,0], \[0,0,1,1,1,1,1,0], \[1,1,1,1,0,1,0,0]] Output: \[1, 2, 4] Net visualization (1×2×4 box):........ ..██.... ██████.. ..██.███ ████.... ...█.... ..█████. ████.█..Face colors: █ front · █ back · █ top · █ bottom · █ left · █ right
+
+**Example 2**
+
+```
+Input:  grid = [[0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0],
+```
+
+\[0,0,0,0,0,0,1,1,0,1,1,0,0,0,1,1,1,1,1,0], \[0,0,0,0,0,0,1,0,0,0,1,1,0,1,1,0,1,0,0,0], \[0,0,0,0,0,0,1,1,0,1,1,1,1,1,0,0,1,1,1,0], \[0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,0,1,0,1,0], \[0,0,0,0,0,1,1,1,0,0,0,1,1,0,0,0,1,0,0,0], \[0,0,0,0,0,1,1,1,1,0,1,1,0,0,0,0,1,1,0,0], \[0,1,1,1,1,1,1,1,0,0,1,1,1,0,0,0,1,1,1,0], \[1,1,1,0,0,1,1,0,0,0,1,1,1,1,1,0,1,1,0,0], \[0,1,1,0,1,1,1,1,0,0,1,0,1,1,0,0,1,0,0,0], \[0,0,0,0,1,1,1,1,1,0,1,0,0,0,0,1,1,1,0,0], \[0,1,1,0,0,0,1,0,1,0,1,1,0,0,0,1,0,0,0,0], \[0,0,1,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0], \[0,0,1,1,0,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0], \[0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0], \[0,0,0,0,0,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0], \[0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0], \[0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,0,0,0,0,0], \[0,0,0,0,0,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0], \[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0]] Output: \[2, 6, 7] Net visualization (2×6×7 box):.....██.........██.. ......██.██...█████. ......█...██.██.█... ......██.█████..███. .......███.██...█.█. .....███...██...█... .....████.██....██.. .███████..███...███. ███..██...█████.██.. .██.████..█.██..█... ....█████.█....███.. .██...█.█.██...█.... ..█...█...██........ ..██.████.█......... ..█████............. .....███..██........ .......█████........ ........█..███...... .......███..█....... ........█...........Face colors: █ front · █ back · █ top · █ bottom · █ left · █ right
+
+**Example 3**
+
+```
+Input:  grid = [[0,0,1,1,1,1,1,1,1,1],
+```
+
+\[0,0,0,0,0,0,0,0,0,0], \[0,0,0,0,0,0,0,0,0,0], \[1,1,1,1,1,1,0,0,0,0], \[0,0,0,0,0,0,0,0,0,0], \[0,0,0,0,0,0,0,0,0,0], \[0,0,0,0,0,0,0,0,0,0], \[0,0,0,0,0,0,0,0,0,0], \[0,0,0,0,0,0,0,0,0,0], \[0,0,0,0,0,0,0,0,0,0]] Output: \[] Net visualization:..████████ .......... .......... ██████.... .......... .......... .......... .......... .......... ..........Two disconnected strips cannot fold into a single box.
+
+## Constraints
+
+- `1 <= n <= 20`
+- `grid[i][j]` is `0` or `1`

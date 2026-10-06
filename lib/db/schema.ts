@@ -1,5 +1,6 @@
 import {
   boolean,
+  index,
   integer,
   jsonb,
   pgTable,
@@ -7,8 +8,11 @@ import {
   real,
   text,
   timestamp,
+  unique,
   uuid,
 } from "drizzle-orm/pg-core"
+
+import type { XpKind } from "@/lib/xp/rules"
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -16,6 +20,10 @@ export const user = pgTable("user", {
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").notNull().default(false),
   image: text("image"),
+  // Cached result of the SCS guild membership check (see lib/discord.ts).
+  // Only positives are trusted for a short window; negatives always re-check.
+  discordGuildMember: boolean("discord_guild_member").notNull().default(false),
+  discordCheckedAt: timestamp("discord_checked_at"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 })
@@ -63,10 +71,8 @@ export const verification = pgTable("verification", {
 export const questions = pgTable("questions", {
   slug: text("slug").primaryKey(),
   title: text("title").notNull(),
-  week: integer("week").notNull(),
   difficulty: text("difficulty").notNull(),
   tags: jsonb("tags").$type<string[]>().notNull().default([]),
-  order: integer("order").notNull().default(0),
   syncedAt: timestamp("synced_at").notNull().defaultNow(),
 })
 
@@ -78,7 +84,9 @@ export const submissions = pgTable("submissions", {
   questionSlug: text("question_slug")
     .notNull()
     .references(() => questions.slug, { onDelete: "cascade" }),
-  language: text("language").$type<"typescript" | "python">().notNull(),
+  language: text("language")
+    .$type<"typescript" | "python" | "c" | "cpp" | "java">()
+    .notNull(),
   code: text("code").notNull(),
   status: text("status")
     .$type<"accepted" | "wrong_answer" | "error" | "timeout">()
@@ -88,6 +96,52 @@ export const submissions = pgTable("submissions", {
   runtimeMs: real("runtime_ms"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 })
+
+/**
+ * Append-only XP ledger. Total XP is `SUM(amount)` so it can never drift from
+ * the reasons behind it, and `dedupe_key` (unique per user) makes awarding
+ * idempotent — a replayed submission pays out exactly once.
+ */
+export const xpEvents = pgTable(
+  "xp_events",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    kind: text("kind").$type<XpKind>().notNull(),
+    amount: integer("amount").notNull(),
+    questionSlug: text("question_slug").references(() => questions.slug, {
+      onDelete: "cascade",
+    }),
+    language: text("language").$type<
+      "typescript" | "python" | "c" | "cpp" | "java"
+    >(),
+    submissionId: uuid("submission_id").references(() => submissions.id, {
+      onDelete: "set null",
+    }),
+    /** Free-text suffix for the UI label (streak length, achievement name). */
+    detail: text("detail"),
+    dedupeKey: text("dedupe_key").notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (table) => [
+    unique("xp_events_user_dedupe").on(table.userId, table.dedupeKey),
+    index("xp_events_user_idx").on(table.userId),
+  ]
+)
+
+export const userAchievements = pgTable(
+  "user_achievements",
+  {
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    achievementId: text("achievement_id").notNull(),
+    unlockedAt: timestamp("unlocked_at").notNull().defaultNow(),
+  },
+  (table) => [primaryKey({ columns: [table.userId, table.achievementId] })]
+)
 
 export const cohorts = pgTable("cohorts", {
   id: uuid("id").primaryKey().defaultRandom(),

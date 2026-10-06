@@ -1,0 +1,39 @@
+---
+title: Find the Town Judge — Solution
+---
+## Find the Town Judge
+
+**Algorithm:**
+
+1. Model trust relationships as directed edges in a graph
+2. Track net trust: increment when trusted by someone, decrement when trusting someone
+3. The town judge has net trust equal to `n - 1` (trusted by everyone, trusts no one)
+
+**Time Complexity:** O(T + n) where T is the number of trust pairs
+
+**Space Complexity:** O(n) - trust count array
+
+**Key Insights:**
+
+- Think of trust as directed graph edges: a trusts b means edge a → b
+- Judge has in-degree n-1 and out-degree 0, so net trust = n-1
+- Use a single array tracking net trust (in-degree minus out-degree)
+
+```python
+def find_judge(n, trust):
+    if n == 1:
+        return 1
+    
+    # Track net trust: +1 when trusted, -1 when trusting
+    trust_count = [0] * (n + 1)
+    
+    for a, b in trust:
+        trust_count[a] -= 1  # a trusts someone (out-degree)
+        trust_count[b] += 1  # b is trusted (in-degree)
+    
+    for i in range(1, n + 1):
+        if trust_count[i] == n - 1:
+            return i
+    
+    return -1
+```

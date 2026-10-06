@@ -1,0 +1,38 @@
+---
+title: Dice Ways — Solution
+---
+## Dice Ways
+
+**Algorithm:**
+
+1. Use dynamic programming
+2. dp\[i]\[j] = ways to get sum j with i dice
+3. For each die, try all faces 1-6
+
+**Time Complexity:** O(k × target × 6)
+
+**Space Complexity:** O(k × target) - dp table
+
+**Key Insights:**
+
+- Impossible cases: target \< k (sum too small) or target > 6k (sum too large)
+- dp\[0]\[0] = 1 represents one way to get sum 0 with 0 dice (do nothing)
+- Each die contributes independently: current ways = sum of ways from previous die with all valid face values
+- Minimum sum with i dice is i, maximum is 6i
+
+```python
+def dice_ways(k, target):
+    if target < k or target > 6 * k:
+        return 0
+    
+    dp = [[0] * (target + 1) for _ in range(k + 1)]
+    dp[0][0] = 1
+    
+    for dice in range(1, k + 1):
+        for sum_val in range(dice, min(6 * dice, target) + 1):
+            for face in range(1, 7):
+                if sum_val >= face:
+                    dp[dice][sum_val] += dp[dice - 1][sum_val - face]
+    
+    return dp[k][target]
+```

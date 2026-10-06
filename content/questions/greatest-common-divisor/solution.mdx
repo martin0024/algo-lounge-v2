@@ -1,0 +1,29 @@
+---
+title: Greatest Common Divisor (GCD) — Solution
+---
+## Greatest Common Divisor
+
+**Algorithm:**
+
+1. Use Euclidean algorithm
+2. Repeatedly apply: gcd(a, b) = gcd(b, a % b)
+3. Base case: when b = 0, return |a|
+
+**Time Complexity:** O(log(min(a, b)))
+
+**Space Complexity:** O(1) - iterative approach
+
+**Key Insights:**
+
+- Convert to absolute values to handle negative inputs
+- Euclidean algorithm divides problem by roughly constant factor each step
+- GCD is always positive (hence return a not |a|)
+- Zero case: gcd(0, n) = n and gcd(0, 0) = 0
+
+```python
+def gcd(a, b):
+    a, b = abs(a), abs(b)
+    while b:
+        a, b = b, a % b
+    return a
+```

@@ -1,0 +1,16 @@
+{
+  "functionName": "forecastSales",
+  "args": ["sales"],
+  "cases": [
+    {"input":[[100,200,10]],"expected":[115,230,0]},
+    {"input":[[50,50]],"expected":[57,57]},
+    {"input":[[100]],"expected":[115]},
+    {"input":[[1000,10,20]],"expected":[1150,0,0]},
+    {"input":[[60,60,60,60]],"expected":[69,69,69,69]},
+    {"input":[[200,150,100,5,5]],"expected":[230,172,115,0,0]},
+    {"input":[[500,100]],"expected":[575,115]},
+    {"input":[[20,20,20,20,20]],"expected":[23,23,23,23,23]},
+    {"input":[[95,5]],"expected":[109,0]},
+    {"input":[[1000,1,1,1,1]],"expected":[1150,0,0,0,0]}
+  ]
+}

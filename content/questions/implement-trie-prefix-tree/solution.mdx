@@ -1,0 +1,50 @@
+---
+title: Implement Trie (Prefix Tree) — Solution
+---
+## Implement Trie
+
+**Algorithm:**
+
+1. Each node maps characters to child nodes
+2. `insert`: walk or create path; mark end of word on last character
+3. `search`: follow path; require end-of-word flag
+4. `startsWith`: follow path; prefix may end mid-word
+
+**Time Complexity:** O(m) per operation, m = word length
+
+**Space Complexity:** O(ALPHABET\_SIZE \* N \* M) worst case for stored characters
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_end = False
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = TrieNode()
+            node = node.children[c]
+        node.is_end = True
+
+    def search(self, word: str) -> bool:
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                return False
+            node = node.children[c]
+        return node.is_end
+
+    def startsWith(self, prefix: str) -> bool:
+        node = self.root
+        for c in prefix:
+            if c not in node.children:
+                return False
+            node = node.children[c]
+        return True
+```

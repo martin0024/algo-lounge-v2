@@ -1,0 +1,11 @@
+{
+  "functionName": "mergeStringsAlternately",
+  "args": ["word1", "word2"],
+  "cases": [
+    {"input":["abc","xyz"],"expected":"axbycz"},
+    {"input":["ab","abbxxc"],"expected":"aabbbxxc"},
+    {"input":["a","b"],"expected":"ab"},
+    {"input":["hello","world"],"expected":"hweolrllod"},
+    {"input":["x","yzabc"],"expected":"xyzabc"}
+  ]
+}

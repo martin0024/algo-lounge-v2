@@ -1,0 +1,42 @@
+---
+title: Prototype Pattern
+difficulty: easy
+tags:
+  - design-patterns
+migratedFrom: 'algolounge:prototype-pattern'
+---
+Implement the Prototype design pattern.
+
+The Prototype is a creational design pattern that allows an object to copy itself. It is particularly useful when the creation of an object is more convenient through copying an existing object than through creation from scratch.
+
+You are given a `Shape` prototype interface that supports cloning itself within the `Rectangle` and `Square` classes.
+
+You need to implement the following:
+
+- The `clone()` method in the `Rectangle` class which returns a new instance of the `Rectangle` class.
+- The `clone()` method in the `Square` class which returns a new instance of the `Square` class.
+- The `clone_shapes()` method in the `Test` class which returns a list of cloned shapes.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  square = Square(10)
+Output: square.clone().get_length() = 10, square is not square.clone() = True
+```
+
+Clone has same length but is a different object.
+
+**Example 2**
+
+```
+Input:  rectangle = Rectangle(10, 20)
+Output: rectangle.clone().get_width() = 10, rectangle.clone().get_height() = 20
+```
+
+Clone has same dimensions but is a different object.
+
+**Note:** Each clone should have the same attributes as the original shape, but they should not be the same object instance.
+
+> **How the tests work:** `action` picks the scenario (clone a square, clone a rectangle, or clone a list of shapes with `Test`) and `params` supplies the shapes. Clones must be new objects.

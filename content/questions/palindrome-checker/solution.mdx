@@ -1,0 +1,27 @@
+---
+title: Palindrome Checker — Solution
+---
+## Palindrome Checker
+
+**Algorithm:**
+
+1. Filter to keep only alphanumeric characters
+2. Convert to lowercase
+3. Check if string equals its reverse
+
+**Time Complexity:** O(n) - process string once
+
+**Space Complexity:** O(n) - filtered string
+
+**Key Insights:**
+
+- isalnum() method filters both letters and digits efficiently
+- Lowercase conversion ensures case-insensitive comparison
+- String slicing \[::-1] reverses string in O(n) time
+- Empty string and single characters are trivially palindromes
+
+```python
+def is_palindrome(s):
+    filtered = ''.join(c.lower() for c in s if c.isalnum())
+    return filtered == filtered[::-1]
+```

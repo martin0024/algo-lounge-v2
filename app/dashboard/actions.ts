@@ -5,14 +5,34 @@ import { desc, eq } from "drizzle-orm"
 
 import type { ActivityDay } from "@/components/dashboard/activity-chart"
 import { auth } from "@/lib/auth"
-import { getAllQuestions } from "@/lib/content"
+import {
+  courseLabel,
+  getAllQuestions,
+  getCurrentCourse,
+  languages,
+  type Language,
+} from "@/lib/content"
 import { db } from "@/lib/db"
 import { submissions } from "@/lib/db/schema"
 import { dayKey } from "@/lib/format"
+import { getXpProfile, type XpProfile } from "@/lib/xp/profile"
 
 const DAYS_SHOWN = 35
 
 export type VerdictKey = "accepted" | "wrong_answer" | "error" | "timeout"
+
+export type RecentSubmission = {
+  id: string
+  questionSlug: string
+  questionTitle: string
+  language: Language
+  status: VerdictKey
+  passedCount: number
+  totalCount: number
+  runtimeMs: number | null
+  code: string
+  createdAt: string
+}
 
 export type DashboardStats = {
   firstName: string
@@ -21,15 +41,15 @@ export type DashboardStats = {
   days: ActivityDay[]
   verdictCounts: { key: VerdictKey; count: number }[]
   maxVerdict: number
-  languageCounts: { lang: "typescript" | "python"; count: number }[]
-  weeks: { week: number; total: number; solved: number }[]
-  recent: {
-    questionSlug: string
-    questionTitle: string
-    language: "typescript" | "python"
-    status: VerdictKey
-    createdAt: Date
-  }[]
+  languageCounts: { lang: Language; count: number }[]
+  /** Progress through the current semester, week by week. */
+  course: {
+    id: string
+    label: string
+    weeks: { id: string; title: string; total: number; solved: number }[]
+  } | null
+  recent: RecentSubmission[]
+  xp: XpProfile
 }
 
 export async function getDashboardStats(): Promise<DashboardStats> {
@@ -101,29 +121,53 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     else break
   }
 
-  const weekMap = new Map<number, { total: number; solved: number }>()
-  for (const question of questions) {
-    const entry = weekMap.get(question.week) ?? { total: 0, solved: 0 }
-    entry.total += 1
-    if (solvedSlugs.has(question.slug)) entry.solved += 1
-    weekMap.set(question.week, entry)
+  const current = getCurrentCourse()
+  const course = current && {
+    id: current.id,
+    label: courseLabel(current),
+    weeks: current.units.map((unit) => ({
+      id: unit.id,
+      title: unit.title,
+      total: unit.questions.length,
+      solved: unit.questions.filter((q) => solvedSlugs.has(q.slug)).length,
+    })),
   }
-  const weeks = [...weekMap.entries()].map(([week, progress]) => ({
-    week,
-    ...progress,
-  }))
 
-  const languageCounts = (["typescript", "python"] as const).map((lang) => ({
-    lang,
-    count: rows.filter((r) => r.language === lang).length,
-  }))
+  const languageCounts = languages
+    .map((lang) => ({
+      lang,
+      count: rows.filter((r) => r.language === lang).length,
+    }))
+    .filter((entry) => entry.count > 0)
 
-  const recent = rows.slice(0, 8).map((row) => ({
+  const recentRows = await db
+    .select({
+      id: submissions.id,
+      questionSlug: submissions.questionSlug,
+      language: submissions.language,
+      status: submissions.status,
+      passedCount: submissions.passedCount,
+      totalCount: submissions.totalCount,
+      runtimeMs: submissions.runtimeMs,
+      code: submissions.code,
+      createdAt: submissions.createdAt,
+    })
+    .from(submissions)
+    .where(eq(submissions.userId, session.user.id))
+    .orderBy(desc(submissions.createdAt))
+    .limit(8)
+
+  const recent: RecentSubmission[] = recentRows.map((row) => ({
+    id: row.id,
     questionSlug: row.questionSlug,
     questionTitle: titleBySlug.get(row.questionSlug) ?? row.questionSlug,
     language: row.language,
     status: row.status as VerdictKey,
-    createdAt: row.createdAt,
+    passedCount: row.passedCount,
+    totalCount: row.totalCount,
+    runtimeMs: row.runtimeMs,
+    code: row.code,
+    createdAt: row.createdAt.toISOString(),
   }))
 
   const tiles = [
@@ -135,12 +179,13 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     { label: "Acceptance rate", value: `${acceptanceRate}%` },
     {
       label: "Day streak",
-      value: String(Math.max(streak, 1)),
-      flame: true,
+      value: String(streak),
+      flame: streak > 0,
     },
   ]
 
   return {
+    xp: await getXpProfile(session.user.id),
     firstName: session.user.name.split(" ")[0] ?? session.user.name,
     totalSubmissions,
     tiles,
@@ -148,7 +193,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     verdictCounts,
     maxVerdict,
     languageCounts,
-    weeks,
+    course,
     recent,
   }
 }

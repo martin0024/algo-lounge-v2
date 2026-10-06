@@ -1,0 +1,56 @@
+---
+title: Fraction to Recurring Decimal — Solution
+---
+## Fraction to Recurring Decimal
+
+**Algorithm (Long Division with Hash Map):**
+
+Simulate long division while tracking remainders to detect repeating cycles.
+
+1. **Handle edge cases:** If numerator is 0, return "0". Handle negative numbers.
+2. **Integer part:** Compute the integer division result.
+3. **Decimal part:** Use long division, storing each remainder and its position in a hash map.
+4. **Detect cycle:** If a remainder repeats, we've found a cycle. Insert parentheses around the repeating portion.
+
+**Time Complexity:** O(d) where d is the length of the decimal representation
+
+**Space Complexity:** O(d) for storing remainders and result
+
+**Key Insight:** A repeating decimal occurs when the same remainder appears twice during long division.
+
+```python
+def fraction_to_decimal(numerator, denominator):
+    if numerator == 0:
+        return "0"
+    
+    ans = []
+    
+    # Handle negative sign
+    if (numerator > 0) ^ (denominator > 0):
+        ans.append("-")
+    
+    a, b = abs(numerator), abs(denominator)
+    
+    # Integer part
+    ans.append(str(a // b))
+    a %= b
+    
+    if a == 0:
+        return "".join(ans)
+    
+    ans.append(".")
+    
+    # Decimal part with cycle detection
+    d = {}
+    while a:
+        d[a] = len(ans)
+        a *= 10
+        ans.append(str(a // b))
+        a %= b
+        if a in d:
+            ans.insert(d[a], "(")
+            ans.append(")")
+            break
+    
+    return "".join(ans)
+```

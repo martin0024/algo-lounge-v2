@@ -1,0 +1,30 @@
+---
+title: Diameter of Binary Tree — Solution
+---
+## Reference solution
+
+```python
+class TreeNode:
+    def __init__(self, val: int = 0, left: "TreeNode | None" = None, right: "TreeNode | None" = None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+
+def diameter_of_binary_tree(root: TreeNode | None) -> int:
+    # The longest path through a node joins its two deepest subtrees.
+    best = 0
+
+    def depth(node):
+        nonlocal best
+        if node is None:
+            return 0
+        left = depth(node.left)
+        right = depth(node.right)
+        best = max(best, left + right)
+        return 1 + max(left, right)
+
+    depth(root)
+    return best
+```

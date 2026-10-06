@@ -1,0 +1,39 @@
+---
+title: Implement Stack using Queues
+difficulty: easy
+tags:
+  - stack
+  - queue
+migratedFrom: 'algolounge:implement-stack-using-queues'
+---
+Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (`push`, `top`, `pop`, and `empty`).
+
+Implement the `MyStack` class:
+
+- `push(x)`: Pushes element x to the top of the stack
+- `pop()`: Removes the element on the top of the stack and returns it
+- `top()`: Returns the element on the top of the stack
+- `empty()`: Returns `true` if the stack is empty, `false` otherwise
+
+**Notes:**
+
+- You must use only standard operations of a queue (push to back, peek/pop from front, size, and is empty)
+- You may use a list or `collections.deque` to simulate a queue
+
+## Examples
+
+**Example 1**
+
+```
+Input:  ["MyStack", "push", "push", "top", "pop", "empty"]
+```
+
+\[\[], \[1], \[2], \[], \[], \[]] Output: \[null, null, null, 2, 2, false]
+
+## Constraints
+
+- `1 <= x <= 9`
+- At most `100` calls will be made to `push`, `pop`, `top`, and `empty`
+- All calls to `pop` and `top` are valid
+
+> **How the tests work:** each test is a sequence of calls. `operations[i]` is the method called with `arguments[i]`; the first entry constructs the class. The expected output lists what every call returns — `null` for the constructor and for methods that return nothing.

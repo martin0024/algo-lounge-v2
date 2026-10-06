@@ -1,0 +1,65 @@
+---
+title: Linked List Cycle Detection — Solution
+---
+## Linked List Cycle Detection - Floyd's Tortoise and Hare
+
+**Algorithm:**
+
+1. Use two pointers: slow (moves 1 step) and fast (moves 2 steps)
+2. If there's a cycle, fast pointer will eventually catch up to slow
+3. If fast reaches end (null), no cycle exists
+
+**Time Complexity:** O(n) - visit each node at most once
+
+**Space Complexity:** O(1) - only using two pointers
+
+**Key Insights:**
+
+- Floyd's algorithm uses different speeds to detect cycles
+- If cycle exists, pointers will meet inside the cycle
+- No extra space needed unlike hash set approach
+
+```typescript
+export class ListNode {
+  val: number
+  next: ListNode | null
+
+  constructor(val = 0, next: ListNode | null = null) {
+    this.val = val
+    this.next = next
+  }
+}
+
+
+export function hasCycle(head: ListNode | null): boolean {
+  let slow = head
+  let fast = head
+  while (fast && fast.next) {
+    slow = slow!.next
+    fast = fast.next.next
+    if (slow === fast) return true
+  }
+  return false
+}
+```
+
+```python
+def has_cycle(head):
+    if not head or not head.next:
+        return False
+    
+    # Two pointers: slow moves 1 step, fast moves 2 steps
+    slow = head
+    fast = head
+    
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        
+        # If pointers meet, cycle detected
+        if slow == fast:
+            return True
+    
+    # Fast reached end, no cycle
+    return False
+```

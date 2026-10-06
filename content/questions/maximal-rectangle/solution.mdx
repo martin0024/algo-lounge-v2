@@ -1,0 +1,57 @@
+---
+title: Maximal Rectangle — Solution
+---
+## Maximal Rectangle
+
+**Algorithm:**
+
+1. Convert the 2D matrix problem into multiple 1D histogram problems
+2. For each row, build a histogram where the height at each column is the count of consecutive '1's above (including current row)
+3. Apply the "Largest Rectangle in Histogram" algorithm to each histogram
+4. Track the maximum area found across all rows
+
+**Time Complexity:** O(m × n) - process each cell once, histogram algorithm is O(n) per row
+
+**Space Complexity:** O(n) - histogram array and stack
+
+**Key Insights:**
+
+- This problem builds on LeetCode 84 (Largest Rectangle in Histogram)
+- Each row can be viewed as the base of a histogram
+- Heights reset to 0 when we encounter a '0'
+- The monotonic stack efficiently finds the largest rectangle in each histogram
+
+```python
+def maximal_rectangle(matrix):
+    def area(heights):
+        stack = []
+        maxArea = 0
+        n = len(heights)
+        
+        for i in range(n + 1):
+            h = 0 if i == n else heights[i]
+            while stack and h < heights[stack[-1]]:
+                height = heights[stack.pop()]
+                width = i if not stack else i - stack[-1] - 1
+                maxArea = max(maxArea, height * width)
+            stack.append(i)
+        
+        return maxArea
+    
+    if not matrix:
+        return 0
+    
+    m, n = len(matrix), len(matrix[0])
+    hist = [0] * n
+    ans = 0
+    
+    for i in range(m):
+        for j in range(n):
+            if matrix[i][j] == '1':
+                hist[j] += 1
+            else:
+                hist[j] = 0
+        ans = max(ans, area(hist))
+    
+    return ans
+```

@@ -1,0 +1,71 @@
+{
+  "title": "AlgoTime Fall 2026",
+  "description": "Welcome to Algotime Fall 2026! Practice these key algorithm problems to sharpen your skills.",
+  "kind": "semester",
+  "term": {
+    "season": "fall",
+    "year": 2026
+  },
+  "units": [
+    {
+      "title": "Week 1",
+      "description": "Week 1 — Ransom Note, Two Sum, Group Anagrams, Candy Crush, Trapping Rain Water, Word Ladder.",
+      "questions": [
+        "ransom-note",
+        "two-sum",
+        "group-anagrams",
+        "candy-crush",
+        "trapping-rain-water",
+        "word-ladder"
+      ]
+    },
+    {
+      "title": "Week 2",
+      "description": "Week 2 — Reverse Linked List, Best Time to Buy and Sell Stock, Add Two Numbers, Number of Islands, Reverse Nodes in K-Group, Binary Tree Maximum Path Sum.",
+      "questions": [
+        "reverse-linked-list",
+        "best-time-to-buy-and-sell-stock",
+        "add-two-numbers",
+        "number-of-islands",
+        "reverse-nodes-in-k-group",
+        "binary-tree-maximum-path-sum"
+      ]
+    },
+    {
+      "title": "Week 3",
+      "description": "Week 3 — Valid Parentheses, Climbing Stairs, House Robber, Course Schedule, Rank Transform of a Matrix, N-Queens.",
+      "questions": [
+        "valid-parentheses",
+        "climbing-stairs",
+        "house-robber",
+        "course-schedule",
+        "rank-transform-of-a-matrix",
+        "n-queens"
+      ]
+    },
+    {
+      "title": "Week 4",
+      "description": "Week 4 — hashing, stacks & sliding windows (two easy, two medium, two hard). Contains Duplicate (e.g. [1,2,3,1] → true), Roman to Integer (\"MCMXCIV\" → 1994), Daily Temperatures ([73,74,75,71,69,72,76,73] → [1,1,4,2,1,1,0,0]), Merge Intervals ([[1,3],[2,6],[8,10]] → [[1,6],[8,10]]), Minimum Window Substring (\"ADOBECODEBANC\",\"ABC\" → \"BANC\"), Largest Rectangle in Histogram ([2,1,5,6,2,3] → 10).",
+      "questions": [
+        "contains-duplicate",
+        "roman-to-integer",
+        "daily-temperatures",
+        "merge-intervals",
+        "minimum-window-substring",
+        "largest-rectangle-in-histogram"
+      ]
+    },
+    {
+      "title": "Week 5",
+      "description": "Week 5 — two pointers, binary search & dynamic programming (two easy, two medium, two hard). Majority Element ([2,2,1,1,1,2,2] → 2), First Unique Character (\"leetcode\" → 0), Product of Array Except Self ([1,2,3,4] → [24,12,8,6]), Search in Rotated Sorted Array ([4,5,6,7,0,1,2],0 → 4), Sliding Window Maximum ([1,3,-1,-3,5,3,6,7],3 → [3,3,5,5,6,7]), Edit Distance (\"horse\",\"ros\" → 3).",
+      "questions": [
+        "majority-element",
+        "first-unique-character-in-a-string",
+        "product-of-array-except-self",
+        "search-in-rotated-sorted-array",
+        "sliding-window-maximum",
+        "edit-distance"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+---
+title: Alien Dictionary
+difficulty: hard
+tags:
+  - graph
+  - topological-sort
+migratedFrom: 'algolounge:alien-dictionary'
+---
+There is a foreign language which uses the latin alphabet, but the order among letters is **not** "a", "b", "c" ... "z" as in English.
+
+You receive a list of non-empty strings `words` from the dictionary, where the words are **sorted lexicographically based on the rules of this new language**.
+
+Derive the order of letters in this language. If the order is invalid, return an empty string. If there are multiple valid orderings of letters, return **any** of them.
+
+A string `a` is lexicographically smaller than a string `b` if either of the following is true:
+
+- The first letter where they differ is smaller in `a` than in `b`.
+- `a` is a prefix of `b` (and `a != b`).
+
+## Examples
+
+**Example 1**
+
+```
+Input:  words = ["z","o"]
+Output: "zo"
+```
+
+From "z" and "o", we know 'z' \< 'o'.
+
+**Example 2**
+
+```
+Input:  words = ["hrn","hrf","er","enn","rfnn"]
+Output: "hernf"
+```
+
+From the given words we can derive: 'h' \< 'e' \< 'r', 'n' \< 'f', 'e' \< 'r'.
+
+## Constraints
+
+- `1 <= words.length <= 100`
+- `1 <= words[i].length <= 100`
+- `words[i]` consists of only lowercase English letters

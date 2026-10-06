@@ -35,7 +35,7 @@ export function UserMenu() {
   )
 
   if (!mounted || isPending) {
-    return <div className="size-9 rounded-full bg-muted" />
+    return <div className="size-8 rounded-full bg-muted" />
   }
 
   if (!session) {
@@ -71,10 +71,10 @@ export function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="rounded-full outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+        className="flex size-6 shrink-0 items-center justify-center overflow-hidden rounded-full outline-none hover:opacity-80 focus-visible:ring-3 focus-visible:ring-ring/50"
         aria-label="Open account menu"
       >
-        <Avatar className="size-9">
+        <Avatar size="sm" className="after:hidden">
           {image ? <AvatarImage src={image} alt={name} /> : null}
           <AvatarFallback>{getInitials(name || email)}</AvatarFallback>
         </Avatar>

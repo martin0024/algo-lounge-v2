@@ -1,0 +1,205 @@
+{
+  "title": "AlgoLounge Foundations",
+  "description": "Master essential algorithms and data structures through curated problems. Progress from fundamentals to advanced topics with a proven learning path covering 17 key categories.",
+  "kind": "track",
+  "units": [
+    {
+      "title": "Arrays & Hashing",
+      "description": "Master array manipulation and hash table techniques. Foundation patterns for solving complex algorithmic problems efficiently.",
+      "questions": [
+        "contains-duplicate",
+        "two-sum",
+        "majority-element",
+        "remove-element",
+        "most-frequent-element",
+        "concatenation-of-array",
+        "anagram-groups",
+        "product-of-array-except-self",
+        "valid-sudoku",
+        "longest-consecutive-sequence",
+        "sort-colors",
+        "valid-anagram"
+      ]
+    },
+    {
+      "title": "Two Pointers",
+      "description": "Learn efficient array and string manipulation using the two-pointer technique. Essential for optimizing solutions from O(n²) to O(n).",
+      "questions": [
+        "palindrome-checker",
+        "intersection-of-two-linked-lists",
+        "two-sum-ii-input-array-is-sorted",
+        "3sum",
+        "4sum",
+        "container-with-most-water",
+        "boats-to-save-people",
+        "longest-palindromic-substring",
+        "trapping-rain-water"
+      ]
+    },
+    {
+      "title": "Stack",
+      "description": "Master stack-based problem solving including monotonic stacks, expression evaluation, and parenthesis matching.",
+      "questions": [
+        "valid-parentheses",
+        "implement-stack",
+        "implement-stack-using-queues",
+        "simplify-path",
+        "valid-parenthesis-string",
+        "car-fleet",
+        "daily-temperatures",
+        "evaluate-reverse-polish-notation",
+        "asteroid-collision",
+        "baseball-game",
+        "longest-valid-parentheses",
+        "largest-rectangle-in-histogram",
+        "maximum-frequency-stack"
+      ]
+    },
+    {
+      "title": "Binary Search",
+      "description": "Master the binary search algorithm and its variations. Learn to solve problems in O(log n) time complexity.",
+      "questions": [
+        "binary-search",
+        "search-insert-position",
+        "median-of-two-sorted-arrays"
+      ]
+    },
+    {
+      "title": "Sliding Window",
+      "description": "Learn to optimize subarray and substring problems using the sliding window technique for linear time solutions.",
+      "questions": [
+        "best-time-to-buy-and-sell-stock",
+        "best-time-to-buy-and-sell-stock-ii"
+      ]
+    },
+    {
+      "title": "Linked List",
+      "description": "Master linked list manipulation including reversal, cycle detection, merging, and pointer techniques.",
+      "questions": [
+        "reverse-linked-list",
+        "merge-two-sorted-lists",
+        "linked-list-cycle",
+        "palindrome-linked-list",
+        "add-two-numbers",
+        "copy-list-with-random-pointer",
+        "remove-nth-node-from-end-of-list",
+        "reorder-list"
+      ]
+    },
+    {
+      "title": "Trees",
+      "description": "Build expertise in tree traversals, binary search trees, and tree manipulation. Foundation for advanced graph algorithms.",
+      "questions": [
+        "invert-binary-tree",
+        "maximum-depth-of-binary-tree",
+        "balanced-binary-tree",
+        "binary-tree-diameter",
+        "binary-tree-inorder-traversal",
+        "binary-tree-preorder-traversal",
+        "binary-tree-postorder-traversal",
+        "binary-tree-right-side-view",
+        "binary-tree-from-preorder-and-inorder-traversal",
+        "serialize-and-deserialize-binary-tree",
+        "binary-tree-maximum-path-sum"
+      ]
+    },
+    {
+      "title": "Tries",
+      "description": "Learn trie (prefix tree) data structures for efficient string operations and word search problems.",
+      "questions": [
+        "word-search-ii"
+      ]
+    },
+    {
+      "title": "Backtracking",
+      "description": "Learn recursive backtracking for solving constraint satisfaction and combinatorial problems.",
+      "questions": [
+        "generate-parentheses",
+        "n-queens"
+      ]
+    },
+    {
+      "title": "Heap / Priority Queue",
+      "description": "Master heap data structures and priority queues for efficient top-K problems and scheduling algorithms.",
+      "questions": [
+        "last-stone-weight",
+        "meeting-rooms-ii",
+        "find-median-from-data-stream"
+      ]
+    },
+    {
+      "title": "Graphs",
+      "description": "Master graph traversal algorithms (DFS, BFS), cycle detection, and connected component problems.",
+      "questions": [
+        "clone-graph",
+        "course-schedule",
+        "number-of-islands",
+        "max-area-of-island",
+        "rotting-oranges",
+        "word-ladder"
+      ]
+    },
+    {
+      "title": "1D Dynamic Programming",
+      "description": "Build dynamic programming foundations with 1D array problems. Essential preparation for complex DP patterns.",
+      "questions": [
+        "climbing-stairs",
+        "min-cost-climbing-stairs",
+        "house-robber",
+        "coin-change",
+        "longest-common-subsequence",
+        "maximum-subarray",
+        "tribonacci-sequence",
+        "dice-ways"
+      ]
+    },
+    {
+      "title": "Intervals",
+      "description": "Master interval problems including merging, scheduling, and overlap detection. Common in meeting room scenarios.",
+      "questions": [
+        "meeting-rooms",
+        "insert-interval",
+        "merge-intervals",
+        "minimum-interval-to-include-each-query"
+      ]
+    },
+    {
+      "title": "Greedy",
+      "description": "Learn greedy algorithms for optimization problems. Make locally optimal choices to find global solutions.",
+      "questions": [
+        "candy",
+        "car-pooling"
+      ]
+    },
+    {
+      "title": "Advanced Graphs",
+      "description": "Advanced graph algorithms including topological sort, union find, and Eulerian paths.",
+      "questions": [
+        "reconstruct-itinerary",
+        "redundant-connection-ii"
+      ]
+    },
+    {
+      "title": "2D Dynamic Programming",
+      "description": "Advanced dynamic programming with 2D arrays and matrices. Master complex state transitions and optimizations.",
+      "questions": [
+        "burst-balloons",
+        "longest-increasing-path-in-a-matrix",
+        "distinct-subsequences",
+        "regular-expression-matching"
+      ]
+    },
+    {
+      "title": "Bit Manipulation",
+      "description": "Master bitwise operations and bit manipulation tricks. Essential for low-level optimization and clever solutions.",
+      "questions": [
+        "single-number",
+        "number-of-1-bits",
+        "sum-of-two-integers",
+        "reverse-integer",
+        "bitwise-and-of-numbers-range",
+        "missing-number"
+      ]
+    }
+  ]
+}

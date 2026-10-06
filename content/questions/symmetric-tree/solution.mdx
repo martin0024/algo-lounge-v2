@@ -1,0 +1,28 @@
+---
+title: Symmetric Tree — Solution
+---
+## Symmetric Tree
+
+**Algorithm:**
+
+1. A tree is symmetric if its left and right subtrees are mirrors of each other
+2. Two subtrees are mirrors if their roots have equal values, and each subtree's left child mirrors the other's right child
+3. Use a helper that simultaneously walks both subtrees, comparing mirrored nodes
+
+**Time Complexity:** O(n) — visits every node once
+
+**Space Complexity:** O(h) — recursion stack height
+
+**Key Insight:** Instead of comparing a tree to its flipped copy, recursively check that `left.left` mirrors `right.right` and `left.right` mirrors `right.left`.
+
+```python
+def is_symmetric(root):
+    def dfs(left, right):
+        if left is None and right is None:
+            return True
+        if left is None or right is None or left.val != right.val:
+            return False
+        return dfs(left.left, right.right) and dfs(left.right, right.left)
+
+    return dfs(root.left, root.right)
+```

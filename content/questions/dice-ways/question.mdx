@@ -1,0 +1,43 @@
+---
+title: Dice Ways
+difficulty: medium
+tags:
+  - dynamic-programming
+migratedFrom: 'algolounge:dice-ways'
+---
+Count the number of ordered outcomes produced by rolling `k` standard dice (faces 1-6) that sum to a target value. Each distinct sequence of rolls counts as a separate way.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  k = 2, target = 7
+Output: 6
+```
+
+Ways to get sum 7 with 2 dice: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1)
+
+**Example 2**
+
+```
+Input:  k = 1, target = 3
+Output: 1
+```
+
+Only way is rolling a 3
+
+**Example 3**
+
+```
+Input:  k = 2, target = 1
+Output: 0
+```
+
+Impossible (minimum sum with 2 dice is 2)
+
+## Constraints
+
+- 1 ≤ k ≤ 30
+- 1 ≤ target ≤ 1000
+- Return 0 if impossible (target \< k or target > 6k)

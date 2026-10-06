@@ -1,0 +1,49 @@
+---
+title: Swim in Rising Water — Solution
+---
+## Swim in Rising Water
+
+**Algorithm (Min-Heap / Modified Dijkstra):**
+
+1. Use a min-heap (priority queue) starting from (0,0)
+2. The priority is the maximum elevation encountered on the path so far
+3. For each cell, explore 4 neighbors and push them with updated max elevation
+4. When we reach (n-1, n-1), the max elevation on that path is our answer
+
+**Time Complexity:** O(n² log n) - each cell processed once, heap operations are O(log n²)
+
+**Space Complexity:** O(n²) - visited set and heap
+
+**Key Insights:**
+
+- This is a shortest path problem where "cost" is the max elevation along the path
+- Modified Dijkstra: minimize the maximum weight on any path from source to destination
+- Min-heap ensures we always explore the path with smallest bottleneck first
+- Can also be solved with binary search + BFS/DFS
+
+```python
+def swim_in_water(grid):
+    import heapq
+    
+    n = len(grid)
+    visited = set()
+    # (max_elevation_so_far, row, col)
+    heap = [(grid[0][0], 0, 0)]
+    visited.add((0, 0))
+    directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+    
+    while heap:
+        max_elev, r, c = heapq.heappop(heap)
+        
+        if r == n - 1 and c == n - 1:
+            return max_elev
+        
+        for dr, dc in directions:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < n and 0 <= nc < n and (nr, nc) not in visited:
+                visited.add((nr, nc))
+                new_max = max(max_elev, grid[nr][nc])
+                heapq.heappush(heap, (new_max, nr, nc))
+    
+    return -1
+```

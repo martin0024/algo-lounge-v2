@@ -1,0 +1,9 @@
+{
+  "functionName": "generateValidStrings",
+  "args": ["n", "k"],
+  "compare": "unordered",
+  "cases": [
+    {"input":[3,1],"expected":["000","010","100"]},
+    {"input":[1,0],"expected":["0","1"]}
+  ]
+}

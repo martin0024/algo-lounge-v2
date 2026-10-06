@@ -1,0 +1,196 @@
+{
+  "title": "AlgoTime Winter 2026",
+  "description": "Welcome to Algotime Winter 2026! Practice these key algorithm problems to sharpen your skills.",
+  "kind": "semester",
+  "term": {
+    "season": "winter",
+    "year": 2026
+  },
+  "units": [
+    {
+      "title": "Week 1",
+      "description": "These are the questions that will be looked at in week 1.",
+      "questions": [
+        "two-sum",
+        "palindrome-checker",
+        "two-sum-ii-input-array-is-sorted",
+        "3sum",
+        "container-with-most-water",
+        "trapping-rain-water",
+        "maximal-rectangle"
+      ]
+    },
+    {
+      "title": "Week 2",
+      "description": "Warm up with strings, then dive into linked list fundamentals and cycle detection.",
+      "questions": [
+        "string-reversal",
+        "implement-linked-list",
+        "palindrome-linked-list",
+        "linked-list-cycle",
+        "linked-list-cycle-ii",
+        "remove-nth-node-from-end-of-list",
+        "reverse-nodes-in-k-group"
+      ]
+    },
+    {
+      "title": "Week 3",
+      "questions": [
+        "factory-method-pattern",
+        "design-hashset",
+        "design-hashmap",
+        "repeated-dna-sequences",
+        "fraction-to-recurring-decimal",
+        "sudoku-solver"
+      ]
+    },
+    {
+      "title": "Week 4",
+      "description": "Binary trees fundamentals: comparison, traversal, and tree properties.",
+      "questions": [
+        "adapter-pattern",
+        "same-tree",
+        "subtree-of-another-tree",
+        "lowest-common-ancestor-of-a-bst",
+        "binary-tree-level-order-traversal",
+        "binary-tree-maximum-path-sum"
+      ]
+    },
+    {
+      "title": "Week 5",
+      "description": "Build recursive thinking from simple base cases to divide & conquer and backtracking.",
+      "questions": [
+        "prototype-pattern",
+        "fibonacci-number",
+        "power-of-two",
+        "powx-n",
+        "subsets",
+        "merge-k-sorted-lists",
+        "basic-calculator"
+      ]
+    },
+    {
+      "title": "Week 6",
+      "description": "Transform recursive solutions into efficient dynamic programs — from memoization to tabulation.",
+      "questions": [
+        "single-number",
+        "climbing-stairs",
+        "min-cost-climbing-stairs",
+        "house-robber",
+        "maximum-subarray",
+        "unique-paths",
+        "distinct-subsequences"
+      ]
+    },
+    {
+      "title": "Week 7",
+      "description": "Explore graph representations, traversals, and classic graph algorithms — from BFS/DFS to topological sort.",
+      "questions": [
+        "reverse-vowels-of-a-string",
+        "move-zeroes",
+        "find-the-town-judge",
+        "pacific-atlantic-water-flow",
+        "course-schedule-ii",
+        "alien-dictionary",
+        "swim-in-rising-water"
+      ]
+    },
+    {
+      "title": "Week 8",
+      "description": "Master heaps and priority queues — from basic heap operations to merging sorted streams and designing real-world systems.",
+      "questions": [
+        "contains-duplicate",
+        "last-stone-weight",
+        "kth-largest-element-in-a-stream",
+        "meeting-rooms-ii",
+        "design-twitter",
+        "find-median-from-data-stream"
+      ]
+    },
+    {
+      "title": "Week 9",
+      "description": "Master the sliding window technique — from fixed-size windows to dynamic shrinking and expanding for optimal substrings and subarrays.",
+      "questions": [
+        "best-time-to-buy-and-sell-stock",
+        "longest-substring-without-repeating-characters",
+        "longest-repeating-character-replacement",
+        "permutation-in-string",
+        "minimum-window-substring",
+        "sliding-window-maximum"
+      ]
+    },
+    {
+      "title": "Week 10",
+      "description": "Master binary search — from sorted arrays to rotated arrays and binary search on the answer.",
+      "questions": [
+        "binary-search",
+        "search-a-2d-matrix",
+        "find-minimum-in-rotated-sorted-array",
+        "search-in-rotated-sorted-array",
+        "koko-eating-bananas",
+        "median-of-two-sorted-arrays"
+      ]
+    },
+    {
+      "title": "Week 11",
+      "description": "Master the stack data structure — from basic bracket matching and string processing to monotonic stacks for next-greater-element patterns.",
+      "questions": [
+        "valid-parentheses",
+        "backspace-string-compare",
+        "baseball-game",
+        "evaluate-reverse-polish-notation",
+        "daily-temperatures",
+        "decode-string",
+        "next-greater-element",
+        "largest-rectangle-in-histogram"
+      ]
+    },
+    {
+      "title": "Week 12",
+      "description": "Trie (prefix tree) and string search — warm up with counting on strings, then dictionary words, implement a trie, replace roots in a sentence, and find all words on a board.",
+      "questions": [
+        "first-unique-character-in-a-string",
+        "longest-word-in-dictionary",
+        "implement-trie-prefix-tree",
+        "replace-words",
+        "word-search-ii"
+      ]
+    },
+    {
+      "title": "Week 13",
+      "description": "Intervals — sort, merge, and find gaps between intervals. Start with range summaries, check for overlaps, merge intervals, remove the fewest to eliminate overlaps, and find common free time across schedules.",
+      "questions": [
+        "summary-ranges",
+        "meeting-rooms",
+        "merge-intervals",
+        "non-overlapping-intervals",
+        "employee-free-time"
+      ]
+    },
+    {
+      "title": "Week 14",
+      "description": "Greedy algorithms — make the locally-best choice and prove it leads to a global optimum. Pair cookies with children, give lemonade change, track reachability in a jump game, capture every stock gain, and refuel at the right stations to reach the target.",
+      "questions": [
+        "assign-cookies",
+        "lemonade-change",
+        "jump-game",
+        "best-time-to-buy-and-sell-stock-ii",
+        "minimum-number-of-refueling-stops"
+      ]
+    },
+    {
+      "title": "Week 15",
+      "description": "Review week — revisit core patterns with a mixed set across themes. Warm up with hashing, stacks, binary search, and DP, then tackle sliding window and graph scheduling, finishing with two-pointer rainwater and merging k sorted lists.",
+      "questions": [
+        "two-sum",
+        "valid-parentheses",
+        "binary-search",
+        "climbing-stairs",
+        "longest-substring-without-repeating-characters",
+        "course-schedule-ii",
+        "trapping-rain-water",
+        "merge-k-sorted-lists"
+      ]
+    }
+  ]
+}

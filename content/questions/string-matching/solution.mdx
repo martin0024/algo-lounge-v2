@@ -1,0 +1,34 @@
+---
+title: String Matching — Solution
+---
+## String Matching
+
+**Algorithm:**
+
+1. Count frequency of characters in both strings
+2. Check if A has at least as many of each character as B needs
+
+**Time Complexity:** O(n + m) - count both strings
+
+**Space Complexity:** O(1) - limited character set
+
+**Key Insights:**
+
+- Counter provides efficient frequency counting for comparison
+- Missing characters in count\_A default to 0 (Counter behavior)
+- Empty string B can be formed from any string A (true case)
+- Order of characters doesn't matter, only frequencies
+
+```python
+from collections import Counter
+
+def can_form_string(A, B):
+    count_A = Counter(A)
+    count_B = Counter(B)
+    
+    for char, needed in count_B.items():
+        if count_A[char] < needed:
+            return False
+    
+    return True
+```

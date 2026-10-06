@@ -1,0 +1,9 @@
+{
+  "functionName": "interpret",
+  "args": ["command"],
+  "cases": [
+    {"input":["G()(al)"],"expected":"Goal"},
+    {"input":["G()()()()(al)"],"expected":"Gooooal"},
+    {"input":["(al)G(al)()()G"],"expected":"alGalooG"}
+  ]
+}

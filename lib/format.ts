@@ -1,5 +1,27 @@
+/** Concordia is in Montreal — days, streaks and XP caps roll over there. */
+export const CLUB_TIME_ZONE = "America/Toronto"
+
+const dayFormatter = new Intl.DateTimeFormat("en-CA", {
+  timeZone: CLUB_TIME_ZONE,
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+})
+
+/** `YYYY-MM-DD` in club time, so an 8pm submission doesn't count as tomorrow. */
 export function dayKey(date: Date) {
-  return date.toISOString().slice(0, 10)
+  return dayFormatter.format(date)
+}
+
+const hourFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone: CLUB_TIME_ZONE,
+  hour: "numeric",
+  hour12: false,
+})
+
+/** Hour of day (0–23) in club time. */
+export function clubHour(date: Date) {
+  return Number(hourFormatter.format(date)) % 24
 }
 
 export function timeAgo(date: Date | string) {

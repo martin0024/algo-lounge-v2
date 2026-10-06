@@ -1,0 +1,39 @@
+---
+title: Invert Binary Tree — Solution
+---
+## Invert Binary Tree
+
+**Algorithm:**
+
+1. If root is null, return null (base case)
+2. Recursively invert the left subtree
+3. Recursively invert the right subtree
+4. Swap the left and right children of the current node
+5. Return the root
+
+**Time Complexity:** O(n) - visit each node once
+
+**Space Complexity:** O(h) - recursion stack depth where h is tree height
+
+**Key Insights:**
+
+- Tree inversion mirrors the tree horizontally
+- Can be solved recursively or iteratively with a queue
+- Each node's left and right children are swapped
+- The operation is done for every node in the tree
+
+```python
+def invert_binary_tree(root):
+    if not root:
+        return None
+    
+    # Recursively invert left and right subtrees
+    left = invert_binary_tree(root.left)
+    right = invert_binary_tree(root.right)
+    
+    # Swap left and right children
+    root.left = right
+    root.right = left
+    
+    return root
+```

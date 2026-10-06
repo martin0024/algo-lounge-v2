@@ -1,0 +1,41 @@
+---
+title: Intersection of Two Linked Lists
+difficulty: easy
+tags:
+  - linked-list
+  - two-pointers
+migratedFrom: 'algolounge:intersection-of-two-linked-lists'
+---
+Given the heads of two singly linked-lists `headA` and `headB`, return the node at which the two lists intersect. If the two linked lists have no intersection at all, return `null`.
+
+The test cases are generated such that there are no cycles anywhere in the entire linked structure.
+
+**Note** that the linked lists must retain their original structure after the function returns.
+
+## Examples
+
+**Example 1**
+
+```
+Input:  intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3
+Output: Intersected at '8'
+```
+
+The intersected node's value is 8
+
+**Example 2**
+
+```
+Input:  intersectVal = 0, listA = [2,6,4], listB = [1,5]
+Output: null
+```
+
+The two lists do not intersect
+
+## Constraints
+
+- `The number of nodes of listA is in the range [0, 3 * 10^4]`
+- `The number of nodes of listB is in the range [0, 3 * 10^4]`
+- `0 <= Node.val <= 10^5`
+
+> **How the tests work:** `skipA`/`skipB` say where the lists join; they are only used to build the input. The answer is the value of the node you return, which must be the shared node itself.

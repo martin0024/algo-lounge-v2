@@ -1,0 +1,16 @@
+{
+  "functionName": "fractionToDecimal",
+  "args": ["numerator", "denominator"],
+  "cases": [
+    {"input":[1,2],"expected":"0.5"},
+    {"input":[2,1],"expected":"2"},
+    {"input":[4,333],"expected":"0.(012)"},
+    {"input":[1,3],"expected":"0.(3)"},
+    {"input":[1,6],"expected":"0.1(6)"},
+    {"input":[-1,2],"expected":"-0.5"},
+    {"input":[0,5],"expected":"0"},
+    {"input":[7,12],"expected":"0.58(3)"},
+    {"input":[1,7],"expected":"0.(142857)"},
+    {"input":[-50,8],"expected":"-6.25"}
+  ]
+}

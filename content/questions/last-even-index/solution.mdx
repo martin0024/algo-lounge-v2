@@ -1,0 +1,29 @@
+---
+title: Last Even Index — Solution
+---
+## Last Even Index
+
+**Algorithm:**
+
+1. Iterate through array from end to beginning
+2. Return index of first even number found
+3. Return -1 if no even number exists
+
+**Time Complexity:** O(n) - worst case check all elements
+
+**Space Complexity:** O(1) - constant space
+
+**Key Insights:**
+
+- Backward iteration finds last occurrence efficiently (first match is last in array)
+- Early exit returns immediately without checking remaining elements
+- Range from len-1 down to 0 using step -1
+- Modulo operator: num % 2 == 0 identifies even numbers
+
+```python
+def last_even_index(arr):
+    for i in range(len(arr) - 1, -1, -1):
+        if arr[i] % 2 == 0:
+            return i
+    return -1
+```

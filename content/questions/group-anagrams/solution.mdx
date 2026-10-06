@@ -1,0 +1,32 @@
+---
+title: Group Anagrams — Solution
+---
+## Use Sorted Letters as a Group Key
+
+Anagrams contain the same letters with the same frequencies, only in a different order. Sorting removes that difference: `eat`, `tea`, and `ate` all become `aet`.
+
+1. Create an empty dictionary. Each key will be a sorted word, and each value will be a list of matching original words.
+2. For every word, sort its characters and join them to make the key.
+3. Append the original word to the list stored under that key.
+4. Return all the dictionary values.
+
+**Why this works:** two words have the same sorted form exactly when they contain the same letters the same number of times. Therefore, anagrams enter the same bucket and non-anagrams enter different buckets.
+
+**Complexity:** Let `n` be the number of strings and `k` the maximum string length. Sorting one word costs `O(k log k)`, so total time is `O(n · k log k)`. Storing the keys and grouped strings uses `O(n · k)` space.
+
+The groups may be returned in any order, and the words inside each group may also appear in any order.
+
+```python
+def group_anagrams(strs):
+    groups = {}
+
+    for word in strs:
+        # Every anagram of this word has the same sorted key.
+        key = ''.join(sorted(word))
+
+        if key not in groups:
+            groups[key] = []
+        groups[key].append(word)
+
+    return list(groups.values())
+```

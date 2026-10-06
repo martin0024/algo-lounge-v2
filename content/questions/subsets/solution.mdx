@@ -1,0 +1,41 @@
+---
+title: Subsets — Solution
+---
+## Subsets
+
+**Algorithm:**
+
+1. Use backtracking with an include/exclude decision at each index
+2. At each element, branch into two choices: include it or skip it
+3. When we've processed all elements, add the current subset to results
+
+**Time Complexity:** O(n \* 2^n) - 2^n subsets, each up to length n
+
+**Space Complexity:** O(n) - recursion depth (excluding output)
+
+**Key Insights:**
+
+- Each element is either in the subset or not — binary decision tree
+- This generates exactly 2^n subsets
+- The include/exclude pattern is fundamental to many backtracking problems
+
+```python
+def subsets(nums):
+    result = []
+    
+    def backtrack(i, current):
+        if i == len(nums):
+            result.append(current[:])
+            return
+        
+        # Include nums[i]
+        current.append(nums[i])
+        backtrack(i + 1, current)
+        current.pop()
+        
+        # Exclude nums[i]
+        backtrack(i + 1, current)
+    
+    backtrack(0, [])
+    return result
+```

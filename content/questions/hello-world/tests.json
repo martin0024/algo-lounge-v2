@@ -1,0 +1,9 @@
+{
+  "functionName": "helloWorld",
+  "args": [],
+  "cases": [
+    {"input":[],"expected":"Hello World"},
+    {"input":[],"expected":"Hello World"},
+    {"input":[],"expected":"Hello World"}
+  ]
+}

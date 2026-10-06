@@ -1,0 +1,50 @@
+---
+title: Word Ladder — Solution
+---
+## Search by Distance with Breadth-First Search
+
+Think of each word as a node in a graph. Two words are connected when they differ by exactly one letter. The problem asks for the shortest path from `beginWord` to `endWord`, which is exactly what breadth-first search (BFS) finds in an unweighted graph.
+
+The BFS queue stores a word and the number of words used to reach it. The starting entry is `(beginWord, 1)` because the sequence already contains the beginning word.
+
+1. Put every dictionary word in a set for fast lookup. If `endWord` is absent, return 0 immediately.
+2. Remove a word from the set as soon as it enters the queue. This marks it as visited and prevents cycles or repeated work.
+3. Take the next word from the queue. If it is `endWord`, return its distance.
+4. Generate neighbors by replacing each character position with each lowercase letter. Add valid, unvisited dictionary words to the queue with distance plus one.
+5. If the queue becomes empty, no transformation exists, so return 0.
+
+**Why this works:** BFS explores all sequences of length 1 before length 2, all of length 2 before length 3, and so on. Therefore, the first time it reaches `endWord`, that sequence must be the shortest.
+
+**Complexity:** Let `N` be the number of words and `L` their length. Each visited word tries `26 · L` changes, and constructing a changed string costs `O(L)`, for `O(N · L²)` time when the alphabet size is treated as constant. The set and queue use `O(N · L)` space.
+
+```python
+def ladder_length(beginWord, endWord, wordList):
+    from collections import deque
+
+    unused_words = set(wordList)
+    if endWord not in unused_words:
+        return 0
+
+    queue = deque([(beginWord, 1)])
+    unused_words.discard(beginWord)
+
+    while queue:
+        word, distance = queue.popleft()
+
+        if word == endWord:
+            return distance
+
+        # Change one position at a time to generate every neighbor.
+        for index in range(len(word)):
+            for letter in 'abcdefghijklmnopqrstuvwxyz':
+                if letter == word[index]:
+                    continue
+
+                neighbor = word[:index] + letter + word[index + 1:]
+
+                if neighbor in unused_words:
+                    unused_words.remove(neighbor)
+                    queue.append((neighbor, distance + 1))
+
+    return 0
+```

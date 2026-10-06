@@ -1,0 +1,77 @@
+---
+title: Word Search II — Solution
+---
+## Word Search II - Trie + Backtracking
+
+**Algorithm:**
+
+1. Build a Trie (prefix tree) from the word list
+2. For each cell in the board, start DFS/backtracking
+3. During DFS, follow the Trie to check valid prefixes
+4. Mark cells as visited during current path
+5. When reaching a word end in Trie, add to results
+6. Backtrack by unmarking cells and trying other paths
+
+**Time Complexity:** O(M \* N \* 4^L) where M\*N is board size, L is max word length
+
+**Space Complexity:** O(K \* L) where K is number of words, L is average length
+
+**Key Insights:**
+
+- Trie enables efficient prefix checking for multiple words
+- Backtracking explores all possible paths
+- Mark visited cells to prevent reuse in same path
+- Remove found words from Trie to avoid duplicates
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.word = None
+
+def find_words(board, words):
+    # Build Trie
+    root = TrieNode()
+    for word in words:
+        node = root
+        for char in word:
+            if char not in node.children:
+                node.children[char] = TrieNode()
+            node = node.children[char]
+        node.word = word
+    
+    result = []
+    rows, cols = len(board), len(board[0])
+    
+    def dfs(r, c, node):
+        char = board[r][c]
+        if char not in node.children:
+            return
+        
+        next_node = node.children[char]
+        
+        # Found a word
+        if next_node.word:
+            result.append(next_node.word)
+            next_node.word = None  # Avoid duplicates
+        
+        # Mark as visited
+        board[r][c] = '#'
+        
+        # Explore neighbors
+        for dr, dc in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < rows and 0 <= nc < cols and board[nr][nc] != '#':
+                dfs(nr, nc, next_node)
+        
+        # Backtrack
+        board[r][c] = char
+    
+    # Start DFS from each cell
+    for r in range(rows):
+        for c in range(cols):
+            if board[r][c] in root.children:
+                dfs(r, c, root)
+    
+    return result
+```

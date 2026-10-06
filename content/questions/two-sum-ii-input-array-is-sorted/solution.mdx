@@ -1,0 +1,46 @@
+---
+title: Two Sum II - Input Array Is Sorted — Solution
+---
+## Two Sum II - Input Array Is Sorted
+
+**Algorithm:**
+
+1. Use two pointers: left at start, right at end
+2. Calculate sum of numbers at both pointers
+3. If sum equals target, return the 1-indexed positions
+4. If sum is less than target, move left pointer right
+5. If sum is greater than target, move right pointer left
+6. Repeat until solution is found
+
+**Time Complexity:** O(n) - single pass with two pointers
+
+**Space Complexity:** O(1) - only using two pointer variables
+
+**Key Insights:**
+
+- Two-pointer technique works well on sorted arrays
+- Moving pointers based on sum comparison guides toward solution
+- Return 1-indexed positions (not 0-indexed)
+- Guaranteed exactly one solution exists
+
+```python
+def two_sum_i_i(numbers, target):
+    left = 0
+    right = len(numbers) - 1
+    
+    while left < right:
+        current_sum = numbers[left] + numbers[right]
+        
+        if current_sum == target:
+            # Return 1-indexed positions
+            return [left + 1, right + 1]
+        elif current_sum < target:
+            # Sum too small, move left pointer right
+            left += 1
+        else:
+            # Sum too large, move right pointer left
+            right -= 1
+    
+    # Should never reach here given constraints
+    return []
+```

@@ -1,0 +1,58 @@
+---
+title: Serialize and Deserialize Binary Tree — Solution
+---
+## Serialize and Deserialize Binary Tree - DFS Approach
+
+**Algorithm:**
+
+1. **Serialize:** Use preorder traversal (root, left, right) to create string representation
+2. Use special marker (e.g., 'null') for None nodes
+3. Join values with delimiter (e.g., comma)
+4. **Deserialize:** Split string and reconstruct tree using same preorder pattern
+5. Use iterator/index to track current position in values list
+
+**Time Complexity:** O(n) - visit each node once for both operations
+
+**Space Complexity:** O(n) - storage for string and recursion stack
+
+**Key Insights:**
+
+- Preorder traversal allows efficient reconstruction
+- Need to encode null nodes to preserve structure
+- Delimiter separates values in serialized form
+- Both operations mirror each other's structure
+
+```python
+class TreeNode:
+    def __init__(self, val: int = 0, left: "TreeNode | None" = None, right: "TreeNode | None" = None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+
+def serialize_and_deserialize(root):
+    # Serialize: Convert tree to string
+    def serialize(node):
+        if not node:
+            return 'null'
+        return str(node.val) + ',' + serialize(node.left) + ',' + serialize(node.right)
+    
+    # Deserialize: Convert string back to tree
+    def deserialize(data):
+        def build():
+            val = next(vals)
+            if val == 'null':
+                return None
+            node = TreeNode(int(val))
+            node.left = build()
+            node.right = build()
+            return node
+        
+        vals = iter(data.split(','))
+        return build()
+    
+    # Perform both operations and return deserialized tree
+    serialized = serialize(root)
+    return deserialize(serialized)
+```

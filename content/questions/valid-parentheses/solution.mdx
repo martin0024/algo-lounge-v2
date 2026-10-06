@@ -1,0 +1,33 @@
+---
+title: Valid Parentheses — Solution
+---
+## Approach: match closing brackets with a stack
+
+Scan the string from left to right. Store each opening bracket in `stack`. When a closing bracket appears, the most recent unmatched opening bracket must be its partner.
+
+1. Create a map from each closing bracket to its matching opening bracket.
+2. Push opening brackets onto `stack`.
+3. For a closing bracket, return `false` if the stack is empty or its top does not match.
+4. After the scan, return `true` only if no opening brackets remain.
+
+**Why it works:** The stack keeps unmatched openings in nesting order, so its top is exactly the bracket that must close next.
+
+**Complexity:** For a string of length `n`, the algorithm takes `O(n)` time and `O(n)` space in the worst case.
+
+**Pitfall:** Matching bracket counts is not enough; `([)]` has balanced counts but the closing order is invalid.
+
+```python
+def is_valid(s):
+    matching_open = {')': '(', ']': '[', '}': '{'}
+    stack = []
+
+    for bracket in s:
+        if bracket not in matching_open:
+            stack.append(bracket)
+            continue
+
+        if not stack or stack.pop() != matching_open[bracket]:
+            return False
+
+    return not stack
+```

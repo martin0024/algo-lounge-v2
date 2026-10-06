@@ -1,0 +1,8 @@
+{
+  "functionName": "maxDistance",
+  "args": ["s", "k"],
+  "cases": [
+    {"input":["NWSE",1],"expected":3},
+    {"input":["NSWWEW",3],"expected":6}
+  ]
+}

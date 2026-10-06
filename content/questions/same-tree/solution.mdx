@@ -1,0 +1,40 @@
+---
+title: Same Tree — Solution
+---
+## Same Tree
+
+**Algorithm:**
+
+1. If both nodes are None, return True (base case - both empty)
+2. If one is None and other is not, return False (different structure)
+3. If values are different, return False
+4. Recursively check left subtrees and right subtrees
+5. Return True only if both subtrees are same
+
+**Time Complexity:** O(n) - visit each node once
+
+**Space Complexity:** O(h) - recursion stack depth where h is tree height
+
+**Key Insights:**
+
+- Trees must be structurally identical AND have same values
+- Use recursion to compare node by node
+- Both trees must have same shape and same node values at each position
+
+```python
+def is_same_tree(p, q):
+    # Both nodes are None - trees are same at this point
+    if not p and not q:
+        return True
+    
+    # One is None, other is not - trees are different
+    if not p or not q:
+        return False
+    
+    # Values are different
+    if p.val != q.val:
+        return False
+    
+    # Recursively check left and right subtrees
+    return is_same_tree(p.left, q.left) and is_same_tree(p.right, q.right)
+```

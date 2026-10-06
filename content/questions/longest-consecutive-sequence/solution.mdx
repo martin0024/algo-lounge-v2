@@ -1,0 +1,48 @@
+---
+title: Longest Consecutive Sequence — Solution
+---
+## Longest Consecutive Sequence
+
+**Algorithm:**
+
+1. Convert array to set for O(1) lookup
+2. For each number, check if it's the start of a sequence (num-1 not in set)
+3. If it's the start, count consecutive numbers
+4. Keep track of the maximum length found
+5. Return the maximum length
+
+**Time Complexity:** O(n) - each number is visited at most twice
+
+**Space Complexity:** O(n) - for the HashSet
+
+**Key Insights:**
+
+- Only count from sequence starts to avoid redundant work
+- HashSet provides O(1) lookup for consecutive number checking
+- Handles duplicates naturally through set operations
+- The trick is to only start counting when num-1 is not in the set
+
+```python
+def longest_consecutive_sequence(nums):
+    if not nums:
+        return 0
+    
+    # Convert to set for O(1) lookup
+    num_set = set(nums)
+    max_length = 0
+    
+    for num in num_set:
+        # Only start counting if this is the beginning of a sequence
+        if num - 1 not in num_set:
+            current_num = num
+            current_length = 1
+            
+            # Count consecutive numbers
+            while current_num + 1 in num_set:
+                current_num += 1
+                current_length += 1
+            
+            max_length = max(max_length, current_length)
+    
+    return max_length
+```

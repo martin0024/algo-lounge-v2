@@ -1,0 +1,17 @@
+---
+title: Digit Frequency Score — Solution
+---
+## Digit Frequency Score
+
+Add every decimal digit of `n`. This is equivalent to summing `d * freq(d)`, because each occurrence contributes its digit once.
+
+**Time:** O(log n). **Space:** O(1).
+
+```python
+def digit_frequency_score(n):
+    score = 0
+    while n:
+        score += n % 10
+        n //= 10
+    return score
+```

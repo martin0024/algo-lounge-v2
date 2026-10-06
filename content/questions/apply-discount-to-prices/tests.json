@@ -1,0 +1,16 @@
+{
+  "functionName": "discountPrices",
+  "args": ["sentence", "discount"],
+  "cases": [
+    {"input":["there are $1 $2 and 5$ candies in the shop",50],"expected":"there are $0.50 $1.00 and 5$ candies in the shop"},
+    {"input":["1 2 $3 4 $5 $6 7 8$ $9 $10$",100],"expected":"1 2 $0.00 4 $0.00 $0.00 7 8$ $0.00 $10$"},
+    {"input":["$100",0],"expected":"$100.00"},
+    {"input":["$100",100],"expected":"$0.00"},
+    {"input":["buy $10 get one free",25],"expected":"buy $7.50 get one free"},
+    {"input":["$1 $2 $3 $4",10],"expected":"$0.90 $1.80 $2.70 $3.60"},
+    {"input":["no prices here",50],"expected":"no prices here"},
+    {"input":["$abc $123abc $0 $99999",33],"expected":"$abc $123abc $0.00 $66999.33"},
+    {"input":["$1000000000 huge $1",75],"expected":"$250000000.00 huge $0.25"},
+    {"input":["mix $5 and words $50 done",20],"expected":"mix $4.00 and words $40.00 done"}
+  ]
+}

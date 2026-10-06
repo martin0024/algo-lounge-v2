@@ -1,0 +1,26 @@
+---
+title: Replace Words — Solution
+---
+## Replace Words
+
+**Algorithm:**
+
+1. Sort dictionary by root length so the shortest matching root is tried first
+2. Split the sentence into words
+3. For each word, find the first (shortest) root that is a prefix; otherwise keep the word
+4. Join with spaces
+
+A trie can also find the shortest root in one pass per word.
+
+**Time Complexity:** O(D log D + W \* L) for sorting dictionary and scanning words
+
+```python
+def replace_words(dictionary, sentence):
+    dictionary = sorted(dictionary, key=len)
+    def shortest_root(word):
+        for root in dictionary:
+            if word.startswith(root):
+                return root
+        return word
+    return " ".join(shortest_root(w) for w in sentence.split())
+```

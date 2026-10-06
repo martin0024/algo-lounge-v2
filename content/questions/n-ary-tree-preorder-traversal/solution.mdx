@@ -1,0 +1,51 @@
+---
+title: N-ary Tree Preorder Traversal — Solution
+---
+## Reference solution
+
+```typescript
+export class Node {
+  val: number
+  children: Node[]
+
+  constructor(val = 0, children: Node[] = []) {
+    this.val = val
+    this.children = children
+  }
+}
+
+
+export function preorder(root: Node | null): number[] {
+  if (!root) return []
+  const values: number[] = []
+  const stack: Node[] = [root]
+  while (stack.length > 0) {
+    const node = stack.pop()!
+    values.push(node.val)
+    // Push children right-to-left so the leftmost is visited first.
+    for (let i = node.children.length - 1; i >= 0; i--)
+      stack.push(node.children[i])
+  }
+  return values
+}
+```
+
+```python
+class Node:
+    def __init__(self, val: int = 0, children: "list[Node] | None" = None):
+        self.val = val
+        self.children = children if children is not None else []
+
+
+def preorder(root: Node | None) -> list[int]:
+    # Iterative: push children right-to-left so the leftmost is visited first.
+    if root is None:
+        return []
+    values = []
+    stack = [root]
+    while stack:
+        node = stack.pop()
+        values.append(node.val)
+        stack.extend(reversed(node.children))
+    return values
+```

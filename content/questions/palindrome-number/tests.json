@@ -1,0 +1,16 @@
+{
+  "functionName": "isPalindrome",
+  "args": ["x"],
+  "cases": [
+    {"input":[121],"expected":true},
+    {"input":[-121],"expected":false},
+    {"input":[10],"expected":false},
+    {"input":[0],"expected":true},
+    {"input":[1],"expected":true},
+    {"input":[1221],"expected":true},
+    {"input":[12321],"expected":true},
+    {"input":[123],"expected":false},
+    {"input":[1000021],"expected":false},
+    {"input":[9999999],"expected":true}
+  ]
+}

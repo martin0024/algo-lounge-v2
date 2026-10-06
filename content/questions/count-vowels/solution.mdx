@@ -1,0 +1,27 @@
+---
+title: Count Vowels — Solution
+---
+## Count Vowels
+
+**Algorithm:**
+
+1. Define vowel set
+2. Iterate through string
+3. Count characters that are vowels (case-insensitive)
+
+**Time Complexity:** O(n) - iterate through string once
+
+**Space Complexity:** O(1) - constant space
+
+**Key Insights:**
+
+- Set provides O(1) membership testing vs O(n) for list
+- Generator expression with sum() is more efficient than counting in loop
+- Including both lowercase and uppercase in set handles case-insensitivity
+- Empty string returns 0 (sum of empty sequence)
+
+```python
+def count_vowels(s):
+    vowels = set('aeiouAEIOU')
+    return sum(1 for char in s if char in vowels)
+```

@@ -1,0 +1,27 @@
+---
+title: Largest Integer With Given Digit Sum — Solution
+---
+## Put the Largest Digits First
+
+The leftmost digit has the greatest effect on a number's value. We therefore put as much of the required sum as possible into that digit (at most 9), then repeat for each position to its right. For example, n = 4 and s = 20 becomes 9, 9, 2, 0, so the answer is 9920.
+
+If s is greater than 9n, even n digits of 9 are not enough, so the answer is -1. If s is zero, the answer is simply 0.
+
+**Time:** O(n). **Space:** O(n).
+
+```python
+def largest_integer(n, s):
+    # No n-digit number can have a digit sum larger than 9 * n.
+    if s > 9 * n:
+        return -1
+    if s == 0:
+        return 0
+
+    # The leftmost digits affect the value most, so fill them first.
+    digits = []
+    for _ in range(n):
+        digit = min(9, s)
+        digits.append(str(digit))
+        s -= digit
+    return int(''.join(digits))
+```

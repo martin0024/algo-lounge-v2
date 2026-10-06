@@ -1,0 +1,29 @@
+---
+title: Path Sum — Solution
+---
+## Path Sum
+
+**Algorithm:**
+
+1. Use depth-first search (DFS), subtracting each node's value from the target
+2. At a leaf node, check if the remaining value is exactly 0
+3. Recurse down both left and right subtrees
+
+**Time Complexity:** O(n) — visits every node once
+
+**Space Complexity:** O(h) — recursion stack, where h is tree height
+
+**Key Insight:** Rather than accumulating a sum, subtract each node's value from `targetSum`. At a leaf, if the remainder is 0 you've found a valid path.
+
+```python
+def has_path_sum(root, targetSum):
+    def dfs(node, remaining):
+        if node is None:
+            return False
+        remaining -= node.val
+        if node.left is None and node.right is None:
+            return remaining == 0
+        return dfs(node.left, remaining) or dfs(node.right, remaining)
+
+    return dfs(root, targetSum)
+```

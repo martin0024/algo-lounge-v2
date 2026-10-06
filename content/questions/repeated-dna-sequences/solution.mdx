@@ -1,0 +1,30 @@
+---
+title: Repeated DNA Sequences — Solution
+---
+## Repeated DNA Sequences
+
+**Algorithm (Hash Map with Sliding Window):**
+
+Use a hash map to count occurrences of all 10-character substrings as we slide through the string.
+
+1. **Iterate:** Slide a window of size 10 across the string.
+2. **Count:** For each 10-character substring, increment its count in the hash map.
+3. **Collect:** When a substring's count reaches exactly 2, add it to the result (this ensures we only add each repeated sequence once).
+
+**Time Complexity:** O(n) where n is the length of the string
+
+**Space Complexity:** O(n) for storing substrings in the hash map
+
+**Key Insight:** We add to results when count equals 2 (not greater) to avoid duplicates in the output.
+
+```python
+def find_repeated_dna_sequences(s):
+    cnt = {}
+    ans = []
+    for i in range(len(s) - 9):
+        t = s[i:i + 10]
+        cnt[t] = cnt.get(t, 0) + 1
+        if cnt[t] == 2:
+            ans.append(t)
+    return ans
+```

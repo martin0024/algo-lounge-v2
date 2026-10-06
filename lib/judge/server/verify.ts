@@ -41,8 +41,83 @@ const WORKER_PATH = path.join(
   "worker.mjs"
 )
 
-const WALL_MS: Record<Language, number> = { typescript: 15_000, python: 60_000 }
-const CASE_MS: Record<Language, number> = { typescript: 3_000, python: 5_000 }
+const SECRET_KEY = /SECRET|PASSWORD|TOKEN|_KEY|CLIENT_ID|DATABASE_URL/i
+function scrubbedEnv(): NodeJS.ProcessEnv {
+  const out: Record<string, string | undefined> = {}
+  for (const [key, value] of Object.entries(process.env)) {
+    if (SECRET_KEY.test(key)) continue
+    out[key] = value
+  }
+  return out as NodeJS.ProcessEnv
+}
+
+const WALL_MS: Record<Language, number> = {
+  typescript: 15_000,
+  python: 60_000,
+  c: 30_000,
+  cpp: 30_000,
+  java: 60_000,
+}
+const CASE_MS: Record<Language, number> = {
+  typescript: 3_000,
+  python: 5_000,
+  c: 5_000,
+  cpp: 5_000,
+  java: 10_000,
+}
+
+export const SERVER_SUBMIT_LANGUAGES: Language[] = [
+  "typescript",
+  "python",
+  "java",
+  "c",
+  "cpp",
+]
+
+export const SERVER_RUN_LANGUAGES: Language[] = ["c", "cpp", "java"]
+
+export type ServerRunCase = {
+  index: number
+  got?: unknown
+  error?: string
+  timeMs: number
+}
+
+export async function runTestsOnServer({
+  language,
+  code,
+  tests,
+  harness,
+}: {
+  language: Language
+  code: string
+  tests: TestSuite
+  harness?: string
+}): Promise<{ cases: ServerRunCase[] } | { fatal: string }> {
+  const functionName =
+    language === "python" ? toSnakeCase(tests.functionName) : tests.functionName
+  const outcome = await runInWorker(
+    language,
+    code,
+    functionName,
+    tests.cases,
+    harness
+  )
+  if ("timedOut" in outcome) {
+    return { fatal: "Time limit exceeded — check for infinite loops." }
+  }
+  if ("fatal" in outcome) {
+    return { fatal: outcome.fatal }
+  }
+  return {
+    cases: outcome.results.map((r) => ({
+      index: r.index,
+      got: r.got,
+      error: r.error,
+      timeMs: r.timeMs,
+    })),
+  }
+}
 
 function runInWorker(
   language: Language,
@@ -54,13 +129,31 @@ function runInWorker(
   return new Promise((resolve) => {
     const child = spawn(process.execPath, [WORKER_PATH], {
       stdio: ["ignore", "ignore", "pipe", "ipc"],
+      env: scrubbedEnv(),
+      // Own process group, so we can SIGKILL the WHOLE tree below. On Linux the
+      // sandbox (bwrap PID ns + --die-with-parent) already reaps children; on
+      // macOS there is no PID namespace, so a native grandchild would otherwise
+      // be reparented to launchd and outlive a kill of the worker alone.
+      detached: true,
     })
     let settled = false
+    const killTree = () => {
+      try {
+        if (child.pid) process.kill(-child.pid, "SIGKILL")
+      } catch {
+        // group already gone, or no permission — fall back to the direct child
+      }
+      try {
+        child.kill("SIGKILL")
+      } catch {
+        // already dead
+      }
+    }
     const settle = (outcome: WorkerOutcome) => {
       if (settled) return
       settled = true
       clearTimeout(timer)
-      child.kill("SIGKILL")
+      killTree()
       resolve(outcome)
     }
     const timer = setTimeout(

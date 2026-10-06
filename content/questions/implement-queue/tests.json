@@ -1,0 +1,17 @@
+{
+  "functionName": "Queue",
+  "args": ["operations", "arguments"],
+  "harness": "design",
+  "cases": [
+    {"input":[["Queue","enqueue","enqueue","front","dequeue","empty"],[[],[1],[2],[],[],[]]],"expected":[null,null,null,1,1,false]},
+    {"input":[["Queue","enqueue","dequeue","empty"],[[],[10],[],[]]],"expected":[null,null,10,true]},
+    {"input":[["Queue","enqueue","enqueue","enqueue","dequeue","dequeue","dequeue","empty"],[[],["hello"],["world"],["test"],[],[],[],[]]],"expected":[null,null,null,null,"hello","world","test",true]},
+    {"input":[["Queue","enqueue","front","front","dequeue","empty"],[[],[5],[],[],[],[]]],"expected":[null,null,5,5,5,true]},
+    {"input":[["Queue","empty","enqueue","empty","enqueue","front"],[[],[],[100],[],[200],[]]],"expected":[null,true,null,false,null,100]},
+    {"input":[["Queue","enqueue","enqueue","enqueue","enqueue","enqueue","dequeue","dequeue","dequeue","dequeue","dequeue","empty"],[[],["a"],["b"],["c"],["d"],["e"],[],[],[],[],[],[]]],"expected":[null,null,null,null,null,null,"a","b","c","d","e",true]},
+    {"input":[["Queue","enqueue","enqueue","dequeue","enqueue","dequeue","dequeue","empty"],[[],[7],[8],[],[9],[],[],[]]],"expected":[null,null,null,7,null,8,9,true]},
+    {"input":[["Queue","enqueue","front","enqueue","front","enqueue","front"],[[],["x"],[],["y"],[],["z"],[]]],"expected":[null,null,"x",null,"x",null,"x"]},
+    {"input":[["Queue","enqueue","enqueue","enqueue","front","dequeue","front","dequeue","front"],[[],[10],[20],[30],[],[],[],[],[]]],"expected":[null,null,null,null,10,10,20,20,30]},
+    {"input":[["Queue","enqueue","empty","dequeue","empty","enqueue","enqueue","dequeue","empty"],[[],[42],[],[],[],[50],[60],[],[]]],"expected":[null,null,false,42,true,null,null,50,false]}
+  ]
+}

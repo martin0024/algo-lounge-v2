@@ -1,0 +1,16 @@
+{
+  "functionName": "longestCommonSubsequence",
+  "args": ["text1", "text2"],
+  "cases": [
+    {"input":["cat","crabt"],"expected":3},
+    {"input":["abcd","abcd"],"expected":4},
+    {"input":["abcd","efgh"],"expected":0},
+    {"input":["","abc"],"expected":0},
+    {"input":["abc",""],"expected":0},
+    {"input":["a","a"],"expected":1},
+    {"input":["ace","aec"],"expected":2},
+    {"input":["abcdef","ace"],"expected":3},
+    {"input":["programming","algorithm"],"expected":3},
+    {"input":["xyz","abc"],"expected":0}
+  ]
+}

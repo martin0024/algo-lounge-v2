@@ -1,0 +1,16 @@
+{
+  "functionName": "numberOfWays",
+  "args": ["s", "t", "k"],
+  "cases": [
+    {"input":["abcd","cdab",2],"expected":2},
+    {"input":["ababab","ababab",1],"expected":2},
+    {"input":["ab","ab",1],"expected":0},
+    {"input":["ab","ba",1],"expected":1},
+    {"input":["abc","abc",2],"expected":2},
+    {"input":["abc","bca",1],"expected":1},
+    {"input":["aaaa","aaaa",3],"expected":27},
+    {"input":["abc","acb",5],"expected":0},
+    {"input":["abab","baba",2],"expected":4},
+    {"input":["abcde","deabc",10],"expected":209715}
+  ]
+}

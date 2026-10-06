@@ -1,0 +1,17 @@
+{
+  "functionName": "countPossibleStrings",
+  "args": ["typed"],
+  "cases": [
+    {"input":["aaa"],"expected":3},
+    {"input":["abc"],"expected":1},
+    {"input":["aabbcc"],"expected":4},
+    {"input":["aaaa"],"expected":4},
+    {"input":["abcccde"],"expected":3},
+    {"input":["aaaabbbc"],"expected":6},
+    {"input":["a"],"expected":1},
+    {"input":["aabbccdd"],"expected":5},
+    {"input":["zzzzz"],"expected":5},
+    {"input":["abcdef"],"expected":1},
+    {"input":["aaaabb"],"expected":5}
+  ]
+}

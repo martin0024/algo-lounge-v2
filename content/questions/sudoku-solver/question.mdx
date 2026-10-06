@@ -1,0 +1,29 @@
+---
+title: Sudoku Solver
+difficulty: hard
+tags:
+  - backtracking
+migratedFrom: 'algolounge:sudoku-solver'
+---
+LeetCode 37. Sudoku Solver
+
+Write a program to solve a Sudoku puzzle by filling the empty cells.
+
+A sudoku solution must satisfy all of the following rules:
+
+- Each of the digits `1-9` must occur exactly once in each row.
+- Each of the digits `1-9` must occur exactly once in each column.
+- Each of the digits `1-9` must occur exactly once in each of the 9 `3x3` sub-boxes of the grid.
+
+The `'.'` character indicates empty cells.
+
+The function should modify the board in-place. You do not need to return anything.
+
+## Constraints
+
+- `board.length == 9`
+- `board[i].length == 9`
+- `board[i][j]` is a digit or `'.'`
+- It is guaranteed that the input board has only one solution.
+
+> **How the tests work:** the answer is checked by reading your modified input, not your return value.

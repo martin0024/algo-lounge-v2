@@ -1,0 +1,35 @@
+---
+title: Bitwise AND of Numbers Range — Solution
+---
+## Bitwise AND of Numbers Range
+
+**Algorithm:**
+
+1. Find the common prefix of binary representations of left and right
+2. When bits differ, all following bits will become 0 due to AND operation
+3. Shift both numbers right until they become equal
+4. Shift the result back left by the same amount
+
+**Time Complexity:** O(log n) - where n is the larger number
+
+**Space Complexity:** O(1) - constant extra space
+
+**Key Insights:**
+
+- Consecutive numbers will have different bits at some position
+- AND of any range containing both 0 and 1 at a bit position results in 0
+- Only the common prefix bits remain as 1
+
+```python
+def bitwise_and_of_numbers_range(left, right):
+    shift = 0
+    
+    # Find the common prefix of left and right
+    while left != right:
+        left >>= 1
+        right >>= 1
+        shift += 1
+    
+    # Shift back to get the result
+    return left << shift
+```

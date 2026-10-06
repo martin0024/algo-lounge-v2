@@ -1,0 +1,50 @@
+---
+title: Binary Tree Maximum Path Sum — Solution
+---
+## Binary Tree Maximum Path Sum
+
+**Algorithm:**
+
+1. Use DFS to traverse the tree and track maximum path sum
+2. For each node, calculate maximum path sum including that node
+3. Update global maximum with path passing through current node
+4. Return maximum single path sum for parent's calculation
+
+**Time Complexity:** O(n) - visit each node once
+
+**Space Complexity:** O(h) - recursion stack depth
+
+**Key Insights:**
+
+- Path can start and end at any nodes
+- At each node, consider paths: left-node-right, node-right, node-left, or just node
+- Track global maximum separately from returned value
+
+```python
+def binary_tree_maximum_path_sum(root):
+    if not root:
+        return 0
+    
+    max_sum = float('-inf')
+    
+    def max_gain(node):
+        nonlocal max_sum
+        if not node:
+            return 0
+        
+        # Get maximum sum from left and right subtrees (ignore negative gains)
+        left_gain = max(max_gain(node.left), 0)
+        right_gain = max(max_gain(node.right), 0)
+        
+        # Current path sum including this node as highest point
+        current_max = node.val + left_gain + right_gain
+        
+        # Update global maximum
+        max_sum = max(max_sum, current_max)
+        
+        # Return maximum gain for parent (can only use one side)
+        return node.val + max(left_gain, right_gain)
+    
+    max_gain(root)
+    return max_sum
+```

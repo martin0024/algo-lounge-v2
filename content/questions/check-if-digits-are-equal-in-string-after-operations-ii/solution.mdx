@@ -1,0 +1,56 @@
+---
+title: Check If Digits Are Equal in String After Operations II — Solution
+---
+## Turn the Repeated Operations Into One Formula
+
+Adding adjacent values repeatedly creates the same coefficients as Pascal's triangle. After n-2 operations, the first final digit is the weighted sum of s\[0] through s\[n-2], and the second uses s\[1] through s\[n-1]. The weights are C(n-2, i).
+
+We only need to know whether the difference of those sums is 0 modulo 10. Directly building huge binomial coefficients would be too slow, so calculate each coefficient modulo 2 and modulo 5:
+
+- Modulo 2, a coefficient is odd when every 1-bit in i also appears in n-2.
+- Modulo 5, Lucas' theorem breaks one large combination into tiny combinations of base-5 digits. The code stores those tiny answers in a 5-by-5 table.
+
+The Chinese Remainder Theorem combines the two small remainders into the coefficient modulo 10. The comments in the code show each of these steps.
+
+**Time:** O(n log n). **Space:** O(1).
+
+```python
+def has_same_digits(s):
+    # C(n, r) modulo 5 for the tiny base-5 digits 0 through 4.
+    small_choose_mod5 = (
+        (1, 0, 0, 0, 0),
+        (1, 1, 0, 0, 0),
+        (1, 2, 1, 0, 0),
+        (1, 3, 3, 1, 0),
+        (1, 4, 1, 4, 1),
+    )
+    row = len(s) - 2
+    difference = 0
+    for column in range(row + 1):
+        # Lucas' theorem: split row and column into base-5 digits and
+        # multiply the small combinations to get C(row, column) mod 5.
+        upper = row
+        lower = column
+        coefficient_mod5 = 1
+        while upper or lower:
+            upper_digit = upper % 5
+            lower_digit = lower % 5
+            if lower_digit > upper_digit:
+                coefficient_mod5 = 0
+                break
+            coefficient_mod5 = (
+                coefficient_mod5 * small_choose_mod5[upper_digit][lower_digit]
+            ) % 5
+            upper //= 5
+            lower //= 5
+
+        # In modulo 2, a binomial coefficient is odd exactly when every set
+        # bit of column is also a set bit of row.
+        coefficient_mod2 = 1 if (column | row) == row else 0
+
+        # 5*r2 + 6*r5 has residue r2 mod 2 and r5 mod 5, so it is the
+        # binomial coefficient modulo 10 (Chinese Remainder Theorem).
+        coefficient_mod10 = (5 * coefficient_mod2 + 6 * coefficient_mod5) % 10
+        difference += coefficient_mod10 * (ord(s[column]) - ord(s[column + 1]))
+    return difference % 10 == 0
+```

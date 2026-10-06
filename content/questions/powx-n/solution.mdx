@@ -1,0 +1,35 @@
+---
+title: 'Pow(x, n) — Solution'
+---
+## Pow(x, n)
+
+**Algorithm:**
+
+1. Handle negative exponent by inverting x and negating n
+2. Use recursive binary exponentiation (fast power)
+3. If n is even: pow(x, n) = pow(x \* x, n / 2)
+4. If n is odd: pow(x, n) = x \* pow(x \* x, (n - 1) / 2)
+
+**Time Complexity:** O(log n) - halving exponent each step
+
+**Space Complexity:** O(log n) - recursion stack
+
+**Key Insights:**
+
+- Naive approach of multiplying x n times is O(n) — too slow for large n
+- Binary exponentiation reduces to O(log n) by squaring
+- Must handle negative exponents: x^(-n) = (1/x)^n
+
+```python
+def my_pow(x, n):
+    if n == 0:
+        return 1.0
+    if n < 0:
+        x = 1 / x
+        n = -n
+    
+    if n % 2 == 0:
+        return my_pow(x * x, n // 2)
+    else:
+        return x * my_pow(x * x, (n - 1) // 2)
+```

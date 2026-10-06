@@ -1,0 +1,16 @@
+{
+  "functionName": "isInterleave",
+  "args": ["s1", "s2", "s3"],
+  "cases": [
+    {"input":["aabcc","dbbca","aadbbcbcac"],"expected":true},
+    {"input":["aabcc","dbbca","aadbbbaccc"],"expected":false},
+    {"input":["","",""],"expected":true},
+    {"input":["a","b","ab"],"expected":true},
+    {"input":["a","b","ba"],"expected":true},
+    {"input":["a","b","c"],"expected":false},
+    {"input":["abc","def","adbecf"],"expected":true},
+    {"input":["abc","def","abcdef"],"expected":true},
+    {"input":["abc","def","defabc"],"expected":true},
+    {"input":["abc","def","abdecf"],"expected":true}
+  ]
+}

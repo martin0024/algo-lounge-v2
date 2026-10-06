@@ -1,0 +1,77 @@
+---
+title: Copy List with Random Pointer — Solution
+---
+## Copy List with Random Pointer
+
+**Algorithm:**
+
+1. First pass: Create new nodes and store original->new mapping in hash map
+2. Second pass: Set next and random pointers using the mapping
+3. Handle null pointers appropriately
+
+**Time Complexity:** O(n) - two passes through the list
+
+**Space Complexity:** O(n) - hash map storage
+
+**Key Insights:**
+
+- Hash map enables O(1) node lookup
+- Two-pass approach separates node creation from pointer assignment
+- Deep copy requires all new nodes with no references to original
+- Handle edge cases: null head, single node, cycles
+
+```typescript
+export class Node {
+  val: number
+  next: Node | null
+  random: Node | null
+
+  constructor(val = 0, next: Node | null = null, random: Node | null = null) {
+    this.val = val
+    this.next = next
+    this.random = random
+  }
+}
+
+
+export function copyRandomList(head: Node | null): Node | null {
+  const copies = new Map<Node, Node>()
+  for (let n = head; n; n = n.next) copies.set(n, new Node(n.val))
+  for (let n = head; n; n = n.next) {
+    const copy = copies.get(n)!
+    copy.next = n.next ? copies.get(n.next)! : null
+    copy.random = n.random ? copies.get(n.random)! : null
+  }
+  return head ? copies.get(head)! : null
+}
+```
+
+```python
+class Node:
+    def __init__(self, val: int = 0, next: "Node | None" = None, random: "Node | None" = None):
+        self.val = val
+        self.next = next
+        self.random = random
+
+
+def copy_random_list(head: Node | None) -> Node | None:
+    if not head:
+        return None
+
+    # First pass: one copy per original node.
+    copies = {}
+    current = head
+    while current:
+        copies[current] = Node(current.val)
+        current = current.next
+
+    # Second pass: wire next/random through the map.
+    current = head
+    while current:
+        copy = copies[current]
+        copy.next = copies.get(current.next)
+        copy.random = copies.get(current.random)
+        current = current.next
+
+    return copies[head]
+```

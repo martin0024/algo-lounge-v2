@@ -1,0 +1,22 @@
+---
+title: Maximum Value of K Coins From Piles — Solution
+---
+## Reference solution
+
+```python
+def max_value_of_coins(piles: list[list[int]], k: int) -> int:
+    # Grouped knapsack: from each pile take some prefix of t coins.
+    dp = [0] + [float("-inf")] * k
+    for pile in piles:
+        prefix = [0]
+        for coin in pile[:k]:
+            prefix.append(prefix[-1] + coin)
+        new = dp[:]
+        for used in range(k + 1):
+            if dp[used] == float("-inf"):
+                continue
+            for take in range(1, min(len(pile), k - used) + 1):
+                new[used + take] = max(new[used + take], dp[used] + prefix[take])
+        dp = new
+    return dp[k]
+```

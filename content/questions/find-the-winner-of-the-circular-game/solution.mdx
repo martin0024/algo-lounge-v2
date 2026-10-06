@@ -1,0 +1,51 @@
+---
+title: Find the Winner of the Circular Game — Solution
+---
+## Find the Winner of the Circular Game
+
+**Approach 1: Queue Simulation**
+
+1. Create a queue with numbers from 1 to n
+2. Simulate the elimination process: For each round, rotate the queue k-1 times (moving front to back), then remove the k^(th) person
+3. Continue until only one person remains
+4. Return the last remaining person
+
+**Time Complexity:** O(n \* k)
+
+**Space Complexity:** O(n) for the queue
+
+**Approach 2: Josephus Problem (Mathematical)**
+
+This is the classic Josephus problem. The mathematical formula is:
+
+- josephus(n, k) = (josephus(n-1, k) + k) % n
+- Base case: josephus(1, k) = 0 (0-indexed)
+
+**Time Complexity:** O(n)
+
+**Space Complexity:** O(1) for iterative, O(n) for recursive
+
+**Key Insights:**
+
+- The queue simulation is intuitive and mirrors the problem description
+- The mathematical approach is much faster for large n
+- The formula works by finding the position in a smaller circle and adjusting it
+- Remember to convert between 0-indexed (formula) and 1-indexed (problem) at the end
+
+```python
+from collections import deque
+
+def find_the_winner(n, k):
+    # Queue simulation approach
+    queue = deque(range(1, n + 1))
+    
+    while len(queue) > 1:
+        # Rotate k-1 times to position the k-th person at front
+        for _ in range(k - 1):
+            queue.append(queue.popleft())
+        
+        # Remove the k-th person
+        queue.popleft()
+    
+    return queue[0]
+```

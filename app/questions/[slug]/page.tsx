@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import { DifficultyBadge } from "@/components/difficulty-badge"
+import { QuestionGate } from "@/components/question-gate"
 import { QuestionNav } from "@/components/question-nav"
 import { QuestionWorkspace } from "@/components/question-workspace"
 import { Badge } from "@/components/ui/badge"
@@ -12,9 +13,11 @@ import {
 } from "@/components/ui/resizable"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
+  courseLabel,
+  getCourses,
   getQuestion,
+  getQuestionPlacements,
   getQuestionSlugs,
-  getQuestionsByWeek,
 } from "@/lib/content"
 import { Mdx } from "@/lib/mdx"
 
@@ -43,21 +46,30 @@ export default async function QuestionPage({
 
   const { meta, tests } = question
 
-  const weeks = [...getQuestionsByWeek().entries()].map(
-    ([week, questions]) => ({
-      week,
-      questions: questions.map(({ slug, title, difficulty }) => ({
-        slug,
-        title,
-        difficulty,
-      })),
-    })
-  )
+  // The drawer lists the course this question belongs to (or the current
+  // semester, for questions outside every course).
+  const courses = getCourses()
+  const placement = getQuestionPlacements().get(slug)
+  const course =
+    courses.find((c) => c.id === placement?.courseId) ?? courses[0] ?? null
+  const sections = (course?.units ?? []).map((unit) => ({
+    id: unit.id,
+    title: unit.title,
+    questions: unit.questions.map(({ slug, title, difficulty }) => ({
+      slug,
+      title,
+      difficulty,
+    })),
+  }))
 
   return (
     <div className="flex h-[calc(100svh-5.5rem)] flex-col">
+      <QuestionGate />
       <div className="flex items-center gap-3 px-4 py-2.5">
-        <QuestionNav weeks={weeks} />
+        <QuestionNav
+          courseLabel={course ? courseLabel(course) : "Questions"}
+          sections={sections}
+        />
         <h1 className="text-base font-semibold tracking-tight">{meta.title}</h1>
         <DifficultyBadge difficulty={meta.difficulty} />
         <div className="ml-auto hidden gap-1.5 sm:flex">

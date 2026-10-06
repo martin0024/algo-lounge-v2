@@ -1,0 +1,9 @@
+{
+  "functionName": "diameterOfBinaryTree",
+  "args": ["root"],
+  "harness": "binary-tree",
+  "cases": [
+    {"input":[[1,2,3,4,5]],"expected":3},
+    {"input":[[1,2]],"expected":1}
+  ]
+}

@@ -1,0 +1,48 @@
+---
+title: Balanced Binary Tree — Solution
+---
+## Balanced Binary Tree
+
+**Algorithm:**
+
+1. Use helper function to compute height and check balance
+2. For each node, check if left and right subtrees are balanced
+3. Check if height difference is at most 1
+4. Return -1 if unbalanced, otherwise return height
+
+**Time Complexity:** O(n) - visit each node once
+
+**Space Complexity:** O(h) - recursion stack depth
+
+**Key Insights:**
+
+- Combine height calculation with balance checking
+- Early termination when imbalance is detected
+- Bottom-up approach for efficiency
+
+```python
+def is_balanced(root):
+    def check_balance(node):
+        # Base case: empty tree is balanced with height 0
+        if not node:
+            return 0
+        
+        # Check left subtree
+        left_height = check_balance(node.left)
+        if left_height == -1:
+            return -1  # Left subtree is unbalanced
+        
+        # Check right subtree
+        right_height = check_balance(node.right)
+        if right_height == -1:
+            return -1  # Right subtree is unbalanced
+        
+        # Check balance condition
+        if abs(left_height - right_height) > 1:
+            return -1  # Current node is unbalanced
+        
+        # Return height of current subtree
+        return max(left_height, right_height) + 1
+    
+    return check_balance(root) != -1
+```

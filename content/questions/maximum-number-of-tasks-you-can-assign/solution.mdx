@@ -1,0 +1,96 @@
+---
+title: Maximum Number of Tasks You Can Assign — Solution
+---
+## Maximum Number of Tasks You Can Assign
+
+**Algorithm (Binary Search + Greedy with Deque):**
+
+1. **Binary Search on Answer:** The maximum number of tasks we can complete is between 0 and min(n, m). Use binary search to find the maximum feasible number
+
+2. **Feasibility Check:** For a given number k, check if we can complete k tasks:
+
+   - Sort tasks in ascending order, take the k easiest tasks
+   - Sort workers in descending order, take the k strongest workers
+   - Use a greedy approach with a deque to match workers to tasks
+
+3. **Greedy Matching:** For each task (from hardest to easiest among selected k):
+
+   - Find the weakest worker who can do it (with or without pill)
+   - If a worker can do it without a pill, assign them
+   - Otherwise, use a pill on the strongest worker who can do it with a pill
+   - Use a deque to efficiently manage the pool of available workers
+
+4. Return the maximum k where feasibility check passes
+
+**Time Complexity:** O((n + m) log(n + m) + min(n,m) \* log(min(n,m)))
+
+**Space Complexity:** O(min(n, m))
+
+**Key Insights:**
+
+- Binary search on the answer helps reduce the problem space
+- Greedy strategy: match weaker workers to easier tasks when possible
+- Save pills for when they're absolutely needed
+- Deque allows efficient management of worker pool during greedy matching
+- Sorting helps in making optimal greedy decisions
+
+```python
+from collections import deque
+
+def max_task_assign(tasks, workers, pills, strength):
+    tasks.sort()
+    workers.sort()
+    n, m = len(tasks), len(workers)
+    
+    def canComplete(k):
+        # Try to complete k easiest tasks with k strongest workers
+        selected_tasks = tasks[:k]
+        selected_workers = workers[m - k:]
+        
+        pills_used = 0
+        worker_deque = deque(selected_workers)
+        
+        # Process tasks from hardest to easiest
+        for i in range(k - 1, -1, -1):
+            task = selected_tasks[i]
+            
+            # If the strongest available worker can't do it even with pill
+            if worker_deque[-1] + strength < task:
+                return False
+            
+            # If the strongest worker can do it without pill
+            if worker_deque[-1] >= task:
+                worker_deque.pop()
+            else:
+                # Need to use a pill
+                if pills_used >= pills:
+                    return False
+                
+                # Find the weakest worker who can do it with a pill
+                found = False
+                for j in range(len(worker_deque)):
+                    if worker_deque[j] + strength >= task:
+                        worker_deque.remove(worker_deque[j])
+                        pills_used += 1
+                        found = True
+                        break
+                
+                if not found:
+                    return False
+        
+        return True
+    
+    # Binary search on the number of tasks
+    left, right = 0, min(n, m)
+    result = 0
+    
+    while left <= right:
+        mid = (left + right) // 2
+        if canComplete(mid):
+            result = mid
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return result
+```

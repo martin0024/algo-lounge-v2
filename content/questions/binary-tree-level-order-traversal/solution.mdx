@@ -1,0 +1,49 @@
+---
+title: Binary Tree Level Order Traversal — Solution
+---
+## Binary Tree Level Order Traversal
+
+**Algorithm:**
+
+1. Use BFS (Breadth-First Search) with a queue
+2. Start by adding root to queue
+3. For each level, process all nodes currently in queue
+4. Add each node's children to queue for next level
+5. Collect values level by level into result
+
+**Time Complexity:** O(n) - visit each node once
+
+**Space Complexity:** O(n) - queue can hold up to n/2 nodes at last level
+
+**Key Insights:**
+
+- BFS naturally processes nodes level by level
+- Track level size to know when current level ends
+- Queue ensures left-to-right ordering within each level
+
+```python
+def level_order(root):
+    if not root:
+        return []
+    
+    from collections import deque
+    result = []
+    queue = deque([root])
+    
+    while queue:
+        level_size = len(queue)
+        level_values = []
+        
+        for _ in range(level_size):
+            node = queue.popleft()
+            level_values.append(node.val)
+            
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        
+        result.append(level_values)
+    
+    return result
+```

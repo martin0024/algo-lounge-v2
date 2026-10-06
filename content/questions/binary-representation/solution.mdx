@@ -1,0 +1,25 @@
+---
+title: Binary Representation — Solution
+---
+## Binary Representation
+
+**Algorithm:**
+
+1. Use bin() function to convert to binary
+2. Remove '0b' prefix
+
+**Time Complexity:** O(log n) - number of bits
+
+**Space Complexity:** O(log n) - string length
+
+**Key Insights:**
+
+- Python's bin() function handles conversion internally (repeated division by 2)
+- Zero is special case returning '0'
+- Binary string length = floor(log2(n)) + 1 for n > 0
+- Slicing \[2:] removes the '0b' prefix automatically
+
+```python
+def to_binary(n):
+    return bin(n)[2:]
+```

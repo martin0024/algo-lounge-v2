@@ -1,0 +1,42 @@
+---
+title: String Transformation — Solution
+---
+## String Transformation
+
+Use KMP on `s + s[:-1]` to count rotations equal to `t`. All nonzero rotations have the same number of operation sequences. Track two states: ways to reach rotation 0 and ways to reach any particular nonzero rotation. Their transition matrix is `[[0,n-1],[1,n-2]]`; raise it to `k` by binary exponentiation.
+
+**Time:** O(n + log k). **Space:** O(n).
+
+```python
+def number_of_ways(s, t, k):
+    MOD = 1000000007
+    n = len(s)
+    text = t + '#' + s + s[:-1]
+    prefix = [0] * len(text)
+    matches = 0
+    for i in range(1, len(text)):
+        j = prefix[i - 1]
+        while j and text[i] != text[j]:
+            j = prefix[j - 1]
+        if text[i] == text[j]:
+            j += 1
+        prefix[i] = j
+        if i > n and j == n:
+            matches += 1
+
+    def mul(a, b):
+        return [[sum(a[i][x] * b[x][j] for x in range(2)) % MOD
+                 for j in range(2)] for i in range(2)]
+
+    matrix = [[0, n - 1], [1, n - 2]]
+    power = [[1, 0], [0, 1]]
+    while k:
+        if k & 1:
+            power = mul(power, matrix)
+        matrix = mul(matrix, matrix)
+        k >>= 1
+    same, different = power[0][0], power[1][0]
+    if s == t:
+        return (same + (matches - 1) * different) % MOD
+    return matches * different % MOD
+```

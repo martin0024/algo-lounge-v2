@@ -1,0 +1,16 @@
+{
+  "functionName": "longestCommonPrefix",
+  "args": ["words", "k"],
+  "cases": [
+    {"input":[["jump","run","run","jump","run"],2],"expected":[3,4,4,3,4]},
+    {"input":[["dog","racer","car"],2],"expected":[0,0,0]},
+    {"input":[["solo"],1],"expected":[0]},
+    {"input":[["a","ab","abc"],1],"expected":[3,3,2]},
+    {"input":[["same","same","same"],2],"expected":[4,4,4]},
+    {"input":[["flower","flow","flight"],2],"expected":[2,2,4]},
+    {"input":[["apple","ape","april","banana"],2],"expected":[2,2,2,2]},
+    {"input":[["aa","aaa","aaaa","b"],3],"expected":[0,0,0,2]},
+    {"input":[["cat","car","cart","dog","dove"],2],"expected":[3,2,2,3,3]},
+    {"input":[["prefix","preform","prevent","pretty","zoo"],4],"expected":[0,0,0,0,3]}
+  ]
+}

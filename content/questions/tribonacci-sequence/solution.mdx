@@ -1,0 +1,35 @@
+---
+title: Tribonacci Sequence — Solution
+---
+## Tribonacci Sequence
+
+**Algorithm:**
+
+1. Handle base cases
+2. Use iterative approach with three variables
+3. Update values: a, b, c = b, c, a + b + c
+
+**Time Complexity:** O(n) - iterate n times
+
+**Space Complexity:** O(1) - constant space
+
+**Key Insights:**
+
+- Tribonacci extends Fibonacci: three terms instead of two
+- Simultaneous assignment a, b, c = b, c, sum avoids temporary variables
+- Only need to track last three values (space optimization)
+- Base cases 0, 1, 2 have n iterations starting from 3
+
+```python
+def tribonacci(n):
+    if n == 0:
+        return 0
+    if n == 1 or n == 2:
+        return 1
+    
+    a, b, c = 0, 1, 1
+    for _ in range(3, n + 1):
+        a, b, c = b, c, a + b + c
+    
+    return c
+```

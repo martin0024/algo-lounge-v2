@@ -1,0 +1,11 @@
+{
+  "functionName": "findItinerary",
+  "args": ["tickets"],
+  "cases": [
+    {"input":[[["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]],"expected":["JFK","MUC","LHR","SFO","SJC"]},
+    {"input":[[["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]],"expected":["JFK","ATL","JFK","SFO","ATL","SFO"]},
+    {"input":[[["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]]],"expected":["JFK","NRT","JFK","KUL"]},
+    {"input":[[["JFK","NRT"],["NRT","JFK"]]],"expected":["JFK","NRT","JFK"]},
+    {"input":[[["JFK","ATL"],["ATL","JFK"]]],"expected":["JFK","ATL","JFK"]}
+  ]
+}

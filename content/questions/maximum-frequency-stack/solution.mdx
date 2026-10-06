@@ -1,0 +1,74 @@
+---
+title: Maximum Frequency Stack — Solution
+---
+## Maximum Frequency Stack
+
+**Algorithm:**
+
+1. Use three data structures:
+
+   - `freq`: Map from value to its current frequency
+   - `group`: Map from frequency to stack of values with that frequency
+   - `maxfreq`: Track the current maximum frequency
+
+2. **Push operation:**
+
+   - Increment frequency of value in freq map
+   - Get new frequency f
+   - Add value to group\[f] stack
+   - Update maxfreq if f is greater
+
+3. **Pop operation:**
+
+   - Get the stack at group\[maxfreq]
+   - Pop value from that stack
+   - Decrement freq\[value]
+   - If group\[maxfreq] is empty, decrement maxfreq
+   - Return the popped value
+
+**Time Complexity:** O(1) for both push and pop
+
+**Space Complexity:** O(n) where n is the number of elements
+
+**Key Insights:**
+
+- Group elements by frequency to quickly find most frequent
+- Within each frequency group, maintain stack ordering (LIFO for ties)
+- maxfreq pointer eliminates need to search for max frequency
+- When popping, automatically handle the "most recent" tie-breaking
+- Frequency groups naturally maintain insertion order
+
+```python
+class FreqStack:
+    def __init__(self):
+        self.freq = {}  # value -> current frequency count
+        self.group = {}  # frequency -> list of values at that frequency  
+        self.maxfreq = 0
+    
+    def push(self, val):
+        # Increment this value's frequency
+        f = self.freq.get(val, 0) + 1
+        self.freq[val] = f
+        
+        # Add this value to the group at frequency f
+        if f not in self.group:
+            self.group[f] = []
+        self.group[f].append(val)
+        
+        # Update max frequency if this is now the highest
+        if f > self.maxfreq:
+            self.maxfreq = f
+    
+    def pop(self):
+        # Get the most recently added value at the highest frequency
+        val = self.group[self.maxfreq].pop()
+        
+        # Decrement this value's frequency count
+        self.freq[val] -= 1
+        
+        # If we just emptied the highest frequency group, decrease maxfreq
+        if len(self.group[self.maxfreq]) == 0:
+            self.maxfreq -= 1
+        
+        return val
+```

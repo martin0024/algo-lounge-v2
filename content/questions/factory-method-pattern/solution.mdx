@@ -1,0 +1,108 @@
+---
+title: Factory Method Pattern — Solution
+---
+## Factory Method Pattern
+
+**Concept:**
+
+The Factory Method Pattern delegates object creation to subclasses. Each factory subclass overrides the `createVehicle()` method to return an instance of the specific vehicle type it is responsible for.
+
+**Implementation:**
+
+1. `CarFactory.createVehicle()` returns a new `Car()` instance
+2. `BikeFactory.createVehicle()` returns a new `Bike()` instance
+3. `TruckFactory.createVehicle()` returns a new `Truck()` instance
+
+**Benefits:**
+
+- **Loose Coupling:** Client code works with the abstract `Vehicle` and `VehicleFactory` interfaces without knowing concrete classes
+- **Open/Closed Principle:** New vehicle types can be added without modifying existing code
+- **Single Responsibility:** Each factory is responsible for creating one type of object
+
+**Time Complexity:** O(1) for object creation
+
+**Space Complexity:** O(1) per created object
+
+```typescript
+export abstract class Vehicle {
+  abstract getType(): string
+}
+
+export class Car extends Vehicle {
+  getType(): string {
+    return "Car"
+  }
+}
+
+export class Bike extends Vehicle {
+  getType(): string {
+    return "Bike"
+  }
+}
+
+export class Truck extends Vehicle {
+  getType(): string {
+    return "Truck"
+  }
+}
+
+export abstract class VehicleFactory {
+  abstract createVehicle(): Vehicle
+}
+
+export class CarFactory extends VehicleFactory {
+  createVehicle(): Vehicle {
+    return new Car()
+  }
+}
+
+export class BikeFactory extends VehicleFactory {
+  createVehicle(): Vehicle {
+    return new Bike()
+  }
+}
+
+export class TruckFactory extends VehicleFactory {
+  createVehicle(): Vehicle {
+    return new Truck()
+  }
+}
+```
+
+```python
+from abc import ABC, abstractmethod
+
+class Vehicle(ABC):
+    @abstractmethod
+    def getType(self) -> str:
+        pass
+
+class Car(Vehicle):
+    def getType(self) -> str:
+        return "Car"
+
+class Bike(Vehicle):
+    def getType(self) -> str:
+        return "Bike"
+
+class Truck(Vehicle):
+    def getType(self) -> str:
+        return "Truck"
+
+class VehicleFactory(ABC):
+    @abstractmethod
+    def createVehicle(self) -> Vehicle:
+        pass
+
+class CarFactory(VehicleFactory):
+    def createVehicle(self) -> Vehicle:
+        return Car()
+
+class BikeFactory(VehicleFactory):
+    def createVehicle(self) -> Vehicle:
+        return Bike()
+
+class TruckFactory(VehicleFactory):
+    def createVehicle(self) -> Vehicle:
+        return Truck()
+```

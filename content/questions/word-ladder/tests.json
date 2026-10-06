@@ -1,0 +1,16 @@
+{
+  "functionName": "ladderLength",
+  "args": ["beginWord", "endWord", "wordList"],
+  "cases": [
+    {"input":["cat","sag",["bat","bag","sag","dag","dot"]],"expected":4},
+    {"input":["cat","sag",["bat","bag","sat","dag","dot"]],"expected":0},
+    {"input":["hit","cog",["hot","dot","dog","lot","log","cog"]],"expected":5},
+    {"input":["hit","cog",["hot","dot","dog","lot","log"]],"expected":0},
+    {"input":["a","c",["a","b","c"]],"expected":2},
+    {"input":["hit","hot",["hot"]],"expected":2},
+    {"input":["lost","cost",["most","fist","lost","cost","fish"]],"expected":2},
+    {"input":["red","tax",["ted","tex","red","tax","tad","den","rex","pee"]],"expected":4},
+    {"input":["abc","xyz",["abx","axx","xyz"]],"expected":0},
+    {"input":["cold","warm",["cord","card","ward","warm","sold","told"]],"expected":5}
+  ]
+}

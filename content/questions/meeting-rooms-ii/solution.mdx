@@ -1,0 +1,51 @@
+---
+title: Meeting Rooms II — Solution
+---
+## Meeting Rooms II
+
+**Algorithm:**
+
+1. Sort intervals by start time
+2. Use a min heap to track end times of meetings in progress
+3. For each meeting, remove all meetings from heap that have ended
+4. Add current meeting's end time to heap
+5. Track maximum heap size as the answer
+
+**Time Complexity:** O(n log n) for sorting and heap operations
+
+**Space Complexity:** O(n) for the heap
+
+**Key Insights:**
+
+- The heap size represents the number of rooms needed at any time
+- Removing meetings that ended frees up rooms
+- Maximum heap size is the minimum rooms needed
+- Alternative: Use separate sorted arrays for start and end times
+
+```python
+import heapq
+
+def min_meeting_rooms(intervals):
+    if not intervals:
+        return 0
+    
+    # Sort by start time
+    intervals.sort(key=lambda x: x[0])
+    
+    # Min heap to track end times
+    heap = []
+    max_rooms = 0
+    
+    for start, end in intervals:
+        # Remove all meetings that have ended
+        while heap and heap[0] <= start:
+            heapq.heappop(heap)
+        
+        # Add current meeting
+        heapq.heappush(heap, end)
+        
+        # Track maximum rooms needed
+        max_rooms = max(max_rooms, len(heap))
+    
+    return max_rooms
+```

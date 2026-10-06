@@ -1,0 +1,16 @@
+{
+  "functionName": "backspaceCompare",
+  "args": ["s", "t"],
+  "cases": [
+    {"input":["ab#c","ad#c"],"expected":true},
+    {"input":["ab##","c#d#"],"expected":true},
+    {"input":["a#c","b"],"expected":false},
+    {"input":["a##c","#a#c"],"expected":true},
+    {"input":["abc","abc"],"expected":true},
+    {"input":["###",""],"expected":true},
+    {"input":["bxj##tw","bxo#j##tw"],"expected":true},
+    {"input":["ab#c#d","ad#c#d"],"expected":true},
+    {"input":["a","b"],"expected":false},
+    {"input":["xywrrmp","xywrrmu#p"],"expected":true}
+  ]
+}

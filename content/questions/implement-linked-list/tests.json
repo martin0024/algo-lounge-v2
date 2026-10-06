@@ -1,0 +1,17 @@
+{
+  "functionName": "LinkedList",
+  "args": ["operations", "arguments"],
+  "harness": "design",
+  "cases": [
+    {"input":[["LinkedList","append","append","get","prepend","get"],[[],[1],[2],[1],[0],[0]]],"expected":[null,null,null,2,null,0]},
+    {"input":[["LinkedList","append","append","append","delete","get"],[[],[1],[2],[3],[1],[1]]],"expected":[null,null,null,null,null,3]},
+    {"input":[["LinkedList","get","delete","append","get"],[[],[0],[0],[5],[0]]],"expected":[null,-1,null,null,5]},
+    {"input":[["LinkedList","prepend","prepend","prepend","get","get","get"],[[],[3],[2],[1],[0],[1],[2]]],"expected":[null,null,null,null,1,2,3]},
+    {"input":[["LinkedList","append","append","append","append","insert","get","get","get","get","get"],[[],[1],[2],[4],[5],[3,99],[0],[1],[2],[3],[4]]],"expected":[null,null,null,null,null,null,1,2,4,99,5]},
+    {"input":[["LinkedList","append","delete","get"],[[],[10],[0],[0]]],"expected":[null,null,null,-1]},
+    {"input":[["LinkedList","append","append","append","delete","delete","get"],[[],[1],[2],[3],[2],[0],[0]]],"expected":[null,null,null,null,null,null,2]},
+    {"input":[["LinkedList","append","append","append","append","append","insert","insert","get","get","get","get","get","get","get"],[[],[1],[2],[3],[4],[5],[2,50],[4,75],[0],[1],[2],[3],[4],[5],[6]]],"expected":[null,null,null,null,null,null,null,null,1,2,50,3,75,4,5]},
+    {"input":[["LinkedList","append","append","get","get","get"],[[],[100],[200],[0],[1],[2]]],"expected":[null,null,null,100,200,-1]},
+    {"input":[["LinkedList","insert","get","prepend","get","append","get","get","get"],[[],[100,5],[0],[1],[0],[10],[0],[1],[2]]],"expected":[null,null,5,null,1,null,1,5,10]}
+  ]
+}

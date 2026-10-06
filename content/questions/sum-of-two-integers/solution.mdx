@@ -1,0 +1,41 @@
+---
+title: Sum of Two Integers — Solution
+---
+## Sum of Two Integers
+
+**Algorithm:**
+
+1. Use XOR to calculate sum without carry: `a XOR b`
+2. Use AND and left shift to calculate carry: `(a AND b) << 1`
+3. Repeat until there is no carry (carry becomes 0)
+4. Handle negative numbers using mask for 32-bit integers
+5. Convert back from 32-bit representation if needed
+
+**Time Complexity:** O(1) - at most 32 iterations for 32-bit integers
+
+**Space Complexity:** O(1) - constant extra space
+
+**Key Insights:**
+
+- XOR gives sum without considering carry
+- AND gives positions where carry occurs, left shift by 1 to add carry to next position
+- Repeat until no more carry bits remain
+- Python needs special handling for negative numbers due to arbitrary precision integers
+
+```python
+def get_sum(a, b):
+    # Mask to get 32-bit integers
+    mask = 0xFFFFFFFF
+    
+    while b != 0:
+        # Calculate sum without carry and carry
+        tmp = (a ^ b) & mask
+        carry = ((a & b) << 1) & mask
+        a = tmp
+        b = carry
+    
+    # Handle negative numbers (if a > 0x7FFFFFFF, it's negative in 32-bit)
+    if a > 0x7FFFFFFF:
+        return ~(a ^ mask)
+    return a
+```

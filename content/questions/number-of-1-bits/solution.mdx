@@ -1,0 +1,32 @@
+---
+title: Number of 1 Bits — Solution
+---
+## Number of 1 Bits
+
+**Algorithm:**
+
+1. Use bit manipulation to count set bits efficiently
+2. The trick: `n & (n - 1)` clears the lowest set bit
+3. Keep applying this operation until n becomes 0
+4. Count the number of operations needed
+5. Alternative: use modulo 2 to check last bit, then right shift
+
+**Time Complexity:** O(k) where k is the number of set bits (at most 32 for a 32-bit integer)
+
+**Space Complexity:** O(1) - constant extra space
+
+**Key Insights:**
+
+- `n & (n - 1)` removes the rightmost 1 bit
+- Example: 12 (1100) & 11 (1011) = 8 (1000)
+- Count iterations until n becomes 0
+- More efficient than checking every bit position
+
+```python
+def hamming_weight(n):
+    count = 0
+    while n:
+        n &= n - 1  # Clear the lowest set bit
+        count += 1
+    return count
+```

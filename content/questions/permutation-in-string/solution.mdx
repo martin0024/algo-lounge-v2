@@ -1,0 +1,43 @@
+---
+title: Permutation In String — Solution
+---
+## Permutation In String
+
+**Algorithm (Sliding Window with Frequency Matching):**
+
+1. Count character frequencies of `s1`.
+2. Use a sliding window of size `len(s1)` over `s2`.
+3. Track how many character frequencies match between the window and `s1`.
+4. When all 26 characters match, we found a permutation.
+5. Slide the window: add the new right character, remove the old left character, update match count.
+
+**Time Complexity:** O(n) where n = len(s2)
+
+**Space Complexity:** O(1) — fixed 26-character arrays
+
+```python
+def check_inclusion(s1, s2):
+    if len(s1) > len(s2):
+        return False
+    
+    s1_count = {}
+    window = {}
+    
+    for c in s1:
+        s1_count[c] = s1_count.get(c, 0) + 1
+    
+    for i in range(len(s2)):
+        c = s2[i]
+        window[c] = window.get(c, 0) + 1
+        
+        if i >= len(s1):
+            left = s2[i - len(s1)]
+            window[left] -= 1
+            if window[left] == 0:
+                del window[left]
+        
+        if window == s1_count:
+            return True
+    
+    return False
+```

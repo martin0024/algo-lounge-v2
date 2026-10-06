@@ -1,0 +1,18 @@
+def total_n_queens(n: int) -> int:
+    # Backtrack row by row, tracking attacked columns and diagonals.
+    def place(row, cols, diagonals, anti_diagonals):
+        if row == n:
+            return 1
+        count = 0
+        for col in range(n):
+            if col in cols or row - col in diagonals or row + col in anti_diagonals:
+                continue
+            count += place(
+                row + 1,
+                cols | {col},
+                diagonals | {row - col},
+                anti_diagonals | {row + col},
+            )
+        return count
+
+    return place(0, frozenset(), frozenset(), frozenset())

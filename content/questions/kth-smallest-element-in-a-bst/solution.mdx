@@ -1,0 +1,31 @@
+---
+title: Kth Smallest Element in a BST — Solution
+---
+## Kth Smallest Element in a BST
+
+**Algorithm:**
+
+1. In-order traversal of a BST visits nodes in ascending order
+2. Use an iterative stack-based in-order traversal
+3. Decrement a counter each time you process a node; when it reaches 0, return that node's value
+
+**Time Complexity:** O(h + k) — traverses at most h + k nodes, where h is tree height
+
+**Space Complexity:** O(h) — stack holds one path from root to current node
+
+**Key Insight:** BST in-order traversal yields sorted values for free — the kth node visited is the kth smallest. The iterative approach lets you stop early as soon as you've counted k nodes.
+
+```python
+def kth_smallest(root, k):
+    stk = []
+    while root or stk:
+        if root:
+            stk.append(root)
+            root = root.left
+        else:
+            root = stk.pop()
+            k -= 1
+            if k == 0:
+                return root.val
+            root = root.right
+```

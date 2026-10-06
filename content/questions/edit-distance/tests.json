@@ -1,0 +1,16 @@
+{
+  "functionName": "minDistance",
+  "args": ["word1", "word2"],
+  "cases": [
+    {"input":["horse","ros"],"expected":3},
+    {"input":["intention","execution"],"expected":5},
+    {"input":["","abc"],"expected":3},
+    {"input":["abc",""],"expected":3},
+    {"input":["",""],"expected":0},
+    {"input":["abc","abc"],"expected":0},
+    {"input":["a","b"],"expected":1},
+    {"input":["kitten","sitting"],"expected":3},
+    {"input":["sunday","saturday"],"expected":3},
+    {"input":["pneumonoultramicroscopicsilicovolcanoconiosis","ultramicroscopically"],"expected":27}
+  ]
+}

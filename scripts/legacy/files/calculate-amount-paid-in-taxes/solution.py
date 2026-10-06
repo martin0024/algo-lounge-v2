@@ -1,0 +1,11 @@
+def calculate_tax(brackets: list[list[int]], income: int) -> float:
+    # Walk the brackets, taxing only the slice of income that falls in each.
+    tax = 0.0
+    previous_upper = 0
+    for upper, percent in brackets:
+        if income <= previous_upper:
+            break
+        taxable = min(income, upper) - previous_upper
+        tax += taxable * percent / 100
+        previous_upper = upper
+    return tax

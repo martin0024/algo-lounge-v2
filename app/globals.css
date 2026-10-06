@@ -130,6 +130,76 @@
   }
 }
 
+.lounge-panel {
+  background: color-mix(in oklch, var(--card) 82%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(1.35);
+  backdrop-filter: blur(12px) saturate(1.35);
+  border: 1px solid color-mix(in oklch, var(--border) 85%, transparent);
+  box-shadow:
+    0 1px 2px color-mix(in oklch, var(--foreground) 4%, transparent),
+    0 10px 28px -14px color-mix(in oklch, var(--foreground) 10%, transparent);
+}
+
+.dark .lounge-panel {
+  background: color-mix(in oklch, var(--card) 68%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklch, var(--foreground) 6%, transparent),
+    0 10px 32px -12px color-mix(in oklch, var(--background) 70%, transparent);
+}
+
+.question-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.question-shell::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(
+      60% 50% at 15% 0%,
+      color-mix(in oklch, var(--primary) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 45% at 100% 20%,
+      color-mix(in oklch, var(--primary) 10%, transparent),
+      transparent 70%
+    );
+}
+
+.dark .question-shell::before {
+  background-image:
+    radial-gradient(
+      60% 50% at 15% 0%,
+      color-mix(in oklch, var(--primary) 18%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 45% at 100% 20%,
+      color-mix(in oklch, var(--primary) 12%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      to right,
+      color-mix(in oklch, var(--foreground) 3%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--foreground) 3%, transparent) 1px,
+      transparent 1px
+    );
+  background-size:
+    100% 100%,
+    100% 100%,
+    32px 32px,
+    32px 32px;
+}
+
 .shiki,
 .shiki span {
   color: var(--shiki-light);
@@ -146,4 +216,263 @@
 }
 .prose :not(pre) > code {
   @apply rounded bg-muted px-1.5 py-0.5 font-mono text-[0.85em] font-medium before:content-none after:content-none;
+}
+
+/* ---------------------------------------------------------------------------
+   XP feedback animations
+   Toasts and the header bar share one vocabulary: things arrive out of focus
+   and snap into it, so a gain reads as an event rather than a layout change.
+   All of it collapses to a plain fade under `prefers-reduced-motion`.
+--------------------------------------------------------------------------- */
+
+@keyframes xp-card-in {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate3d(28px, 8px, 0) scale(0.94);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(-3px, 0, 0) scale(1.015);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes xp-card-out {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate3d(0, 14px, 0) scale(0.96);
+  }
+}
+
+/* The headline number: lands out of a heavy blur and overshoots slightly. */
+@keyframes xp-amount-in {
+  0% {
+    opacity: 0;
+    filter: blur(16px);
+    transform: scale(0.62);
+    letter-spacing: 0.12em;
+  }
+  55% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1.14);
+    letter-spacing: -0.01em;
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+    letter-spacing: 0;
+  }
+}
+
+@keyframes xp-glow-pulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  45% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
+  }
+}
+
+@keyframes xp-ring-burst {
+  0% {
+    opacity: 0.85;
+    transform: scale(0.55);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.1);
+  }
+}
+
+/* Breakdown rows peel in one after another. */
+@keyframes xp-line-in {
+  0% {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translate3d(0, 6px, 0);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Must end fully transparent: the animation holds its final frame, and a
+   partially-travelled sweep would sit there as a permanent band. */
+@keyframes xp-shimmer {
+  0% {
+    opacity: 0;
+    transform: translateX(-40%);
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(460%);
+  }
+}
+
+/* Header bar: a bright wash rides along the fill right after a gain. */
+@keyframes xp-bar-sweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(180%);
+  }
+}
+
+@keyframes xp-pill-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.28);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* The floating "+N" that lifts off the header bar. */
+@keyframes xp-float-up {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translate3d(-50%, 4px, 0) scale(0.8);
+  }
+  25% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(-50%, -6px, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translate3d(-50%, -26px, 0) scale(0.95);
+  }
+}
+
+.xp-card-in {
+  animation: xp-card-in 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.xp-card-out {
+  animation: xp-card-out 320ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+.xp-amount-in {
+  animation: xp-amount-in 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 90ms;
+}
+.xp-glow-pulse {
+  animation: xp-glow-pulse 1100ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 90ms;
+}
+.xp-ring-burst {
+  animation: xp-ring-burst 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 120ms;
+}
+.xp-line-in {
+  animation: xp-line-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.xp-shimmer {
+  animation: xp-shimmer 1400ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-delay: 220ms;
+}
+.xp-bar-sweep {
+  animation: xp-bar-sweep 900ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.xp-pill-pop {
+  animation: xp-pill-pop 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.xp-float-up {
+  animation: xp-float-up 1500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xp-card-in,
+  .xp-card-out,
+  .xp-amount-in,
+  .xp-glow-pulse,
+  .xp-ring-burst,
+  .xp-line-in,
+  .xp-shimmer,
+  .xp-bar-sweep,
+  .xp-pill-pop,
+  .xp-float-up {
+    animation-duration: 1ms;
+    animation-delay: 0ms;
+  }
+}
+
+/* XP magnitude scale — bigger gains get hotter colors. `--xp-accent` is read
+   by the toast headline, its glow, and the dev panel swatches. */
+[data-xp-tier="spark"] {
+  --xp-accent: #64748b;
+  --xp-accent-soft: #64748b26;
+}
+[data-xp-tier="steady"] {
+  --xp-accent: #0891b2;
+  --xp-accent-soft: #0891b226;
+}
+[data-xp-tier="strong"] {
+  --xp-accent: #7c3aed;
+  --xp-accent-soft: #7c3aed26;
+}
+[data-xp-tier="big"] {
+  --xp-accent: #d97706;
+  --xp-accent-soft: #d9770626;
+}
+[data-xp-tier="huge"] {
+  --xp-accent: #e11d48;
+  --xp-accent-soft: #e11d4826;
+}
+
+.dark [data-xp-tier="spark"] {
+  --xp-accent: #94a3b8;
+  --xp-accent-soft: #94a3b833;
+}
+.dark [data-xp-tier="steady"] {
+  --xp-accent: #22d3ee;
+  --xp-accent-soft: #22d3ee33;
+}
+.dark [data-xp-tier="strong"] {
+  --xp-accent: #a78bfa;
+  --xp-accent-soft: #a78bfa33;
+}
+.dark [data-xp-tier="big"] {
+  --xp-accent: #fbbf24;
+  --xp-accent-soft: #fbbf2433;
+}
+.dark [data-xp-tier="huge"] {
+  --xp-accent: #fb7185;
+  --xp-accent-soft: #fb718533;
 }

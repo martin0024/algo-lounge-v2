@@ -1,0 +1,16 @@
+{
+  "functionName": "addBinary",
+  "args": ["a", "b"],
+  "cases": [
+    {"input":["101","10"],"expected":"111"},
+    {"input":["10010","111"],"expected":"11001"},
+    {"input":["11","1"],"expected":"100"},
+    {"input":["1010","1011"],"expected":"10101"},
+    {"input":["1","1"],"expected":"10"},
+    {"input":["0","0"],"expected":"0"},
+    {"input":["1","0"],"expected":"1"},
+    {"input":["0","1"],"expected":"1"},
+    {"input":["1111","1111"],"expected":"11110"},
+    {"input":["100","110010"],"expected":"110110"}
+  ]
+}

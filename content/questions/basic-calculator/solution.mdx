@@ -1,0 +1,54 @@
+---
+title: Basic Calculator — Solution
+---
+## Basic Calculator
+
+**Algorithm:**
+
+1. Use a stack to handle parentheses
+2. Track the current number, result, and sign
+3. When hitting '(', push current result and sign onto stack
+4. When hitting ')', pop and combine with the sub-expression result
+
+**Time Complexity:** O(n) - single pass through the string
+
+**Space Complexity:** O(n) - stack depth for nested parentheses
+
+**Key Insights:**
+
+- Stack stores the running result and sign before entering parentheses
+- On ')', the sub-expression result is multiplied by the stored sign and added to stored result
+- Handles unary minus by tracking sign state
+
+```python
+def calculate(s):
+    stack = []
+    result = 0
+    num = 0
+    sign = 1
+    
+    for ch in s:
+        if ch.isdigit():
+            num = num * 10 + int(ch)
+        elif ch == '+':
+            result += sign * num
+            num = 0
+            sign = 1
+        elif ch == '-':
+            result += sign * num
+            num = 0
+            sign = -1
+        elif ch == '(':
+            stack.append(result)
+            stack.append(sign)
+            result = 0
+            sign = 1
+        elif ch == ')':
+            result += sign * num
+            num = 0
+            result *= stack.pop()  # sign before parenthesis
+            result += stack.pop()  # result before parenthesis
+    
+    result += sign * num
+    return result
+```

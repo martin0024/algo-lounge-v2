@@ -1,0 +1,213 @@
+---
+title: Shut the Box — Solution
+---
+## Shut the Box
+
+**Algorithm:**
+
+1. Collect all filled panels and verify connectivity with BFS — a disconnected net cannot fold into a single box
+2. Find candidate box dimensions using the surface area formula: `2(ab + bc + ca) = total panels` — enumerate all integer triples (a ≤ b ≤ c) that satisfy it
+3. Pre-compute BFS traversal order over the flat net — for each panel record its parent index and the flat-grid direction traveled to reach it (0=up, 1=right, 2=down, 3=left)
+4. For each candidate triple and each of its 6 axis permutations, simulate folding: place each panel onto one of 6 named faces (front, back, top, bottom, left, right) by stepping from its BFS parent
+5. When a step goes out-of-bounds on the current face, wrap to the adjacent face using hardcoded coordinate remapping rules that encode the full 3D box topology
+6. Track a local orientation offset (mod 4) to handle frame rotations at edge crossings — actual mesh direction = `(flat_dir + orient) % 4`
+7. If any panel claims an already-occupied cell the fold fails; if all panels land without conflict, return the sorted dimensions
+
+**Time Complexity:** O(P² · D · S) where P = filled panels ≤ 400, D = valid dimension permutations (very few), S = anchor positions ≤ a·b
+
+**Space Complexity:** O(P) — BFS traversal arrays and face occupation tracking
+
+**Key Insights:**
+
+- The surface area formula `2(ab + bc + ca) = total panels` eliminates impossible box sizes before any simulation runs
+- Pre-computing the BFS traversal order once and replaying it per fold attempt avoids redundant grid traversals
+- Named-face wrapping encodes the full 3D box topology as simple coordinate remapping — no rotation matrices needed
+- Orientation propagation `(flat_dir + orient) % 4` keeps the local frame consistent as the net crosses box edges
+- Trying all 6 axis permutations of (a, b, c) accounts for every orientation the box can have relative to the flat net
+
+```python
+def find_shut_box(grid):
+    from collections import deque
+
+    # Cardinal directions: up, right, down, left
+    DIRS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+    N = len(grid)
+
+    # --- Step 1: Collect filled cells and verify connectivity ---
+    filled = [(r, c) for r in range(N) for c in range(N) if grid[r][c] == 1]
+    if not filled:
+        return []
+
+    total_panels = len(filled)
+
+    # BFS from the first panel — every panel must be reachable from it
+    reachable = {filled[0]}
+    queue = deque([filled[0]])
+    while queue:
+        r, c = queue.popleft()
+        for dr, dc in DIRS:
+            nb = (r + dr, c + dc)
+            if 0 <= nb[0] < N and 0 <= nb[1] < N and grid[nb[0]][nb[1]] == 1 and nb not in reachable:
+                reachable.add(nb)
+                queue.append(nb)
+
+    if len(reachable) != total_panels:
+        return []  # Disconnected net — cannot fold into a single box
+
+    # --- Step 2: Find candidate box dimensions via surface area formula ---
+    # Surface area of an a×b×c box = 2(ab + bc + ca) = total_panels
+    candidates = []
+    for a in range(1, total_panels):
+        for b in range(a, total_panels):
+            for c in range(b, total_panels):
+                if 2 * (a * b + b * c + a * c) == total_panels:
+                    candidates.append((a, b, c))
+
+    if not candidates:
+        return []
+
+    # --- Step 3: Pre-compute BFS traversal order over the flat net ---
+    # For each panel (in BFS discovery order), record:
+    #   parent_idx[i]  — BFS index of the panel we arrived from
+    #   arrival_dir[i] — flat direction traveled to reach this panel (0=up,1=right,2=down,3=left)
+    panel_idx   = {filled[0]: 0}
+    parent_idx  = [0]
+    arrival_dir = [0]
+    bfs_q = deque([filled[0]])
+    while bfs_q:
+        r, c = bfs_q.popleft()
+        pi = panel_idx[(r, c)]
+        for d, (dr, dc) in enumerate(DIRS):
+            r2, c2 = r + dr, c + dc
+            if (0 <= r2 < N and 0 <= c2 < N
+                    and grid[r2][c2] == 1
+                    and (r2, c2) not in panel_idx):
+                panel_idx[(r2, c2)] = len(parent_idx)
+                parent_idx.append(pi)
+                arrival_dir.append(d)
+                bfs_q.append((r2, c2))
+
+    DIR_DR = [d[0] for d in DIRS]
+    DIR_DC = [d[1] for d in DIRS]
+
+    # Reusable arrays — track each panel's placement on the 3D box surface
+    mesh_face   = [0] * total_panels  # which face (0=front,1=back,2=top,3=bot,4=left,5=right)
+    mesh_row    = [0] * total_panels  # row within that face's local grid
+    mesh_col    = [0] * total_panels  # col within that face's local grid
+    mesh_orient = [0] * total_panels  # cumulative orientation offset (mod 4)
+
+    # --- Step 4: Attempt to fold the net onto a specific box orientation ---
+    # Face IDs:  0=front  1=back  2=top  3=bottom  4=left  5=right
+    def try_fold(front_rows, front_cols, depth, anchor_row, anchor_col):
+        """
+        Place the net on a box whose front face is front_rows x front_cols with the given depth.
+        The first BFS panel is anchored at (anchor_row, anchor_col) on the front face.
+        Returns True if all panels are placed without any cell being claimed twice.
+        """
+        front_area = front_rows * front_cols
+        top_area   = depth * front_cols
+        side_area  = front_rows * depth
+
+        # Flat-array offset for each face within the occupation array
+        face_offset = [
+            0,                                          # front
+            front_area,                                 # back
+            2 * front_area,                             # top
+            2 * front_area + top_area,                  # bottom
+            2 * front_area + 2 * top_area,              # left
+            2 * front_area + 2 * top_area + side_area,  # right
+        ]
+
+        occupied = bytearray(2 * front_area + 2 * top_area + 2 * side_area)
+
+        # Anchor the first BFS panel on the front face
+        mesh_face[0]   = 0
+        mesh_row[0]    = anchor_row
+        mesh_col[0]    = anchor_col
+        mesh_orient[0] = 0
+        occupied[face_offset[0] + anchor_row * front_cols + anchor_col] = 1
+
+        for i in range(1, total_panels):
+            par  = parent_idx[i]
+            flat = arrival_dir[i]
+
+            # Rotate the flat direction by the parent's accumulated orientation offset.
+            # This keeps the local frame consistent as the net wraps around box edges.
+            orient   = mesh_orient[par]
+            mesh_dir = (flat + orient) & 3
+
+            face = mesh_face[par]
+            row  = mesh_row[par] + DIR_DR[mesh_dir]
+            col  = mesh_col[par] + DIR_DC[mesh_dir]
+
+            # Wrap across face boundaries until (row, col) is in-bounds.
+            # Each branch maps an out-of-bounds step to the correct neighboring face,
+            # remapping coordinates and updating orient to reflect the edge crossing.
+            while True:
+                if face == 0:   # front  (front_rows x front_cols)
+                    if row == -1:          face, row              = 2, depth - 1;                          continue
+                    if row == front_rows:  face, row              = 3, 0;                                  continue
+                    if col == -1:          face, col              = 4, depth - 1;                          continue
+                    if col == front_cols:  face, col              = 5, 0;                                  continue
+                    cell = face_offset[0] + row * front_cols + col
+
+                elif face == 1: # back   (front_rows x front_cols)
+                    if row == -1:          face, row              = 3, depth - 1;                          continue
+                    if row == front_rows:  face, row              = 2, 0;                                  continue
+                    if col == -1:          face, row, col, orient = 4, front_rows-row-1, 0, orient+2;      continue
+                    if col == front_cols:  face, row, col, orient = 5, front_rows-row-1, depth-1, orient+2; continue
+                    cell = face_offset[1] + row * front_cols + col
+
+                elif face == 2: # top    (depth x front_cols)
+                    if row == -1:          face, row              = 1, front_rows - 1;                     continue
+                    if row == depth:       face, row              = 0, 0;                                  continue
+                    if col == -1:          face, row, col, orient = 4, 0, row, orient-1;                   continue
+                    if col == front_cols:  face, row, col, orient = 5, 0, depth-row-1, orient+1;           continue
+                    cell = face_offset[2] + row * front_cols + col
+
+                elif face == 3: # bottom (depth x front_cols)
+                    if row == -1:          face, row              = 0, front_rows - 1;                     continue
+                    if row == depth:       face, row              = 1, 0;                                  continue
+                    if col == -1:          face, row, col, orient = 4, front_rows-1, depth-row-1, orient+1; continue
+                    if col == front_cols:  face, row, col, orient = 5, front_rows-1, row, orient-1;        continue
+                    cell = face_offset[3] + row * front_cols + col
+
+                elif face == 4: # left   (front_rows x depth)
+                    if row == -1:          face, row, col, orient = 2, col, 0, orient+1;                   continue
+                    if row == front_rows:  face, row, col, orient = 3, depth-col-1, 0, orient-1;           continue
+                    if col == -1:          face, row, col, orient = 1, front_rows-row-1, 0, orient+2;      continue
+                    if col == depth:       face, col              = 0, 0;                                  continue
+                    cell = face_offset[4] + row * depth + col
+
+                else:           # right  (front_rows x depth)
+                    if row == -1:          face, row, col, orient = 2, depth-col-1, front_cols-1, orient-1; continue
+                    if row == front_rows:  face, row, col, orient = 3, col, front_cols-1, orient+1;         continue
+                    if col == -1:          face, col              = 0, front_cols - 1;                     continue
+                    if col == depth:       face, row, col, orient = 1, front_rows-row-1, front_cols-1, orient+2; continue
+                    cell = face_offset[5] + row * depth + col
+
+                break  # (row, col) is now valid on the current face
+
+            if occupied[cell]:
+                return False  # Two panels collide — this fold fails
+
+            occupied[cell] = 1
+            mesh_face[i]   = face
+            mesh_row[i]    = row
+            mesh_col[i]    = col
+            mesh_orient[i] = orient & 3
+
+        return True  # All panels placed without conflict
+
+    # --- Step 5: Try every candidate dimension and all 6 axis orientations ---
+    for a, b, c in candidates:
+        for front_rows, front_cols, depth in {(a,b,c),(a,c,b),(b,a,c),(b,c,a),(c,a,b),(c,b,a)}:
+            if front_rows > N or front_cols > N or depth > N:
+                continue  # Net can't physically fit in the grid
+            for anchor_row in range(front_rows):
+                for anchor_col in range(front_cols):
+                    if try_fold(front_rows, front_cols, depth, anchor_row, anchor_col):
+                        return sorted([front_rows, front_cols, depth])
+
+    return []
+```

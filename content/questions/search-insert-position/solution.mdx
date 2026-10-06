@@ -1,0 +1,39 @@
+---
+title: Search Insert Position — Solution
+---
+## Search Insert Position
+
+**Algorithm:**
+
+1. Initialize left and right pointers to array bounds
+2. Use binary search to find target or insertion position
+3. If target is found, return its index
+4. If not found, left pointer will be at the correct insertion position
+
+**Time Complexity:** O(log n) - binary search halves the search space each iteration
+
+**Space Complexity:** O(1) - constant extra space
+
+**Key Insights:**
+
+- Binary search works because array is sorted
+- When target is not found, left pointer ends up at insertion position
+- Use `left + (right - left) // 2` to avoid integer overflow
+- The algorithm naturally handles all edge cases (insert at start, middle, or end)
+
+```python
+def search_insert(nums, target):
+    left, right = 0, len(nums) - 1
+    
+    while left <= right:
+        mid = left + (right - left) // 2
+        
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return left
+```

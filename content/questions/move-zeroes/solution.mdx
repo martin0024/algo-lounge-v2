@@ -1,0 +1,39 @@
+---
+title: Move Zeroes — Solution
+---
+## Move Zeroes
+
+**Algorithm:**
+
+1. Use a slow pointer `insert_pos` to track position for next non-zero element
+2. Iterate through array with fast pointer
+3. When a non-zero element is found, place it at `insert_pos` and increment
+4. After iteration, fill remaining positions with zeroes
+
+**Time Complexity:** O(n) - single pass
+
+**Space Complexity:** O(1) - in-place modification
+
+**Key Insights:**
+
+- Two-pointer (snowball) approach
+- Maintain relative order by processing left to right
+- All positions after the last non-zero get filled with 0
+
+```python
+def move_zeroes(nums):
+    insert_pos = 0
+    
+    # Move all non-zero elements to the front
+    for i in range(len(nums)):
+        if nums[i] != 0:
+            nums[insert_pos] = nums[i]
+            insert_pos += 1
+    
+    # Fill remaining positions with zeroes
+    while insert_pos < len(nums):
+        nums[insert_pos] = 0
+        insert_pos += 1
+    
+    return nums
+```

@@ -1,0 +1,44 @@
+---
+title: Find the Duplicate Number — Solution
+---
+## Find the Duplicate Number
+
+**Algorithm:**
+
+1. Treat the array as a linked list where nums\[i] points to index nums\[i]
+2. Use two pointers (slow and fast) to detect the cycle
+3. Move slow by 1 step and fast by 2 steps until they meet
+4. Reset one pointer to start, move both by 1 step until they meet again
+5. The meeting point is the duplicate number
+
+**Time Complexity:** O(n) - linear scan with cycle detection
+
+**Space Complexity:** O(1) - only uses two pointers
+
+**Key Insights:**
+
+- Treats array indexing as linked list traversal
+- Cycle detection finds the duplicate without extra space
+- Works because duplicate creates a cycle in the linked list
+
+```python
+def find_the_duplicate_number(nums):
+    # Floyd's Tortoise and Hare (Cycle Detection)
+    # Phase 1: Find intersection point in the cycle
+    slow = nums[0]
+    fast = nums[0]
+    
+    while True:
+        slow = nums[slow]
+        fast = nums[nums[fast]]
+        if slow == fast:
+            break
+    
+    # Phase 2: Find the entrance to the cycle (duplicate number)
+    slow = nums[0]
+    while slow != fast:
+        slow = nums[slow]
+        fast = nums[fast]
+    
+    return slow
+```

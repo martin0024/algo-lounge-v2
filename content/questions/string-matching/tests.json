@@ -1,0 +1,16 @@
+{
+  "functionName": "canFormString",
+  "args": ["A", "B"],
+  "cases": [
+    {"input":["aab","ab"],"expected":true},
+    {"input":["ab","aab"],"expected":false},
+    {"input":["",""],"expected":true},
+    {"input":["hello","ell"],"expected":true},
+    {"input":["world","door"],"expected":false},
+    {"input":["abc",""],"expected":true},
+    {"input":["programming","gram"],"expected":true},
+    {"input":["aaa","aaaa"],"expected":false},
+    {"input":["xyzabc","abc"],"expected":true},
+    {"input":["listen","silent"],"expected":true}
+  ]
+}

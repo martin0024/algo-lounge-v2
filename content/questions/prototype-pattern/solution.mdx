@@ -1,0 +1,113 @@
+---
+title: Prototype Pattern — Solution
+---
+## Prototype Pattern
+
+**Concept:**
+
+The Prototype Pattern enables objects to create copies of themselves without coupling to their specific classes. Each class implements a `clone()` method that returns a new instance with the same attributes.
+
+**Implementation:**
+
+1. `Square.clone()` returns a new `Square` with the same length
+2. `Rectangle.clone()` returns a new `Rectangle` with the same width and height
+3. `Test.clone_shapes()` iterates through shapes and calls `clone()` on each
+
+**Key Insight:**
+
+The caller doesn't need to know the concrete class — it just calls `clone()` on the `Shape` interface. This makes it easy to copy objects polymorphically.
+
+**Benefits:**
+
+- **Decoupling:** Client code doesn't depend on concrete classes
+- **Convenience:** Complex objects can be copied without rebuilding from scratch
+- **Polymorphism:** Clone works through the abstract interface
+
+**Time Complexity:** O(1) for individual clone, O(n) for clone\_shapes
+
+**Space Complexity:** O(1) for individual clone, O(n) for clone\_shapes
+
+```typescript
+export abstract class Shape {
+  abstract clone(): Shape
+}
+
+export class Square extends Shape {
+  constructor(private length: number) {
+    super()
+  }
+
+  getLength(): number {
+    return this.length
+  }
+
+  clone(): Shape {
+    return new Square(this.length)
+  }
+}
+
+export class Rectangle extends Shape {
+  constructor(
+    private width: number,
+    private height: number
+  ) {
+    super()
+  }
+
+  getWidth(): number {
+    return this.width
+  }
+
+  getHeight(): number {
+    return this.height
+  }
+
+  clone(): Shape {
+    return new Rectangle(this.width, this.height)
+  }
+}
+
+export class Test {
+  cloneShapes(shapes: Shape[]): Shape[] {
+    return shapes.map((shape) => shape.clone())
+  }
+}
+```
+
+```python
+from abc import ABC, abstractmethod
+from typing import List
+
+class Shape(ABC):
+    @abstractmethod
+    def clone(self):
+        pass
+
+class Square(Shape):
+    def __init__(self, length: int):
+        self.length = length
+
+    def get_length(self) -> int:
+        return self.length
+
+    def clone(self) -> Shape:
+        return Square(self.length)
+
+class Rectangle(Shape):
+    def __init__(self, width: int, height: int):
+        self.width = width
+        self.height = height
+
+    def get_width(self) -> int:
+        return self.width
+
+    def get_height(self) -> int:
+        return self.height
+
+    def clone(self) -> Shape:
+        return Rectangle(self.width, self.height)
+
+class Test:
+    def clone_shapes(self, shapes: List[Shape]) -> List[Shape]:
+        return [shape.clone() for shape in shapes]
+```

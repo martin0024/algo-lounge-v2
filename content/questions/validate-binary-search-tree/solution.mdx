@@ -1,0 +1,33 @@
+---
+title: Validate Binary Search Tree — Solution
+---
+## Validate Binary Search Tree
+
+**Algorithm:**
+
+1. Perform an in-order traversal (left → root → right)
+2. In a valid BST, in-order traversal yields a strictly ascending sequence
+3. Track the previous node's value; if the current value is not strictly greater, return false
+
+**Time Complexity:** O(n) — visits every node once
+
+**Space Complexity:** O(h) — recursion stack height
+
+**Key Insight:** Checking only parent-child relationships is not enough — a node must be greater than *all* ancestors to its left, not just its immediate parent. In-order traversal enforces the global ordering automatically.
+
+```python
+def is_valid_b_s_t(root):
+    prev = [float('-inf')]
+
+    def inorder(node):
+        if node is None:
+            return True
+        if not inorder(node.left):
+            return False
+        if prev[0] >= node.val:
+            return False
+        prev[0] = node.val
+        return inorder(node.right)
+
+    return inorder(root)
+```

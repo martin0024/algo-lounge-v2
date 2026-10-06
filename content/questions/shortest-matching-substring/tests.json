@@ -1,0 +1,18 @@
+{
+  "functionName": "shortestMatchingSubstring",
+  "args": ["s", "p"],
+  "cases": [
+    {"input":["abaacbaecebce","ba*c*ce"],"expected":8},
+    {"input":["baccbaadbc","cc*baa*adb"],"expected":-1},
+    {"input":["a","**"],"expected":0},
+    {"input":["madlogic","*adlogi*"],"expected":6},
+    {"input":["abcabcabc","a*b*c"],"expected":3},
+    {"input":["helloworld","he*wo*ld"],"expected":10},
+    {"input":["aaaaaaaa","a*a*a"],"expected":3},
+    {"input":["banana","b*n*a"],"expected":4},
+    {"input":["abcdefg","*cd*fg"],"expected":5},
+    {"input":["mississippi","m*ss*pi"],"expected":11},
+    {"input":["abcdef","z*z*z"],"expected":-1},
+    {"input":["algolounge","*lo*ge"],"expected":6}
+  ]
+}

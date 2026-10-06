@@ -1,0 +1,36 @@
+---
+title: Summary Ranges — Solution
+---
+## Summary Ranges
+
+**Algorithm:**
+
+1. Use two pointers to track the start and end of each range
+2. Walk through the sorted array
+3. When the next number is not consecutive, close the current range
+4. Format each range as "a->b" or "a"
+
+**Time Complexity:** O(n)
+
+**Space Complexity:** O(1) excluding output
+
+**Key Insights:**
+
+- Since the array is sorted and unique, consecutive numbers differ by exactly 1
+- Track the start of each range and extend until a gap is found
+
+```python
+def summary_ranges(nums):
+    result = []
+    i = 0
+    while i < len(nums):
+        start = nums[i]
+        while i + 1 < len(nums) and nums[i + 1] == nums[i] + 1:
+            i += 1
+        if nums[i] != start:
+            result.append(str(start) + '->' + str(nums[i]))
+        else:
+            result.append(str(start))
+        i += 1
+    return result
+```

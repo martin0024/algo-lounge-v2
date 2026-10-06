@@ -1,0 +1,17 @@
+{
+  "functionName": "findRepeatedDnaSequences",
+  "args": ["s"],
+  "compare": "unordered",
+  "cases": [
+    {"input":["AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"],"expected":["AAAAACCCCC","CCCCCAAAAA"]},
+    {"input":["AAAAAAAAAAAAA"],"expected":["AAAAAAAAAA"]},
+    {"input":["ACGT"],"expected":[]},
+    {"input":["AAAAAAAAAAA"],"expected":["AAAAAAAAAA"]},
+    {"input":["ACGTACGTACGTACGT"],"expected":["ACGTACGTAC","CGTACGTACG","GTACGTACGT"]},
+    {"input":["GAGAGAGAGAGAGAGAGAGA"],"expected":["GAGAGAGAGA","AGAGAGAGAG"]},
+    {"input":["AAAAAAAAAA"],"expected":[]},
+    {"input":["TTTTTTTTTTTTTTTTTTTTTTTTT"],"expected":["TTTTTTTTTT"]},
+    {"input":["ACGTACGTACACGTACGTAC"],"expected":["ACGTACGTAC"]},
+    {"input":["CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"],"expected":["CCCCCCCCCC"]}
+  ]
+}

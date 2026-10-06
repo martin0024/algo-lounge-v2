@@ -1,0 +1,46 @@
+---
+title: Asteroid Collision — Solution
+---
+## Asteroid Collision
+
+**Algorithm:**
+
+1. Use stack to track surviving asteroids
+2. For each asteroid, check collision conditions
+3. Right-moving (positive) asteroids are added to stack
+4. Left-moving (negative) asteroids may collide with stack top
+5. Handle collision outcomes: smaller explodes, equal both explode
+
+**Time Complexity:** O(n) - Each asteroid processed once
+
+**Space Complexity:** O(n) - Stack storage in worst case
+
+**Key Insights:**
+
+- Only right-moving vs left-moving asteroids collide
+- Stack naturally handles the collision sequence
+- Continue collisions until no more conflicts
+
+```python
+def asteroid_collision(asteroids):
+    stack = []
+    
+    for asteroid in asteroids:
+        # Process current asteroid
+        while stack and asteroid < 0 < stack[-1]:
+            # Collision occurs: right-moving vs left-moving
+            if stack[-1] < -asteroid:
+                # Right-moving asteroid explodes
+                stack.pop()
+                continue
+            elif stack[-1] == -asteroid:
+                # Both asteroids explode
+                stack.pop()
+            # Left-moving asteroid explodes (asteroid >= 0 or no collision)
+            break
+        else:
+            # No collision or asteroid survives
+            stack.append(asteroid)
+    
+    return stack
+```

@@ -1,0 +1,8 @@
+{
+  "functionName": "reverseStr",
+  "args": ["s", "k"],
+  "cases": [
+    {"input":["abcdefg",2],"expected":"bacdfeg"},
+    {"input":["abcd",2],"expected":"bacd"}
+  ]
+}

@@ -1,0 +1,73 @@
+---
+title: Lowest Common Ancestor of a Binary Search Tree — Solution
+---
+## Lowest Common Ancestor of a BST
+
+**Algorithm:**
+
+1. Start from root node
+2. If both p and q are smaller than root, LCA is in left subtree
+3. If both p and q are greater than root, LCA is in right subtree
+4. Otherwise, current node is the LCA (split point)
+
+**Time Complexity:** O(h) - where h is tree height, O(log n) for balanced BST
+
+**Space Complexity:** O(1) iterative, O(h) recursive
+
+**Key Insights:**
+
+- BST property: left subtree \< root \< right subtree
+- LCA is the first node where p and q split into different subtrees
+- Can be solved iteratively without recursion
+- No need to actually find the nodes p and q - just use their values
+
+```typescript
+export class TreeNode {
+  val: number
+  left: TreeNode | null
+  right: TreeNode | null
+
+  constructor(
+    val = 0,
+    left: TreeNode | null = null,
+    right: TreeNode | null = null
+  ) {
+    this.val = val
+    this.left = left
+    this.right = right
+  }
+}
+
+
+export function lowestCommonAncestor(
+  root: TreeNode | null,
+  p: TreeNode,
+  q: TreeNode
+): TreeNode | null {
+  // In a BST the split point is the first node between p and q.
+  let node = root
+  while (node) {
+    if (p.val < node.val && q.val < node.val) node = node.left
+    else if (p.val > node.val && q.val > node.val) node = node.right
+    else return node
+  }
+  return null
+}
+```
+
+```python
+def lowest_common_ancestor(root, p, q):
+    # Traverse tree using BST property
+    while root:
+        # Both p and q are in left subtree
+        if p.val < root.val and q.val < root.val:
+            root = root.left
+        # Both p and q are in right subtree
+        elif p.val > root.val and q.val > root.val:
+            root = root.right
+        # Split point found - current node is LCA
+        else:
+            return root
+    
+    return None
+```

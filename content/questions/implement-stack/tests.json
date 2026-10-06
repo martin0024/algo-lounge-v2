@@ -1,0 +1,17 @@
+{
+  "functionName": "Stack",
+  "args": ["operations", "arguments"],
+  "harness": "design",
+  "cases": [
+    {"input":[["Stack","push","push","top","pop","empty"],[[],[1],[2],[],[],[]]],"expected":[null,null,null,2,2,false]},
+    {"input":[["Stack","push","pop","empty"],[[],[10],[],[]]],"expected":[null,null,10,true]},
+    {"input":[["Stack","push","push","push","pop","pop","pop","empty"],[[],["hello"],["world"],["test"],[],[],[],[]]],"expected":[null,null,null,null,"test","world","hello",true]},
+    {"input":[["Stack","push","top","top","pop","empty"],[[],[5],[],[],[],[]]],"expected":[null,null,5,5,5,true]},
+    {"input":[["Stack","empty","push","empty","push","top"],[[],[],[100],[],[200],[]]],"expected":[null,true,null,false,null,200]},
+    {"input":[["Stack","push","push","push","push","push","pop","pop","pop","pop","pop","empty"],[[],["a"],["b"],["c"],["d"],["e"],[],[],[],[],[],[]]],"expected":[null,null,null,null,null,null,"e","d","c","b","a",true]},
+    {"input":[["Stack","push","push","pop","push","pop","pop","empty"],[[],[7],[8],[],[9],[],[],[]]],"expected":[null,null,null,8,null,9,7,true]},
+    {"input":[["Stack","push","top","push","top","push","top"],[[],["x"],[],["y"],[],["z"],[]]],"expected":[null,null,"x",null,"y",null,"z"]},
+    {"input":[["Stack","push","push","push","top","pop","top","pop","top"],[[],[10],[20],[30],[],[],[],[],[]]],"expected":[null,null,null,null,30,30,20,20,10]},
+    {"input":[["Stack","push","empty","pop","empty","push","push","pop","empty"],[[],[42],[],[],[],[50],[60],[],[]]],"expected":[null,null,false,42,true,null,null,60,false]}
+  ]
+}
